@@ -1,0 +1,19 @@
+ul{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    border-bottom: 2px solid black;
+    padding-bottom: 1%;
+}
+
+li{
+    border-bottom: 5px solid #ffffff;
+}
+
+li:hover{
+    border-bottom: 5px solid #C8A519;
+}
+
+.active{
+    border-bottom: 5px solid #C8A519;
+}

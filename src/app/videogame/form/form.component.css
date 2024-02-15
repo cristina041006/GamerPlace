@@ -1,0 +1,18 @@
+.title{
+    border-bottom: 3px solid #C75A32 ;
+    text-align: center;
+}
+.subtitle{
+    border-bottom: 2px solid #608E94;
+
+}
+.add{
+    background-color: #43844B;
+    color: white;
+}
+.oblig{
+    color: #C24042;
+}
+.shadowBox{
+    box-shadow: 5px 5px 0;
+}

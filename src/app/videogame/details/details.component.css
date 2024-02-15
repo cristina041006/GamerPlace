@@ -1,0 +1,68 @@
+h1{
+    text-align: center;
+    margin-bottom: 3%;
+}
+.list{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+.port{
+    height: 190px;
+    
+}
+.details{
+    border-bottom: 2px solid #C75A32;
+}
+.pagination{
+    justify-content: center;
+}
+.filtrado{
+    border-bottom: 3px solid #C75A32 ;
+
+}
+.result{
+    margin-left: 2%;
+    font-size: 0.5cm;
+}
+.plataform{
+    margin-left: 5%;
+    border: 2px solid black;
+    text-align: center;
+    padding-top: 2%;
+    width: 15%;
+}
+.edit{
+    background-color: #C8A519;
+    border: 0px;
+    float: right;
+    color: white;
+    
+}
+.delete{
+    background-color: #C24042;
+    border: 0px;
+    float: right;
+    margin-right: 1%;
+    color: white;
+}
+.add{
+    background-color: #43844B;;
+    color: white;
+}
+.detalles{
+    text-align: center;
+    margin-top: 5%;
+    width: 30%;
+}
+.lista{
+    display: flex;
+    list-style: none;
+
+}
+.linea{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgb(60, 9, 9);
+}

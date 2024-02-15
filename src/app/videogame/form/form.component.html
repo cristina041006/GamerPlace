@@ -1,0 +1,77 @@
+@if (id) {
+    <h1 class="title">Editar videojuego</h1>
+}@else {
+    <h1 class="title">Añadir videojuego</h1>
+}
+<section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100" style="padding-left: 2%;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-7">
+          <div class="card shadow-2-strong shadow" style="border-radius: 1rem;width: 700px;">
+            <div class="card-body p-5 text-center">
+                @if (id) {
+                    <h3 class="mb-5 subtitle">Edita tu videojuego</h3>
+                }@else {
+                    <h3 class="mb-5 subtitle">Añade tu videojuego</h3>
+                }
+              <form>
+
+                @if (id) {
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Id</label>
+                      <input type="text" id="id" class="form-control form-control-lg" name="id" required readonly/>  
+                    </div> 
+                }
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Titulo</label>
+                <input type="text" id="name" class="form-control form-control-lg" name="name"  placeholder="Title" required/>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Descripcion</label>
+                <input type="text" id="address" class="form-control form-control-lg"  name="address" placeholder="Description" />
+               
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Precio</label>
+                <input type="text" id="codPostal" class="form-control form-control-lg" name="codPostal" placeholder="Precio" required/>
+               
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Stock</label>
+                <input type="text" id="codPostal" class="form-control form-control-lg" name="codPostal" placeholder="Stock" required/>
+               
+              </div>
+              
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Plataforma</label>
+               <select class="form-select" >
+                   <option></option>
+               </select>
+              </div>
+              <!-- <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Pueblo</label>
+               <select class="form-select" th:field="*{town}" >
+                   <option th:each="town: ${listTown}" " th:value="${town.codpue}"></option>
+               </select>
+               <span th:if="${#fields.hasErrors('town')}" th:errors="*{town}" class="help-block oblig" id="town-error">Errores</span>
+              </div> -->
+    
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"> Imagen</label>
+                <input type="file" id="imagen" class="form-control form-control-lg" name="imagen" />
+              </div>
+                  
+                <div class="form-outline mb-4" style="display: none;">
+                    <label class="form-label  alert alert-danger" for="typePasswordX-2" ></label>
+                    <label class="form-label alert alert-success" for="typePasswordX-2"></label>
+                </div>
+              
+                  <button class="btn btn-lg btn-block add" type="submit">Continuar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </section>

@@ -1,0 +1,53 @@
+<h1>Videojuegos</h1>
+<div class="title">
+  <div class="filtrado">
+    <p class="result">Resultados<i class="fi fi-rr-settings-sliders" style="margin-left: 2%;"></i></p>
+  </div> 
+</div>
+@for (game of games; track $index) {
+<div class="list">
+ 
+    <div class="card mb-3" style="max-width: 1100px; max-height: 190px; padding-left: 2%; border: 0px; margin-top: 3%;">
+        <div class="row g-0" style="width: 1000px;">
+          <div class="col-md-4">
+            @if (game.image==null) {
+              <img src="../../../assets/img/Imagen_no_disponible.svg.png" class="img-fluid rounded-start port" alt="...">
+            }@else{
+              <img src="{{game.image}}" class="img-fluid rounded-start port" alt="...">
+            }
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{game.name}}</h5>
+              <p class="card-text">{{game.description}}</p>
+              <p class="card-text" ><small class="text-body-secondary"><span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span></small><a routerLink="/details/{{game.idVideogame}}" class="btn btn-success details">Detalles</a></p>
+
+            </div>
+          </div>
+        </div>
+    </div>
+ 
+</div>
+}
+
+@if (pageable) {
+  <nav aria-label="Page navigation example" class="pagination">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="pageable.pageable.pageNumber>0">
+          <a class="page-link" (click)="nexPage(1)">First</a>
+        </li>
+        <li class="page-item"><a class="page-link" *ngIf="pageable.pageable.pageNumber>0" (click)="nexPage(pageable.pageable.pageNumber)">&laquo;</a></li>
+        <span *ngFor="let i of numberSequence">
+          <li class="page-item"><a class="page-link" *ngIf="i==pageable.pageable.pageNumber+1" style="border: 3px solid #C8A519; border-radius: 0px;" (click)="nexPage(i)" th:text="${i}">{{i}}</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="i!=pageable.pageable.pageNumber+1" style="border-radius: 0px;" (click)="nexPage(i)" th:text="${i}">{{i}}</a></li>
+        </span>
+        <li class="page-item"><a class="page-link" *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages" (click)="nexPage(pageable.pageable.pageNumber+2)">&raquo;</a></li>
+        <li class="page-item" *ngIf="pageable.pageable.pageNumber<pageable.totalPages">
+          <a class="page-link" (click)="nexPage(pageable.totalPages)">Last</a>
+        </li>
+      </ul>
+  </nav>
+
+}
+<app-footer></app-footer>
+

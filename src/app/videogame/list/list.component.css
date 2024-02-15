@@ -1,0 +1,36 @@
+h1{
+    text-align: center;
+    margin-bottom: 3%;
+}
+.list{
+    display: flex;
+    justify-content: center;
+}
+.port{
+    height: 190px;
+    border-radius: 3px;
+    
+}
+.details{
+    background-color: #608E94;
+    border: 0px;
+    float: right;
+   
+}
+.pagination{
+    justify-content: center;
+}
+.filtrado{
+    border-top:2px solid #C75A32;
+    width: 1200px;
+    padding-top: 1%;
+
+}
+.title{
+    display: grid;
+    justify-content: center;
+}
+.result{
+    margin-left: 2%;
+    font-size: 0.5cm;
+}

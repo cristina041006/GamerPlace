@@ -5,7 +5,9 @@ footer{
     padding-left: 2%;
     padding-right: 2%;
     padding-top: 1%;
-    margin-top: 3%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 ul{
     display: flex;

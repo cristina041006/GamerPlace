@@ -14,16 +14,16 @@ export interface ListPageable {
 }
 
 export interface Videogame {
-    idVideogame:   number;
+    idVideogame?:   number;
     name:          string;
     description:   string;
     price:         number;
     stock:         number;
-    quality:       Quality;
+    quality:       string;
     idPlataform:   number;
     namePlataform: string;
     idUser:        number;
-    username:      Username;
+    username:      string;
     image:         null;
     listCategory:  ListCategoryGame[];
 }
@@ -35,13 +35,6 @@ export interface ListCategoryGame {
     nameCategory: string;
 }
 
-export enum Quality {
-    New = "new",
-}
-
-export enum Username {
-    Empresa = "empresa",
-}
 
 export interface Pageable {
     pageNumber: number;

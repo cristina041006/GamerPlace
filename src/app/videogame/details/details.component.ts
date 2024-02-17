@@ -4,13 +4,13 @@ import { Videogame } from '../../interfaces/videogames';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [FooterComponent, CommonModule],
+  imports: [FooterComponent, CommonModule, RouterLink],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })

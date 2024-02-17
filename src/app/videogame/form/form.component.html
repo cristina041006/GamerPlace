@@ -14,64 +14,88 @@
                 }@else {
                     <h3 class="mb-5 subtitle">Añade tu videojuego</h3>
                 }
-              <form>
+              <form [formGroup]="myForm" enctype="multipart/form-data" method="post">
 
                 @if (id) {
                     <div class="form-outline mb-4">
                       <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Id</label>
-                      <input type="text" id="id" class="form-control form-control-lg" name="id" required readonly/>  
+                      <input type="text" id="id" class="form-control form-control-lg" name="id" formControlName="idVideogame" readonly/>  
                     </div> 
                 }
               <div class="form-outline mb-4">
                 <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Titulo</label>
-                <input type="text" id="name" class="form-control form-control-lg" name="name"  placeholder="Title" required/>
+                <input type="text" id="name" class="form-control form-control-lg" placeholder="Title" required formControlName="name"/>
+                <span class="form-text text-danger" *ngIf="isValid('name')">Este campo es obligatorio</span>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Descripcion</label>
-                <input type="text" id="address" class="form-control form-control-lg"  name="address" placeholder="Description" />
-               
+                <input type="text" id="description" class="form-control form-control-lg"   placeholder="Description" formControlName="description"/>
+                <span class="form-text text-danger" *ngIf="isValid('description')">Este campo es obligatorio</span>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Precio</label>
-                <input type="text" id="codPostal" class="form-control form-control-lg" name="codPostal" placeholder="Precio" required/>
-               
+                <input type="number" id="price" class="form-control form-control-lg" formControlName="price" placeholder="Precio" required/>
+                <span class="form-text text-danger">{{priceErrorsMsg}}</span>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Stock</label>
-                <input type="text" id="codPostal" class="form-control form-control-lg" name="codPostal" placeholder="Stock" required/>
-               
+                <input type="text" id="stock" class="form-control form-control-lg" formControlName="stock" placeholder="Stock" required/>
+                <span class="form-text text-danger">{{stockErrorsMsg}}</span>
               </div>
               
               <div class="form-outline mb-4">
                 <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Plataforma</label>
-               <select class="form-select" >
-                   <option></option>
+               <select class="form-select" formControlName="idPlataform">
+                <option value="" selected>--Selecciones una plataforma--</option>
+                @for (plata of plataform; track $index) {
+                   <option value="{{plata.idPlataform}}" >{{plata.name}}</option>
+                  }
                </select>
+               <span class="form-text text-danger" *ngIf="isValid('idPlataform')">Este campo es obligatorio</span>
               </div>
-              <!-- <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Pueblo</label>
-               <select class="form-select" th:field="*{town}" >
-                   <option th:each="town: ${listTown}" " th:value="${town.codpue}"></option>
-               </select>
-               <span th:if="${#fields.hasErrors('town')}" th:errors="*{town}" class="help-block oblig" id="town-error">Errores</span>
-              </div> -->
-    
+              <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Categorias</label>
+              <div class="input-group">
+               <select class="form-select" [formControl]="newCategory">
+                <option value="" selected>--Selecciones una categoria--</option>
+                @for (category of categories; track $index) {
+                   <option value="{{category.name}}">{{category.name}}</option>
+                  }
+                </select>
+                <button class="btn btn-lg btn-block addCategory" type="submit" (click)="addCategory()">Añadir</button>
+              </div>
+              <span class="form-text text-danger" *ngIf="isValid('categoriesList')">Este campo es obligatorio</span>
+              <br>
+               @for (cate of categoriesList.controls; track $index) {
+              <div class="form-outline mb-4" formArrayName="categoriesList" class="input-group">
+                <input type="text" id="stock" class="form-control form-control-lg" [formControlName]="$index" required/>
+                <button class="btn btn-block delete" type="button" (click)="deleteCategory($index)">Eliminar</button>
+              </div>
+              <br>
+              }
+              <br>
               <div class="form-outline mb-4">
                 <label class="form-label" for="typeEmailX-2"> Imagen</label>
-                <input type="file" id="imagen" class="form-control form-control-lg" name="imagen" />
+                <input type="file" id="imagen" class="form-control form-control-lg" name="imagen" formControlName="image"/>
+                @if (videogameEdit.image!=null) {
+                  <img src="{{videogameEdit.image}}" class="image">
+                }
               </div>
                   
-                <div class="form-outline mb-4" style="display: none;">
-                    <label class="form-label  alert alert-danger" for="typePasswordX-2" ></label>
-                    <label class="form-label alert alert-success" for="typePasswordX-2"></label>
-                </div>
-              
-                  <button class="btn btn-lg btn-block add" type="submit">Continuar</button>
+              @if (id) {
+                <button class="btn btn-lg btn-block edit" type="submit" (click)="addGame()">Editar</button>
+              }@else {
+                <button class="btn btn-lg btn-block back" type="submit" (click)="addGame()">Continuar</button>
+
+              }
+              <a class="btn btn-lg btn-block back" type="submit" routerLink="/details/{{videogameEdit.idVideogame}}">Volver</a>
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-   
-  </section>
+</section>
+<pre>{{myForm.value|json}}</pre>
+<br>
+<br>
+<br>

@@ -6,7 +6,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-nabvar',
   standalone: true,
-  imports: [MenuComponent, RouterOutlet],
+  imports: [RouterOutlet],
   templateUrl: './nabvar.component.html',
   styleUrl: './nabvar.component.css'
 })

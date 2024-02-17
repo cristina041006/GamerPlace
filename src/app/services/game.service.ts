@@ -28,4 +28,32 @@ export class GameService {
     return this.http.delete<Videogame>(`${this.baseUrl}/deleteVideogame/${id}`)
   }
 
+  addNewGame(game: Omit<Videogame, "idVideogame" | "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory" | "image">, file: File, categories: String[]): Observable<Videogame>{
+    const formData: FormData = new FormData();
+    formData.append('image', file);
+    const blobGame = new Blob([JSON.stringify(game)], {
+      type: 'application/json'
+    })
+    const blobCategories = new Blob([JSON.stringify(categories)], {
+      type: 'application/json'
+    })
+    formData.append('videogame', blobGame);
+    formData.append('categories', blobCategories);
+    return this.http.post<Videogame>(`${this.baseUrl}/addVideogame`, formData);
+  }
+
+  editGame(game: Omit<Videogame, "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory" | "image">, file: File, categories: String[], id: string): Observable<Videogame>{
+    const formData: FormData = new FormData();
+    formData.append('image', file);
+    const blobGame = new Blob([JSON.stringify(game)], {
+      type: 'application/json'
+    })
+    const blobCategories = new Blob([JSON.stringify(categories)], {
+      type: 'application/json'
+    })
+    formData.append('videogame', blobGame);
+    formData.append('categories', blobCategories);
+    return this.http.put<Videogame>(`${this.baseUrl}/editVideogame/${id}`, formData);
+  }
+
 }

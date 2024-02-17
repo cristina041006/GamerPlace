@@ -16,3 +16,35 @@
 .shadowBox{
     box-shadow: 5px 5px 0;
 }
+.lista{
+   text-align: justify;
+}
+.addCategory{
+    border: 2px solid #43844B;
+    color: #43844B;
+}
+.addCategory:active{
+    background-color: #43844B;
+    color: white;
+}
+.delete{
+    border: 2px solid  #C24042;
+    color: #C24042;
+}
+.delete:hover{
+    background-color:  #C24042;
+    color: white;
+}
+.edit{
+    background-color: #C8A519;
+    color: white;
+}
+.image{
+    width: 50%;
+    margin-top: 2%;
+}
+.back{
+    background-color: #949494;
+    color: white;
+    margin-left: 1%;
+}

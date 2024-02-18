@@ -1,4 +1,7 @@
 
+/**
+ * Interfaz con todos los datos necesarios del pageable
+ */
 export interface ListPageable {
     content:          Videogame[];
     pageable:         Pageable;
@@ -13,6 +16,9 @@ export interface ListPageable {
     empty:            boolean;
 }
 
+/**
+ * Intergfaz de videojuego con todos sus datos
+ */
 export interface Videogame {
     idVideogame?:   number;
     name:          string;
@@ -28,6 +34,9 @@ export interface Videogame {
     listCategory:  ListCategoryGame[];
 }
 
+/**
+ * Interfaz de gameCatgeory
+ */
 export interface ListCategoryGame {
     idGame:       number;
     nameGame:     string;
@@ -35,7 +44,9 @@ export interface ListCategoryGame {
     nameCategory: string;
 }
 
-
+/**
+ * Interfaz con los datos basicos del pageable
+ */
 export interface Pageable {
     pageNumber: number;
     pageSize:   number;
@@ -45,6 +56,9 @@ export interface Pageable {
     paged:      boolean;
 }
 
+/**
+ * Interfaz para saber si el pageable esta ordenado
+ */
 export interface Sort {
     empty:    boolean;
     sorted:   boolean;

@@ -19,15 +19,19 @@ import { RouterLink } from '@angular/router';
   styleUrl: './form.component.css'
 })
 export class FormComponent implements OnInit {
+/**Formulario donde añadiremos o editaremos un videojuego */
 
+  /**Constructor llamando al servicio de catgeoria, platafroma, juego y un formBuilder */
   constructor(private categoryService: CategoryService, 
     private plataformService: PlataformService,
     private fb: FormBuilder,
     private gameService: GameService){}
 
-  @Input() id!: string;
-  categories: CategoryWithoutList[] = []
-  plataform: PlataformWithoutList[] = []
+  //Variables
+  @Input() id!: string; //Id del videojuego si vamos a editar
+  categories: CategoryWithoutList[] = [] //Donde almacenaremos las catgeorias
+  plataform: PlataformWithoutList[] = [] //Donde almacenaremos las plataformas
+  //Videojuego con algunos campos utilizado para poder añadir
   videogame : Omit<Videogame, "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory" | "image"> = {
     name: "",
     description: "",
@@ -35,12 +39,14 @@ export class FormComponent implements OnInit {
     stock: 0,
     idPlataform: 1,
   }
-  categoriesAdd: string[] = []
-  imageAdd!: File
-  videogameEdit!: Videogame
+  categoriesAdd: string[] = [] //Donde almacenaremos las catgeorias que vamos a añadir
+  imageAdd!: File //Donde alamcenaremos la imagen que vamos a añadir 
+  videogameEdit!: Videogame //Videojuego con todos sus campos utilizado para editar
   
+  //FormControl donde iran rotando las categorias seleccionadas para añadirlas a la lista
   newCategory : FormControl = this.fb.control('', Validators.required)
 
+  //Datos del formulario
   myForm: FormGroup = this.fb.group({
     idVideogame: [''],
     name: ['',[Validators.required]],
@@ -48,11 +54,15 @@ export class FormComponent implements OnInit {
     price: ['', [Validators.required, Validators.min(1)]],
     stock: ['', [Validators.required, Validators.min(0)]],
     idPlataform: ['', [Validators.required]],
+    //Lista de catgeorias
     categoriesList: this.fb.array([
     ], Validators.required),
     image: [this.imageAdd]
   })
 
+  /**
+   * Metod para sacar los distintos mensajes de error del precio
+   */
   get priceErrorsMsg():string{
     const errors = this.myForm.get('price')?.errors;
     let errorMsg= "";
@@ -66,6 +76,9 @@ export class FormComponent implements OnInit {
     return errorMsg;
   }
 
+  /**
+   * Metod para sacar los distintos mensajes de error del stock
+   */
   get stockErrorsMsg():string{
     const errors = this.myForm.get('stock')?.errors;
     let errorMsg= "";
@@ -79,34 +92,46 @@ export class FormComponent implements OnInit {
     return errorMsg;
   }
 
-
+  /**
+   * Metodo para poder acceder a las catgeorias mas facilmente tratandolas como un FromArray 
+   */
   get categoriesList(){
     return this.myForm.get('categoriesList') as FormArray
   }
 
+  /**
+   * Metodo que se ejecutara cada vez que se carge la pagina, donde rescatamos las catgeorias 
+   * las plataformas y si estamso editando nos recupera el videojuego al cual
+   * pertenece la id pasada
+   */
   ngOnInit(): void {
+    //Recuperamos las categorias
     this.categoryService.getAll().subscribe({
       next: (category) => {
         this.categories = category
       }
     })
+    //Recuperamos las plataformas
     this.plataformService.getAll().subscribe({
       next: (plat) =>{
         this.plataform = plat
       }
     })
     
+    //Si estamos editando hacemos peticion para averiguar cual es el videojuego
     if(this.id){
       this.gameService.getOne(this.id).subscribe({
         next: (game) =>{
+          //Si todo va bien tendremos que ir rellenando uno a uno los datos del formulario con
+          //los rescatados
           this.videogameEdit = game;
-          console.log(this.myForm.controls['name']);
           this.myForm.get('idVideogame')?.setValue(this.videogameEdit.idVideogame)
           this.myForm.get('name')?.setValue(this.videogameEdit.name)
           this.myForm.get('description')?.setValue(this.videogameEdit.description)
           this.myForm.get('price')?.setValue(this.videogameEdit.price)
           this.myForm.get('stock')?.setValue(this.videogameEdit.stock)
-          this.myForm.get('idPlataform')?.setValue(this.videogameEdit.idPlataform)  
+          this.myForm.get('idPlataform')?.setValue(this.videogameEdit.idPlataform)
+          //Para las catgeorias debemos usar el FromControl auxiliar creado anteriormente  
           for(let categ of this.videogameEdit.listCategory){
             this.newCategory.setValue(categ.nameCategory)
             this.categoriesList.push(this.fb.control(this.newCategory.value, Validators.required))
@@ -116,21 +141,36 @@ export class FormComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para saber si un parametro tiene errores cuando ya lo hemos tocados por primera vez 
+   * @param field 
+   * @returns true si tiene errores, false si no
+   */
   isValid(field:string){
     return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
   }
 
+  /**
+   * Metodo para añadir un videojuego a la base de dato o editarlo comprobando is hay algun 
+   * error y mostrandolo
+   */
   addGame(){
+    //Si el formulario no tiene errores
     if(this.myForm.invalid){
       this.myForm.markAllAsTouched();
     }else{
+      //Hacemos desestructuracion para sacar los datos que no nos interesan para añadir y editar
+      //o los que necesitamos aislados
       const {categoriesList, image, idVideogame,...rest} = this.myForm.value
       this.videogame = rest;      
       this.categoriesAdd = categoriesList
       this.imageAdd = image 
+      
+      //Si no etamos editando hacemos peticion para poder añadir pasandole el juego, las catgeorias y la imagen
       if(!this.id){
         this.gameService.addNewGame(this.videogame, this.imageAdd, this.categoriesAdd).subscribe({
           next: (game) =>{
+            //Si todo va bien mostramos alerta exitosa y reseteamos el fromualrio
             Swal.fire({
               title: "Save!",
               text: "Your file has been save.",
@@ -141,6 +181,7 @@ export class FormComponent implements OnInit {
             })
           },
           error: (error)=>{
+            //Si hay algun error se los mostramos con el mensaje correspondiente
             Swal.fire({
               title: "Error al añadir",
               text: error.error.message,
@@ -153,6 +194,7 @@ export class FormComponent implements OnInit {
         })
 
       }else{
+        //Si estamos editando mostramos mensaje de alerta para que nos confirme que quiere editar
         Swal.fire({
           title: "Are you sure?",
           text: "You won't be able to revert this!",
@@ -163,19 +205,21 @@ export class FormComponent implements OnInit {
           confirmButtonText: "Yes, edit it!"
         }).then((result) => {
           if (result.isConfirmed) {
+          //Si acepta hacemos peticion para editar pasnaodle el id del juego, el juego
+          //las catgeorias y la imagen 
           this.videogame.idVideogame = idVideogame;
           this.gameService.editGame(this.videogame, this.imageAdd, this.categoriesAdd, this.id).subscribe({
             next: (game) =>{
+              //Si todo va bien mostranmos una alerta de exito
               Swal.fire({
                 title: "Save!",
                 text: "Your file has been edit.",
                 icon: "success",
                 confirmButtonColor:"#43844B" 
-              }).then((resultado)=>{
-                
               })
             },
             error: (error)=>{
+              //Si hay algun erroe mostramos un mensaje de alerta con el error correspondiente
               Swal.fire({
                 title: "Error al editar",
                 text: error.error.message,
@@ -194,13 +238,19 @@ export class FormComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para añadir una catgoeria a la lista de catgeorias
+   */
   addCategory(){
-    console.log(this.newCategory);
+    //Si el campo no esta vacio
     if(this.newCategory.valid){
+      //Comprobamos que esa catgeoria no este
       if(!this.categoriesList.value.includes(this.newCategory.value)){
+        //Si no esta lo añadimos a la lista de categorias del formulario
         this.categoriesList.push(this.fb.control(this.newCategory.value, Validators.required))
         this.newCategory.reset()
       }else{
+        //Si esta mostramos mensaje de alerta
         this.newCategory.reset()  
         Swal.fire({
           title: "Campo duplicado",
@@ -214,6 +264,10 @@ export class FormComponent implements OnInit {
     
   }
 
+  /**
+   * Metod para borrar la catgeorias que seleccionemos segun el indice
+   * @param i 
+   */
   deleteCategory(i: number){
     this.categoriesList.removeAt(i);
   }

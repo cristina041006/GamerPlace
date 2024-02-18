@@ -13,37 +13,56 @@ import { FooterComponent } from '../../shared/footer/footer.component';
   styleUrl: './list.component.css'
 })
 export class ListComponent implements OnInit{
+/**Componente donde listaremos los videojuegos */
 
+  /**Contructor donde inyectaremos el servicio del juego */
   constructor(private gameService: GameService){}
-  pageable!: ListPageable
-  games : Videogame[] = []
-  numberSequence : number[] =[]
+  
+  //Variables
+  pageable!: ListPageable //Donde almacenaremos el pageable
+  games : Videogame[] = [] //Donde almacenaremos los juegos
+  numberSequence : number[] =[] //Secuencia de nuemeros para el paginado
 
+  /**
+   * Metodo que se ejutara cada vez que carguemos la pagina y los hara una pericion
+   * Par recoger todos los videojeugos
+   */
   ngOnInit(): void {
     this.gameService.getAllGame().subscribe({
       next: (page) => {
-        console.log(page);
+        //Si todo va bien añadimos a las variables los juegos y el paginado
         this.pageable = page
         this.games = page.content
-        console.log(this.games)
+        //Calculamos la secuencia de numero para que solo nos aparezcan 5 numeros a partir de donde etsoy
         for(let i=1; i<page.pageable.pageNumber+6; i++){
           this.numberSequence.push(i);
         }
-        console.log(this.numberSequence);
         
       }
     })
 
   }
 
+  /**
+   * Metodo para pasar de pagina y hc¡acer la peticion 
+   * @param numPage 
+   */
   nexPage(numPage: number){
-    console.log(numPage);
-    
+    //Hacemos la peticion    
     this.gameService.getAllGamePage(numPage).subscribe({
       next: (page)=>{
+        //Si todo va bien vovlemos a poner los datos en sus variables correspondientes
         this.numberSequence = [];
         this.pageable=page;
         this.games= page.content
+
+        /**
+         * Calculamos la secuencia de nuemros segun:
+         * Estamos en la primera pagina: Se mosyraran numeros del 1 al 5
+         * Estamos en una pagina cualquiera: se mistrara nuemeros desde el nuemro
+         * anterior al cual estamos y cinco mas
+         * Estamos en las ultimas paginas: Se mostrarn 5 numeros menos de en la que estas
+         */
         if(page.pageable.pageNumber==0){
           for(let i=1; i<page.pageable.pageNumber+6; i++){
             this.numberSequence.push(i);
@@ -57,10 +76,6 @@ export class ListComponent implements OnInit{
             this.numberSequence.push(i);
           }
         }
-        console.log(this.numberSequence);
-        console.log(this.pageable.pageable.pageNumber);
-        console.log(this.pageable.totalPages);
-        
       }
     })
   }

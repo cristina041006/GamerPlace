@@ -66,3 +66,48 @@
 .name{
     border-bottom: 2px solid #C75A32;
 }
+.tablet{
+    padding-left: 10%;
+    width: 350px;
+}
+.bodyTablet{
+    display: none;
+}
+
+@media only screen and (max-width: 767px){
+    .plataform{
+       display: none;
+    }
+    .information{
+        display: none;
+    }
+    .image{
+
+        padding-left: 18%;
+    }
+    .port{
+        border-radius: 0%;
+    }
+    .tablet{
+        padding-left: 17%;
+    }
+    .add{
+        background-color: #43844B;
+    }
+    .bodyTablet{
+        display: block;
+    }
+    .description{
+        margin-top: 250px;
+        margin-left: 3%;
+    }
+    .edit{
+        width: 50%;
+    }
+    .delete{
+        width: 50%;
+    }
+   
+
+}
+

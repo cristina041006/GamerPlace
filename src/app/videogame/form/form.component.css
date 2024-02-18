@@ -1,6 +1,8 @@
 .title{
     border-bottom: 3px solid #C75A32 ;
     text-align: center;
+    width: 42%;
+    margin-left: 29%;
 }
 .subtitle{
     border-bottom: 2px solid #608E94;
@@ -47,4 +49,14 @@
     background-color: #949494;
     color: white;
     margin-left: 1%;
+}
+
+.contain{
+    width: 95%;
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 770px){
+   .contain{
+    width: 473px;
+   }
 }

@@ -17,3 +17,9 @@ li:hover{
 .active{
     border-bottom: 5px solid #C8A519;
 }
+
+@media only screen and (max-width: 360px){
+    ul{
+        display: none;
+    }
+}

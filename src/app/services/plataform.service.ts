@@ -7,10 +7,15 @@ import { PlataformWithoutList } from '../interfaces/plataform';
   providedIn: 'root'
 })
 export class PlataformService {
+/**Servicio para las plataformas */
 
   private baseUrl : string= "http://localhost:8080";
   constructor(private http : HttpClient) { }
 
+  /**
+   * Metodo para hacer la peticion y devolver todas las plataformas sin su lista de vieojuegos 
+   * @returns Observable con una lista de platafromas sin su lista de videojuegos
+   */
   getAll(): Observable<PlataformWithoutList[]>{
     return this.http.get<PlataformWithoutList[]>(`${this.baseUrl}/plataform`)
   }

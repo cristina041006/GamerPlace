@@ -8,3 +8,37 @@ img{
     height: 33px;
     margin-left: 7%;
 }
+
+@media only screen and (max-width: 1000px) and (min-width: 360px){
+    .search{
+        width: 40%;
+        margin-left: 25%;
+       
+    }
+    .menu{
+        display: none;
+    }
+}
+@media only screen and (max-width: 360px){
+    .search{
+        width: 40%;
+        margin-left: 25%;
+       
+    }
+    .img{
+       margin-left: 90%;
+    }
+    .menu{
+        display: block;
+        float: left;
+    }
+    img{
+        width: 3cm;
+    }
+    .search{
+        display: none;
+    }
+    .icono{
+        display: none;
+    }
+}

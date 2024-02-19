@@ -1,0 +1,93 @@
+.containerFlex {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+.title{
+    border: 3px solid #772866;
+    width: 1000px;
+    text-align: center;
+    font-size: 1cm;
+    border-radius: 5px;
+    margin-bottom: 5%;
+}
+.containerGrid{
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-auto-rows: 150px;
+    margin-bottom: 5%;
+}
+.item{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.item .image{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.item .image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+.item:hover .image img{
+    transform: scale(1.5);
+}
+
+.item .text{
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    font-size: 25px;;
+    pointer-events: none;
+    z-index: 4;
+    transition: .3s ease-in-out;
+    color: #fff;
+    -webkit-backdrop-filter: blur(5px) saturate(1.8);
+    backdrop-filter: blur(5px) saturate(1.8);
+}
+
+.item:hover .text{
+    opacity: 1;
+    animation: move-down .3s linear;
+    padding: 1em;
+    width: 100%;
+    text-align: center;
+}
+
+
+.w-2{
+    grid-column: span 2;
+}
+
+.w-4{
+    grid-column: span 4;
+}
+.videogame{
+    border-bottom: 2px solid #C75A32;
+    text-align: center;
+}
+.port{
+    width: 3cm;
+    margin-left: 10%;
+}
+
+.list{
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    margin-left: 8cm;
+    margin-right: 8cm;
+    
+}

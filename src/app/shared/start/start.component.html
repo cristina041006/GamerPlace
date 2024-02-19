@@ -1,0 +1,66 @@
+<div class="containerFlex">
+    <div class="title">Bienvenido a Gamer Place<br> Lugar donde podras vender y comprar videojuegos </div>
+
+    <div class="containerGrid">
+        <div class="gallery w-4">
+            <div class="item">
+                <div class="image">
+                    <a routerLink="/videogames"><img src="../../../assets/img/juegos.jpg" alt="games"></a>
+                </div>
+                <div class="text">
+                    See our new games
+                </div>
+            </div>
+        </div>
+        <div class="gallery w-2">
+            <div class="item">
+                <div class="image">
+                    <img src="../../../assets/img/second-hand.jpg" alt="games">
+                </div>
+                <div class="text">
+                    See our second-hand game
+                </div>
+            </div>
+        </div>
+        <div  class="w-2 ">
+            <div class="item">
+                <div class="image">
+                    <img src="../../../assets/img/seller.jpg" alt="games">
+                </div>
+                <div class="text">
+                    Be a user-seller
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <div>
+        <h1 class="videogame">Recent videogames</h1>
+        <ul class="list">
+            <div *ngIf="games">
+                @for (game of games; track $index) {
+                    <li>
+                        <div class="card">
+                            @if (game.image==null) {
+                                <img src="../../../assets/img/Imagen_no_disponible.svg.png" class="card-img-top port" alt="...">
+        
+                            }@else {
+                                <img src="{{game.image}}" class="card-img-top port" alt="...">
+                            }
+                            <div class="card-body">
+                              <h5 class="card-title">{{game.name}}</h5>
+                              <p class="card-text">{{game.description}}</p>
+                              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                            </div>
+                          </div>  
+
+                    </li>
+                }
+            </div>
+    
+        </ul>
+    
+    
+    </div>
+
+</div>

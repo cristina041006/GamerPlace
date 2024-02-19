@@ -1,0 +1,40 @@
+<h1 class="title">Login</h1>
+
+<section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100" style="padding-left: 3%;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-7">
+          <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center content">
+
+                <h3 class="mb-5 subtitle">Access our page</h3>
+              
+              <form #myForm="ngForm" autocomplete="off" (ngSubmit)="login()">
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Username</label>
+                <input type="text" id="name" class="form-control form-control-lg" placeholder="anita" name="username" [(ngModel)]="userLogin.username" required/>
+                @if(isValid('username')){
+                    <span class="form-text text-danger">This field is required</span>
+                }
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Password</label>
+                <input type="password" id="description" class="form-control form-control-lg" name="password" [(ngModel)]="userLogin.password" required/>
+                @if(isValid('password')){
+                    <span class="form-text text-danger">This field is required</span>
+                }
+              </div>
+              <div id="emailHelp" class="form-text text-center mb-5 text-dark">Not
+                Registered? <a routerLink="/auth/register" routerLinkActive="router-link-active"
+                    class="text-dark fw-bold"> Create an
+                    Account</a>
+            </div>
+                <button class="btn btn-lg btn-block add" type="submit">Continuar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+

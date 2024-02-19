@@ -10,11 +10,12 @@ import Swal from 'sweetalert2';
 import { Videogame, ListCategoryGame } from '../../interfaces/videogames';
 import { GameService } from '../../services/game.service';
 import { RouterLink } from '@angular/router';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, JsonPipe, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, JsonPipe, RouterLink, FooterComponent],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })

@@ -1,16 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { Videogame } from '../../interfaces/videogames';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { FormsModule, NgForm } from '@angular/forms';
+import { GameBill } from '../../interfaces/bill';
 
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [FooterComponent, CommonModule, RouterLink],
+  imports: [FormsModule, FooterComponent, CommonModule, RouterLink],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
@@ -18,12 +21,26 @@ export class DetailsComponent implements OnInit{
 /**Codigo para mostrar los detalles e un videojuego */
 
   /**Constructor llamando al servicio de juego y a un route para poder navegar */
-  constructor(private gameServices: GameService, private route: Router) {}
+  constructor(private gameServices: GameService, private route: Router, private authSrevice: AuthService) {}
+
+  @ViewChild('myForm') myForm!: NgForm
+  amount : number = 0;
+  gameBill: GameBill = {
+      idVideogame : 0,
+      nameVideogame:"",
+      amount: 0,
+      price: 0,
+      maxStock: 0
+  }
+
+  shop: GameBill[] = []
+  minStock: number = 0;
 
   //Variables
   @Input() id!: string //Id del videojuego pasado por ruta
   game! : Videogame //Donde vamos a introducir los datos capturados
-
+  username: any = this.authSrevice.usernameSignal
+  rol: any= this.authSrevice.rolSignal
 
   /**
    * Mtodo que se ejecutara justo al cargar la pagina la primera vez para conseguir
@@ -32,12 +49,12 @@ export class DetailsComponent implements OnInit{
   ngOnInit(): void {
     //Comprobamos que nos pasaron la id y no mostramos un mensaje de error
     if(this.id){
-
       //Hacemos peticion
       this.gameServices.getOne(this.id).subscribe({
         next: (videogame) =>{
           //Si todo es correcto introducimos los datos rescatos a nuestra variable
           this.game = videogame
+          this.getMinStock()
         },
         error: (error) => {
           //Si hay erroes se mostrara una alerta con los errores y si le damos a OK nos llevara a
@@ -114,5 +131,71 @@ export class DetailsComponent implements OnInit{
         })
       }
     });
+  }
+
+  addCar(){
+    if(this.amount>0){
+      this.gameBill.nameVideogame = this.game.name
+      this.gameBill.amount = this.amount,
+      this.gameBill.price = this.game.price;
+      this.gameBill.maxStock = this.game.stock
+      if(this.game.idVideogame){
+        this.gameBill.idVideogame = this.game.idVideogame
+      }
+      if(localStorage.getItem('shop')==null){
+        this.shop.push(this.gameBill)
+        localStorage.setItem('shop', JSON.stringify(this.shop))
+      }else{
+        let exist:boolean = false
+        this.shop = JSON.parse(localStorage.getItem('shop') || "")
+        for(let i=0; i<this.shop.length && !exist; i++){
+          if(this.game.name==this.shop[i].nameVideogame){
+            exist = true;
+            this.shop[i].amount+= this.amount
+          }
+        }
+        if(!exist){
+          this.shop.push(this.gameBill)
+        }
+        localStorage.setItem('shop', JSON.stringify(this.shop))
+      }
+      Swal.fire({
+        title: "Save!",
+        text: "Your file has been added in your basket.",
+        icon: "success",
+        confirmButtonColor:"#43844B" 
+      }).then((resultado)=>{
+        this.getMinStock()
+        this.amount=0;
+        
+      })
+    }else{
+      Swal.fire({
+        title: "Error",
+        text: "Cant add 0 field",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor:"#949494" 
+      });
+       
+    }
+  }
+
+  getMinStock(){
+    if(localStorage.getItem('shop')!=null){
+      let exist: boolean = false
+      this.shop = JSON.parse(localStorage.getItem('shop') || "")
+      for(let i=0; i<this.shop.length && !exist; i++){
+        if(this.game.name==this.shop[i].nameVideogame){
+          this.minStock = this.game.stock-this.shop[i].amount
+          exist = true
+        }
+      }
+      if(!exist){
+        this.minStock = this.game.stock
+      }
+    }else{
+      this.minStock = this.game.stock
+    }
   }
 }

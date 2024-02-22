@@ -1,6 +1,7 @@
 <!--Cuando nos asefuremos que el juego contiene datos-->
 @if (game) {
 
+
   <div class="list">
       <div >
           <div class="card mb-3" style="max-width: 800px; max-height: 190px; padding-left: 5%; border: 0px; margin-top: 3%;">
@@ -33,9 +34,11 @@
                   <div class="d-grid gap-2" style="width: 290px; margin-left: 8%; margin-top: 10%;">
                     <button class="btn add" type="button">Añadir</button>
                     <div style="display: flex; justify-content: space-around;">
-                      <!--Botones que nos llevan a editar o te dan la opcion de borrar-->
-                      <a class="btn edit" type="button" routerLink="/editVideogame/{{game.idVideogame}}">Editar</a>
-                      <button class="btn delete" type="button" (click)="deleteOneGame()">Borra</button>
+                      @if (rol()=='admin') {
+                        <!--Botones que nos llevan a editar o te dan la opcion de borrar-->
+                        <a class="btn edit" type="button" routerLink="/editVideogame/{{game.idVideogame}}">Editar</a>
+                        <button class="btn delete" type="button" (click)="deleteOneGame()">Borra</button>
+                      }
                     </div>
                   </div>                 
                 </div>
@@ -53,9 +56,12 @@
                     <h4 class="card-text">{{game.namePlataform}}</h4>
                     <br>
                     <p class="card-text"><small class="text-body-secondary"><span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span></small></p>
-                    <!--Botones que nos llevan a editar o te dan la opcion de borrar-->
-                    <a class="btn edit" routerLink="/editVideogame/{{game.idVideogame}}">Editar</a>
-                    <button class="btn delete" (click)="deleteOneGame()">Borrar</button>
+                    @if (rol()=='admin') {
+                      <!--Botones que nos llevan a editar o te dan la opcion de borrar-->
+                      <a class="btn edit" routerLink="/editVideogame/{{game.idVideogame}}">Editar</a>
+                      <button class="btn delete" (click)="deleteOneGame()">Borrar</button>
+
+                    }
                   </div>
                 </div>
               </div>
@@ -63,9 +69,16 @@
       </div>
       <div class="plataform shadow">
           <h3>Price:</h3>
-          <h2>{{game.price}}€</h2>
-          <br>
-          <button class="btn add">Añadir</button>
+          <h3>{{game.price}}€</h3>
+          @if (game.stock>0 && minStock>0) {
+            <h3>Amount:</h3>
+            <form #myForm="ngForm">
+              <input type="number" style="width: 60%; margin-left: 20%; margin-bottom: 4%;" id="amount" class="form-control form-control-lg" name="amount" [(ngModel)]="amount"  min="1" max="{{minStock}}"/> 
+              <button class="btn add" (click)="addCar()">Añadir</button>
+            </form>
+          }@else {
+            <h3>Stock no disponible</h3>
+          }
       </div>
   </div>
   <br>
@@ -84,6 +97,7 @@
       </div>
   
   </div>
+
 }
 
 

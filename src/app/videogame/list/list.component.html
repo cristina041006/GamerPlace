@@ -5,7 +5,6 @@
   </div> 
 </div>
 
-
 <!--Iteramos los juegos para mostrarlos-->
 @for (game of games; track $index) {
 <div class="list">
@@ -47,7 +46,7 @@
           <li class="page-item"><a class="page-link" *ngIf="i!=pageable.pageable.pageNumber+1" style="border-radius: 0px;" (click)="nexPage(i)" th:text="${i}">{{i}}</a></li>
         </span>
         <li class="page-item"><a class="page-link" *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages" (click)="nexPage(pageable.pageable.pageNumber+2)">&raquo;</a></li>
-        <li class="page-item" *ngIf="pageable.pageable.pageNumber<pageable.totalPages">
+        <li class="page-item" *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages">
           <a class="page-link" (click)="nexPage(pageable.totalPages)">Last</a>
         </li>
       </ul>

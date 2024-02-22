@@ -1,13 +1,15 @@
 ul{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     list-style: none;
-    border-bottom: 2px solid black;
+   width: 1000px;
     padding-bottom: 1%;
+    margin: 0 auto;
+
 }
 
 li{
-    border-bottom: 5px solid #ffffff;
+    border-bottom: 5px solid #43844b00
 }
 
 li:hover{
@@ -16,6 +18,13 @@ li:hover{
 
 .active{
     border-bottom: 5px solid #C8A519;
+}
+
+.menu{
+    
+    text-align: center;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,0.333858543417367) 0%, rgba(67,132,75,0.33) 100%);
 }
 
 @media only screen and (max-width: 360px){

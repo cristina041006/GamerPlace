@@ -93,4 +93,11 @@ export class GameService {
     return this.http.put<Videogame>(`${this.baseUrl}/editVideogame/${id}`, formData);
   }
 
+  searchGame(name: string): Observable<ListPageable>{
+    return this.http.get<ListPageable>(`${this.baseUrl}/getVideogame?name=${name}`)
+  }
+  searchGamePage(name: string, pageNum: string): Observable<ListPageable>{
+    return this.http.get<ListPageable>(`${this.baseUrl}/getVideogame?name=${name}&&pageNum=${pageNum}`)
+  }
+
 }

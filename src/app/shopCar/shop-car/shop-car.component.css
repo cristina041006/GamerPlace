@@ -13,7 +13,18 @@
 .add{
     background-color: #43844B;
     color: white;
+    float: right;
 }
 .oblig{
     color: #C24042;
+}
+table{
+    font-size: 0.5cm;
+}
+p{
+    font-size: 0.6cm;
+}
+.equis:hover{
+    background-color: #C24042;
+    color: white;
 }

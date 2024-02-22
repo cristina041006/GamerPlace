@@ -1,0 +1,39 @@
+<h1 class="title">Shopping basket</h1>
+
+<section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-7">
+          <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center content">
+                @if (shop.length>0) {
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Videogame</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Price</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-group-divider">
+                        <tr *ngFor="let game of shop; let i= index">
+                          <td>{{game.nameVideogame}}</td>
+                          <td><input type="number" value="{{game.amount}}" style="width: 2cm; border-radius: 15px; text-align: center;" (change)="changeNumber(i, $event)" min="1" max="{{game.maxStock}}"></td>
+                          <td>{{game.price}}</td>
+                          <td class="equis" (click)="deleteOne(i)">X</td>
+                        </tr>
+                      </tbody>
+                  </table>
+                  <br>
+                  <p style="float: left;">Total price: <u>{{truncateNum(totlaPrice)}}€</u></p>
+                  <button class="btn add" (click)="buy()">Comprar</button>
+                }@else {
+                  <h2>No game in your shopping basket</h2>
+                }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

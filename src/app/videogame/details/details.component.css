@@ -9,7 +9,7 @@
     
 }
 .details{
-    border-bottom: 2px solid #C75A32;
+    border-bottom: 2px solid #608E94;
 }
 .pagination{
     justify-content: center;
@@ -46,6 +46,7 @@
 .add{
     background-color: #43844B;;
     color: white;
+    margin-bottom: 3%;
 }
 .detalles{
     text-align: center;

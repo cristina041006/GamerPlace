@@ -1,0 +1,78 @@
+<h1 class="title">Signup</h1>
+
+<section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100" style="padding-left: 3%;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-7">
+          <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center content">
+
+                <h3 class="mb-5 subtitle">Resgister in our page</h3>
+              
+              <form [formGroup]="myForm" autocomplete="off">
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Username</label>
+                <input type="text" id="username" class="form-control form-control-lg" placeholder="anita" formControlName="username" />
+                <span class="form-text text-danger">
+                  {{usernameErrosMsg}}
+               </span>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Email</label>
+                <input type="email" id="email" class="form-control form-control-lg" formControlName="email"  placeholder="anita@gmail.com" />
+                <span class="form-text text-danger">
+                  {{emailErrosMsg}}
+               </span>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Name</label>
+                <input type="text" id="name" class="form-control form-control-lg" formControlName="name"  placeholder="Ana Anita" />
+                <span class="form-text text-danger">
+                  {{nameErrosMsg}}
+               </span>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Address</label>
+                <input type="text" id="address" class="form-control form-control-lg" formControlName="address"  placeholder="Daimantino" />
+                <span class="form-text text-danger" *ngIf="isValid('address')">
+                  Address is required
+              </span>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Phone</label>
+                <input type="text" id="phone" class="form-control form-control-lg" formControlName="phone"  placeholder="123456789" />
+                <span class="form-text text-danger">
+                  {{phoneErrosMsg}}
+               </span>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Password</label>
+                <input type="password" id="password" class="form-control form-control-lg" formControlName="password" />
+                <span class="form-text text-danger" *ngIf="isValid('password')">
+                  Password is required
+              </span>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Repeat password</label>
+                <input type="password" id="passwordC" class="form-control form-control-lg" formControlName="passwordComfirm" />
+                <span class="form-text text-danger">
+                  {{passwordErrosMsg}}
+               </span>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2"> Image</label>
+                <input type="file" id="description" class="form-control form-control-lg" formControlName="image" (change)="getFile($event)"/>
+              </div>
+              <div id="emailHelp" class="form-text text-center mb-5 text-dark">You have a count?
+                 <a routerLink="/login" routerLinkActive="router-link-active"
+                    class="text-dark fw-bold"> Create an
+                    Account</a>
+            </div>
+                <button class="btn btn-lg btn-block add" type="submit" (click)="submit()">Continue</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

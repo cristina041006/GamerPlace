@@ -3,12 +3,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { UserLogin } from '../../interfaces/User';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -33,6 +33,7 @@ export class LoginComponent {
         resp=> {
           if(resp===true){
             this.route.navigate([''])
+            this.authService.renew();
           }else{
             Swal.fire({
               title: "Error to login",
@@ -47,7 +48,13 @@ export class LoginComponent {
         
       )
     }else{
-      console.log("no");
+      Swal.fire({
+        title: "Field required",
+        text: "User or password incorrect",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor:"#949494" 
+      }); 
       
     }
     

@@ -2,12 +2,7 @@
 img{
     width: 5cm;
 }
-.search{
-    border: 2px solid black;
-    width: 60%;
-    height: 33px;
-    margin-left: 7%;
-}
+
 
 @media only screen and (max-width: 1000px) and (min-width: 360px){
     .search{
@@ -18,6 +13,10 @@ img{
     .menu{
         display: none;
     }
+}
+.color{
+    background: rgb(67,132,75);
+    background: linear-gradient(0deg, rgba(67,132,75,0.333858543417367) 0%, rgba(67,132,75,0.7400210084033614) 100%);
 }
 @media only screen and (max-width: 360px){
     .search{

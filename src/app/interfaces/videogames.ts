@@ -34,6 +34,7 @@ export interface Videogame {
     listCategory:  ListCategoryGame[];
 }
 
+
 /**
  * Interfaz de gameCatgeory
  */

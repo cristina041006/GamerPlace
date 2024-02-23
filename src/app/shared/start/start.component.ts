@@ -21,7 +21,7 @@ export class StartComponent implements OnInit{
     
     this.gameService.getAllGame().subscribe({
       next: (page)=>{
-        this.gameService.getAllGamePage(page.totalPages).subscribe({
+        this.gameService.getAllGamePageSize(page.totalPages-1, 8).subscribe({
           next: (game) =>{
             this.games = game.content
           }

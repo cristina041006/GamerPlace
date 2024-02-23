@@ -11,7 +11,7 @@ export class ValidateEmailService implements AsyncValidator{
   constructor(private http:HttpClient) { }
 
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors|null>{
-    return this.http.get<any[]>(`http://localhost:8080/getOneEmail?email=${control.value}`)
+    return this.http.get<any[]>(`http://localhost:8080/existEmail?email=${control.value}`)
     .pipe(
       map(resp=> (resp.length == 0) ? null: {emailTaken: true})
     )

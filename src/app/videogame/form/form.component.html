@@ -4,104 +4,106 @@
 }@else {
     <h1 class="title">Añadir videojuego</h1>
 }
-<section class="vh-100">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100" style="padding-left: 3%;">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-7">
-          <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center content">
-              <!--Diferenciamos is estamos editando o añadiendo-->
-                @if (id) {
-                    <h3 class="mb-5 subtitle">Edita tu videojuego</h3>
-                }@else {
-                    <h3 class="mb-5 subtitle">Añade tu videojuego</h3>
-                }
-              <!--Vinculamos el formulario con nuestro FormGroup-->
-              <form [formGroup]="myForm" enctype="multipart/form-data" method="post">
-                <!--Diferenciamos is estamos editando o añadiendo para mostarra el id-->
-                @if (id) {
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Id</label>
-                      <input type="text" id="id" class="form-control form-control-lg" name="id" formControlName="idVideogame" readonly/>  
-                    </div> 
-                }
-              <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Titulo</label>
-                <input type="text" id="name" class="form-control form-control-lg" placeholder="Title" required formControlName="name"/>
-                <!--Metod para saber si es valido-->
-                <span class="form-text text-danger" *ngIf="isValid('name')">Este campo es obligatorio</span>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Descripcion</label>
-                <input type="text" id="description" class="form-control form-control-lg"   placeholder="Description" formControlName="description"/>
-                <span class="form-text text-danger" *ngIf="isValid('description')">Este campo es obligatorio</span>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Precio</label>
-                <input type="number" id="price" class="form-control form-control-lg" formControlName="price" placeholder="Precio" required/>
-                <span class="form-text text-danger">{{priceErrorsMsg}}</span>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Stock</label>
-                <input type="text" id="stock" class="form-control form-control-lg" formControlName="stock" placeholder="Stock" required/>
-                <span class="form-text text-danger">{{stockErrorsMsg}}</span>
-              </div>
-              
-              <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Plataforma</label>
-                <!--Listamos las plataformas-->
-               <select class="form-select" formControlName="idPlataform">
-                <option value="" selected>--Selecciones una plataforma--</option>
-                @for (plata of plataform; track $index) {
-                   <option value="{{plata.idPlataform}}" >{{plata.name}}</option>
-                  }
-               </select>
-               <span class="form-text text-danger" *ngIf="isValid('idPlataform')">Este campo es obligatorio</span>
-              </div>
-              <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Categorias</label>
-              <div class="input-group">
-                <!--Listamos las catgeorias-->
-               <select class="form-select" [formControl]="newCategory">
-                <option value="" selected>--Selecciones una categoria--</option>
-                @for (category of categories; track $index) {
-                   <option value="{{category.name}}">{{category.name}}</option>
-                  }
-                </select>
-                <button class="btn btn-lg btn-block addCategory" type="submit" (click)="addCategory()">Añadir</button>
-              </div>
-              <span class="form-text text-danger" *ngIf="isValid('categoriesList')">Este campo es obligatorio</span>
-              <br>
-              <!--Listamos las catgeorias que hemos seleccionado-->
-               @for (cate of categoriesList.controls; track $index) {
-              <div class="form-outline mb-4" formArrayName="categoriesList" class="input-group">
-                <input type="text" id="stock" class="form-control form-control-lg" [formControlName]="$index" required/>
-                <button class="btn btn-block delete" type="button" (click)="deleteCategory($index)">Eliminar</button>
-              </div>
-              <br>
-              }
-              <br>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"> Imagen</label>
-                <input type="file" id="imagen" class="form-control form-control-lg" name="imagen" formControlName="image"/>
-                @if (id && videogameEdit.image!=null) {
-                  <img src="{{videogameEdit.image}}" class="image">
-                }
-              </div>
-              <!--Diferenciamos is estamos editando o añadiendo-->
+<section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-7">
+        <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center content">
+            <!--Diferenciamos is estamos editando o añadiendo-->
               @if (id) {
-                <button class="btn btn-lg btn-block edit" type="submit" (click)="addGame()">Editar</button>
-                <a class="btn btn-lg btn-block back" type="submit" routerLink="/details/{{videogameEdit.idVideogame}}">Volver</a>
+                  <h3 class="mb-5 subtitle">Edita tu videojuego</h3>
               }@else {
-                <button class="btn btn-lg btn-block add" type="submit" (click)="addGame()">Continuar</button>
-
+                  <h3 class="mb-5 subtitle">Añade tu videojuego</h3>
               }
-              </form>
+            <!--Vinculamos el formulario con nuestro FormGroup-->
+            <form [formGroup]="myForm" enctype="multipart/form-data" method="post">
+              <!--Diferenciamos is estamos editando o añadiendo para mostarra el id-->
+              @if (id) {
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Id</label>
+                    <input type="text" id="id" class="form-control form-control-lg" name="id" formControlName="idVideogame" readonly/>  
+                  </div> 
+              }
+            <div class="form-outline mb-4">
+              <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Titulo</label>
+              <input type="text" id="name" class="form-control form-control-lg" placeholder="Title" required formControlName="name"/>
+              <!--Metod para saber si es valido-->
+              <span class="form-text text-danger" *ngIf="isValid('name')">Este campo es obligatorio</span>
             </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Descripcion</label>
+              <input type="text" id="description" class="form-control form-control-lg"   placeholder="Description" formControlName="description"/>
+              <span class="form-text text-danger" *ngIf="isValid('description')">Este campo es obligatorio</span>
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Precio</label>
+              <input type="number" id="price" class="form-control form-control-lg" formControlName="price" placeholder="Precio" required/>
+              <span class="form-text text-danger">{{priceErrorsMsg}}</span>
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Stock</label>
+              <input type="text" id="stock" class="form-control form-control-lg" formControlName="stock" placeholder="Stock" required/>
+              <span class="form-text text-danger">{{stockErrorsMsg}}</span>
+            </div>
+            
+            <div class="form-outline mb-4">
+              <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Plataforma</label>
+              <!--Listamos las plataformas-->
+             <select class="form-select" formControlName="idPlataform">
+              <option value="" selected>--Selecciones una plataforma--</option>
+              @for (plata of plataform; track $index) {
+                 <option value="{{plata.idPlataform}}" >{{plata.name}}</option>
+                }
+             </select>
+             <span class="form-text text-danger" *ngIf="isValid('idPlataform')">Este campo es obligatorio</span>
+            </div>
+            <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Categorias</label>
+            <div class="input-group">
+              <!--Listamos las catgeorias-->
+             <select class="form-select" [formControl]="newCategory">
+              <option value="" selected>--Selecciones una categoria--</option>
+              @for (category of categories; track $index) {
+                 <option value="{{category.name}}">{{category.name}}</option>
+                }
+              </select>
+              <button class="btn btn-lg btn-block addCategory" type="submit" (click)="addCategory()">Añadir</button>
+            </div>
+            <span class="form-text text-danger" *ngIf="isValid('categoriesList')">Este campo es obligatorio</span>
+            <br>
+            <!--Listamos las catgeorias que hemos seleccionado-->
+             @for (cate of categoriesList.controls; track cate.value) {
+            <div class="form-outline mb-4" formArrayName="categoriesList" class="input-group">
+              
+              <input type="text" id="stock" class="form-control form-control-lg" [formControlName]="$index" required/>
+              <button class="btn btn-block delete" type="button" (click)="deleteCategory($index)">Eliminar</button>
+            </div>
+            <br>
+            }
+            <br>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="typeEmailX-2"> Imagen</label>
+              <input type="file" id="imagen" class="form-control form-control-lg" name="imagen" formControlName="image"/>
+              @if (id && videogameEdit.image!=null) {
+                <img src="{{videogameEdit.image}}" class="image">
+              }
+            </div>
+            <!--Diferenciamos is estamos editando o añadiendo-->
+            @if (id) {
+              <button class="btn btn-lg btn-block edit" type="submit" (click)="addGame()">Editar</button>
+              <a class="btn btn-lg btn-block back" type="submit" routerLink="/details/{{videogameEdit.idVideogame}}">Volver</a>
+            }@else {
+              <button class="btn btn-lg btn-block add" type="submit" (click)="addGame()">Continuar</button>
+          
+            }
+            </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </section>
+<pre>{{myForm.value |json}}</pre>
 
 <br>
 <br>
@@ -116,5 +118,7 @@
 <br>
 <br>
 <br>
+
+
 
 

@@ -9,7 +9,8 @@ ul{
 }
 
 li{
-    border-bottom: 5px solid #43844b00
+    border-bottom: 5px solid #43844b00;
+    cursor: pointer;
 }
 
 li:hover{
@@ -23,8 +24,10 @@ li:hover{
 .menu{
     
     text-align: center;
-    background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,0.333858543417367) 0%, rgba(67,132,75,0.33) 100%);
+    /* background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,0.333858543417367) 0%, rgba(67,132,75,0.33) 100%); */
+    background: rgba(73, 142, 82, 0.324);
+    border-bottom: 1px solid rgba(73, 142, 82, 0.324);
 }
 
 @media only screen and (max-width: 360px){

@@ -24,10 +24,14 @@ export class AuthService {
   }
 
   renew(){
-    const token: any = jwtDecode(localStorage.getItem("Authorization") || '')
-    console.log(token.sub);
-    this.usernameSignal.update(()=>token.sub)
-    this.rolSignal.update(()=>token.role)
+    if(localStorage.getItem("Authorization")!=null){
+      const token: any = jwtDecode(localStorage.getItem("Authorization") || '')
+      if(token!=''){
+        this.usernameSignal.update((a)=>token.sub)
+        this.rolSignal.update((a)=>token.role)
+      }
+    }
+    
   }
 
   singin(userLogin: UserLogin): Observable<string|Boolean>{
@@ -46,6 +50,42 @@ export class AuthService {
   }
 
   validateToken(){
-    const headers: HttpHeaders = new HttpHeaders().set('Authorization', localStorage.getItem("Authorization") || '')
+    const token = localStorage.getItem("Authorization");
+    if(token){
+      return jwtDecode(token)
+    }else{
+      return null;
+    }
   }
+
+  isLogged(){
+    return this.validateToken()!=null? true: false
+  }
+  isAdmin(){
+    const token =this.validateToken()
+    if(token!=null){
+      this.renew()
+      if(this.rolSignal()!="" && this.rolSignal()=="admin"){
+        return true;
+      }else{
+        return false;
+      }
+    }else{
+      return false
+    }
+  }
+  isSeller(){
+    const token =this.validateToken()
+    if(token!=null){
+      this.renew()
+      if(this.rolSignal()!="" && this.rolSignal()=="userSeller"){
+        return true;
+      }else{
+        return false;
+      }
+    }else{
+      return false
+    }
+  }
+
 }

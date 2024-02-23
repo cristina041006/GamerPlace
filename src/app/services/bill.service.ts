@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Bill, GameBillBuy } from '../interfaces/bill';
+import { Bill, GameBillBuy, ListPageableBill } from '../interfaces/bill';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -24,6 +24,18 @@ export class BillService {
     formData.append("user", blobUsername);
     return this.http.post<Bill>(`${this.baseUrl}/buy`, formData)
   }
+
+  getBill(username:string): Observable<ListPageableBill>{
+    return this.http.get<ListPageableBill>(`${this.baseUrl}/getBill?user=${username}`)
+  }
+
+  getBillPage(numPage: number, username:string): Observable<ListPageableBill> {
+    return this.http.get<ListPageableBill>(`${this.baseUrl}/getBill?user=${username}&pageNum=${numPage}`);
+  }
+  getBillOrder(attribute: string, username:string, numPage: number, sort:boolean): Observable<ListPageableBill> {
+    return this.http.get<ListPageableBill>(`${this.baseUrl}/getBill?user=${username}&pageNum=${numPage}&sort=${attribute}&order=${sort}`);
+  }
+
 
 
 }

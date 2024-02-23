@@ -40,8 +40,8 @@ export class RegisterComponent {
   imageUrl: string =''
 
   myForm: FormGroup = this.fb.group({
-    username: ['', [Validators.required]/*, [this.validateUsername]*/],
-    email: ['', [Validators.required, Validators.pattern(this.validators.emailPattern)]/*,[this.validateEmail]*/],
+    username: ['', [Validators.required], [this.validateUsername]],
+    email: ['', [Validators.required, Validators.pattern(this.validators.emailPattern)],[this.validateEmail]],
     name : ['', [Validators.required, Validators.pattern(this.validators.completeNamePatter)]],
     address: ['', [Validators.required]],
     phone: ['',[ Validators.required, Validators.pattern(this.validators.phonePattern)]],

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MenuComponent } from '../menu/menu.component';
 import { ListComponent } from '../../videogame/list/list.component';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
 import { GameService } from '../../services/game.service';
 import { ListPageable, Videogame } from '../../interfaces/videogames';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-nabvar',
@@ -15,13 +16,13 @@ import { ListPageable, Videogame } from '../../interfaces/videogames';
   templateUrl: './nabvar.component.html',
   styleUrl: './nabvar.component.css'
 })
-export class NabvarComponent {
+export class NabvarComponent implements OnInit{
 
-  constructor(private gameService: GameService, private router: Router){}
+  constructor(private gameService: GameService, private router: Router, private authService: AuthService){}
 
   gameFind!: ListPageable | undefined
   name: string= "";
-
+  username: any = this.authService.usernameSignal
   eventSearch(menasje: string){
     this.gameFind = undefined
     this.name = menasje;
@@ -39,4 +40,9 @@ export class NabvarComponent {
       this.gameFind = undefined
     }
   }
+
+  ngOnInit(): void {
+    this.authService.renew()
+  }
+ 
 }

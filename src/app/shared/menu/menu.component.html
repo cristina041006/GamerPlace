@@ -1,9 +1,9 @@
 <div class="menu">
     <ul>
-        <li routerLink="/videogames" routerLinkActive="active" ariaCurrentWhenActive="page">Videojuegos</li>
-        <li>Segunda Mano</li>
-        <li routerLink="/addVideogame" routerLinkActive="active" ariaCurrentWhenActive="page">Añadir</li>
-        <li>Categorias</li>
-        <li>Historial</li>
+        <li routerLink="/videogames" routerLinkActive="active" ariaCurrentWhenActive="page" class="link">Videojuegos</li>
+        <li class="link">Segunda Mano</li>
+        <li routerLink="/addVideogame" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()=='admin' || rol()=='userSeller'">Añadir</li>
+        <li class="link">Categorias</li>
+        <li routerLink="/historial" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()!='admin'">Historial</li>
     </ul>
 </div>

@@ -178,6 +178,7 @@ export class FormComponent implements OnInit {
               icon: "success",
               confirmButtonColor:"#43844B" 
             }).then((resultado)=>{
+              this.categoriesList.clear()
               this.myForm.reset()
             })
           },

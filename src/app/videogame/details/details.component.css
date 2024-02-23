@@ -74,6 +74,10 @@
 .bodyTablet{
     display: none;
 }
+.forbbiden{
+    color: #C24042;
+    font-size: 0.5cm;
+}
 
 @media only screen and (max-width: 767px){
     .plataform{

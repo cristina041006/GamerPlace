@@ -30,6 +30,10 @@ export class GameService {
     return this.http.get<ListPageable>(this.baseUrl+"/videogames?pageNum="+numPage);
   }
 
+  getAllGamePageSize(numPage: number, pageSize: number): Observable<ListPageable> {
+    return this.http.get<ListPageable>(this.baseUrl+"/videogames?pageNum="+numPage+"&pageSize="+pageSize);
+  }
+
   /**
    * Metod para hacer la peticion y obtener uno de los videojuegos segun du id
    * @param id 

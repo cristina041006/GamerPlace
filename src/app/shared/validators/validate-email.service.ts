@@ -7,9 +7,16 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ValidateEmailService implements AsyncValidator{
+/**Servicio que usaremos para validar que el email de un uaurio no exista en la base de datos al momento de añadirlo */
 
   constructor(private http:HttpClient) { }
 
+
+  /**
+   * Metodo para hacer la peticion y comporbar si hay usuarios con ese email, si hay devuelve un error si no hya devuelve null
+   * @param control 
+   * @returns 
+   */
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors|null>{
     return this.http.get<any[]>(`http://localhost:8080/existEmail?email=${control.value}`)
     .pipe(

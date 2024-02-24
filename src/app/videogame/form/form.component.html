@@ -29,7 +29,7 @@
               <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Titulo</label>
               <input type="text" id="name" class="form-control form-control-lg" placeholder="Title" required formControlName="name"/>
               <!--Metod para saber si es valido-->
-              <span class="form-text text-danger" *ngIf="isValid('name')">Este campo es obligatorio</span>
+              <span class="form-text text-danger" >{{nameErrorsMsg}}</span>
             </div>
             <div class="form-outline mb-4">
               <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Descripcion</label>
@@ -83,13 +83,13 @@
             <br>
             <div class="form-outline mb-4">
               <label class="form-label" for="typeEmailX-2"> Imagen</label>
-              <input type="file" id="imagen" class="form-control form-control-lg" name="imagen" formControlName="image"/>
-              @if (id && videogameEdit.image!=null) {
+              <input type="file" id="imagen" class="form-control form-control-lg" name="imagen" formControlName="image" (change)="getFile($event)"/>
+              @if (id && videogameEdit && videogameEdit.image!=null) {
                 <img src="{{videogameEdit.image}}" class="image">
               }
             </div>
             <!--Diferenciamos is estamos editando o añadiendo-->
-            @if (id) {
+            @if (id && videogameEdit) {
               <button class="btn btn-lg btn-block edit" type="submit" (click)="addGame()">Editar</button>
               <a class="btn btn-lg btn-block back" type="submit" routerLink="/details/{{videogameEdit.idVideogame}}">Volver</a>
             }@else {

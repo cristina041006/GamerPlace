@@ -1,3 +1,4 @@
+/**Interfaz para un gameBill que se va a almacenar en la cesta */
 export interface GameBill {
     idVideogame: number,
     nameVideogame:string,
@@ -6,6 +7,7 @@ export interface GameBill {
     maxStock: number
 }
 
+/**Interfaz para un gameBill que vamos a comprar */
 export interface GameBillBuy {
     idVideogame: number,
     nameVideogame:string,
@@ -13,6 +15,7 @@ export interface GameBillBuy {
 
 }
 
+/**Interfaz para una factura */
 export interface Bill{
     idBill: number,
     username: number,
@@ -20,6 +23,8 @@ export interface Bill{
     date: Date,
     listGameBill: ListGameBill[] 
 }
+
+/**Interfaz para el gameBill que esta en la factura */
 export interface ListGameBill {
     idVideogame: number,
     nameVideogame:string,
@@ -28,7 +33,7 @@ export interface ListGameBill {
    
 }
 
-
+/**Pageable de factura */
 export interface ListPageableBill {
     content:          Bill[];
     pageable:         Pageable;
@@ -43,6 +48,7 @@ export interface ListPageableBill {
     empty:            boolean;
 }
 
+/**Atributos del pagebale */
 export interface Pageable {
     pageNumber: number;
     pageSize:   number;
@@ -52,6 +58,7 @@ export interface Pageable {
     paged:      boolean;
 }
 
+/**Orden del pageable */
 export interface Sort {
     empty:    boolean;
     sorted:   boolean;

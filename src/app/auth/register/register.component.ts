@@ -19,7 +19,9 @@ import { ImageService } from '../../services/image.service';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+/**Componenete donde vamos a mostrar el formulario para que se registre un nuevo usuario */
 
+  /**Constructor donde llamaremos a los servicios */
   constructor(private fb: FormBuilder, 
     private validators: ValidatorsService,
     private validateEmail: ValidateEmailService,
@@ -28,6 +30,7 @@ export class RegisterComponent {
     private route: Router,
     private imageService: ImageService){}
 
+  //Variable donde se almacenara la informacion del usuario  
   user: User = {
     username: "",
     email:"",
@@ -37,8 +40,12 @@ export class RegisterComponent {
     password:"",
     image:""
   }
+  //Variable donde se almacenara la url de la imagen
   imageUrl: string =''
 
+  /**Formulario reactivo con los campos correspondientes para crear un usuario y sus respectivas 
+   * validaciones
+   */
   myForm: FormGroup = this.fb.group({
     username: ['', [Validators.required], [this.validateUsername]],
     email: ['', [Validators.required, Validators.pattern(this.validators.emailPattern)],[this.validateEmail]],
@@ -51,10 +58,16 @@ export class RegisterComponent {
   }, {validators: [this.validators.equalsFields('password', 'passwordComfirm')]})
 
 
+  /**Metodo que comprueba si un campo tiene fallos */
   isValid(field:string){
     return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
   } 
 
+  /**
+   * Metodo para poder extraer la verdadera url de la imagen que 
+   * hemos seleccionado e introducirsela a la variable imageUrl
+   * @param event 
+   */
   getFile(event: Event){
     const input: HTMLInputElement = <HTMLInputElement>event.target
 
@@ -69,6 +82,9 @@ export class RegisterComponent {
 
   }
 
+  /**
+   * Metodo que devuelve el mensaje de error del campo username dependiendo del error
+   */
   get usernameErrosMsg():string{
     const errors = this.myForm.get("username")?.errors;
     let errorMsg = "";
@@ -82,6 +98,10 @@ export class RegisterComponent {
 
     return errorMsg;
   }
+
+  /**
+   * Metodo que devuelve el mensaje de error del campo email dependiendo del error
+   */
   get emailErrosMsg():string{
     const errors = this.myForm.get("email")?.errors;
     let errorMsg = "";
@@ -97,6 +117,10 @@ export class RegisterComponent {
 
     return errorMsg;
   }
+
+  /**
+   * Metodo que devuelve el mensaje de error del campo name dependiendo del error
+   */
   get nameErrosMsg():string{
     const errors = this.myForm.get("name")?.errors;
     let errorMsg = "";
@@ -110,6 +134,10 @@ export class RegisterComponent {
 
     return errorMsg;
   }
+
+  /**
+   * Metodo que devuelve el mensaje de error del campo phone dependiendo del error
+   */
   get phoneErrosMsg():string{
     const errors = this.myForm.get("phone")?.errors;
     let errorMsg = "";
@@ -124,7 +152,10 @@ export class RegisterComponent {
     return errorMsg;
   }
 
-  get passwordErrosMsg():string{
+  /**
+   * Metodo que devuelve el mensaje de error del campo passwordComfirm dependiendo del error
+   */
+  get passwordComfirmErrosMsg():string{
     const errors = this.myForm.get("passwordComfirm")?.errors;
     let errorMsg = "";
     if(this.myForm.get("passwordComfirm")?.touched && errors){
@@ -134,22 +165,68 @@ export class RegisterComponent {
         errorMsg = "The password mut be the same";
       }
     }
-
     return errorMsg;
   }
 
+  /**
+   * Metodo que devuelve el mensaje de error del campo passwordComfirm dependiendo del error
+   */
+  get passwordErrosMsg():string{
+    const errors = this.myForm.get("passwordComfirm")?.errors;
+    let errorMsg = "";
+    if(this.myForm.get("passwordComfirm")?.touched && errors){
+      if(errors['required']){
+        errorMsg = "Password is required";
+      }else if(errors['pattern']){
+        errorMsg = "The password must contain at least one uppercase number and have a length of 8";
+      }
+    }
+    return errorMsg;
+  }
+
+  /**
+   * Metodo para añadir al usuario, comprobando si el usuario es valido, si estamos añadiendo imagen o no
+   * y capturando los errores para mostrarlos
+   */
   submit(){
+    //Comprobamos que el formualrio es valido
     if(this.myForm.invalid){
-      console.log(this.myForm);
-      
       this.myForm.markAllAsTouched()
     }else{
+      //Quitamos el campo que no nos hace falta
       const {passwordComfirm, ...values} = this.myForm.value
       this.user = values;
+      //Comprobamos si vamos a añadir imagen
+      if(this.imageUrl!=""){
+        this.imageService.uploadFile(this.imageUrl).subscribe((response)=>{
+          this.user.image = response.url
+          console.log(this.user);
+          this.authService.signup(this.user).subscribe({
+            next: (userAdd) => {
+              Swal.fire({
+                title: "Save!",
+                text: "Your count has been created.",
+                icon: "success",
+                confirmButtonColor:"#43844B" 
+              }).then((resultado)=>{
+                this.imageUrl=""
+                this.route.navigate(['login'])
+              })
+            },
+            error: (error) =>{
+              Swal.fire({
+                title: "Error",
+                text: error.error.message,
+                icon: "error",
+                confirmButtonText: "Close",
+                confirmButtonColor:"#949494" 
+              }); 
+            }
+          })
+          
+        })
 
-      this.imageService.uploadFile(this.imageUrl).subscribe((response)=>{
-        this.user.image = response.url
-        console.log(this.user);
+      }else{
         this.authService.signup(this.user).subscribe({
           next: (userAdd) => {
             Swal.fire({
@@ -158,6 +235,7 @@ export class RegisterComponent {
               icon: "success",
               confirmButtonColor:"#43844B" 
             }).then((resultado)=>{
+              this.imageUrl=""
               this.route.navigate(['login'])
             })
           },
@@ -171,8 +249,8 @@ export class RegisterComponent {
             }); 
           }
         })
-        
-      })
+
+      }
 
     }
   }

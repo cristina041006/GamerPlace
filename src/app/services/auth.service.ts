@@ -9,6 +9,7 @@ import { ImageService } from './image.service';
   providedIn: 'root'
 })
 export class AuthService {
+/**Servicio donde vamos a tener todos los metodos relacionados con el usuario */
 
   private baseUrl : string= "http://localhost:8080";
   constructor(private http : HttpClient) { }
@@ -17,12 +18,20 @@ export class AuthService {
 
 
 
+  /**
+   * Metodo para almacenar el token del uauario en el localStorage
+   * @param resp 
+   */
   storageUser(resp: any){
     localStorage.setItem('Authorization', resp.token);
     console.log(jwtDecode(resp.token));
     
   }
 
+  /**
+   * Metodo para recuperar el token del localStorage desencriptarlo y rellenar las variables
+   * del username y rol
+   */
   renew(){
     if(localStorage.getItem("Authorization")!=null){
       const token: any = jwtDecode(localStorage.getItem("Authorization") || '')
@@ -34,6 +43,12 @@ export class AuthService {
     
   }
 
+  /**
+   * Metodo para que un usuario se pueda loguear, si la respuesta es correcta llamamos al metodo 
+   * que almacena el token, si no mandamos un error
+   * @param userLogin 
+   * @returns 
+   */
   singin(userLogin: UserLogin): Observable<string|Boolean>{
     return this.http.post<any>(`${this.baseUrl}/signin`, userLogin)
     .pipe(
@@ -45,10 +60,19 @@ export class AuthService {
     )
   }
 
+  /**
+   * Metoto para poder registrar un nuevo uauruario
+   * @param user 
+   * @returns 
+   */
   signup(user: User): Observable<User>{
     return this.http.post<User>(`${this.baseUrl}/signup`, user)
   }
 
+  /**
+   * Metodo
+   * @returns 
+   */
   validateToken(){
     const token = localStorage.getItem("Authorization");
     if(token){

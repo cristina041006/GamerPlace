@@ -30,7 +30,7 @@ export interface Videogame {
     namePlataform: string;
     idUser:        number;
     username:      string;
-    image:         null;
+    image:         string;
     listCategory:  ListCategoryGame[];
 }
 

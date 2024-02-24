@@ -12,15 +12,25 @@ import { RouterLink } from '@angular/router';
   styleUrl: './start.component.css'
 })
 export class StartComponent implements OnInit{
+/**Componente donde vamos a cargar el index */
 
+  /**Contructor donde llamaremos al servicio de game */
   constructor(private gameService: GameService){}
-  games!: Videogame[]
-  pageable!: ListPageable
 
+  //variable
+  games!: Videogame[] //lista de videojuegos recientes
+  pageable!: ListPageable //pagebale
+
+  /**
+   * Metodo que se ejecutara al cargar el componente y buscara los juegos nuevos mas recientes 
+   * de la base de datos
+   */
   ngOnInit(): void {
-    
+
+    //Buscamos todos los jeugos
     this.gameService.getAllGame().subscribe({
       next: (page)=>{
+        //Buscamos los mas recientes
         this.gameService.getAllGamePageSize(page.totalPages-1, 8).subscribe({
           next: (game) =>{
             this.games = game.content

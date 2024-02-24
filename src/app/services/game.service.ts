@@ -60,9 +60,8 @@ export class GameService {
    * @param categories 
    * @returns Observable con el juego añadido
    */
-  addNewGame(game: Omit<Videogame, "idVideogame" | "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory" | "image">, file: File, categories: String[]): Observable<Videogame>{
+  addNewGame(game: Omit<Videogame, "idVideogame" | "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory">, categories: String[]): Observable<Videogame>{
     const formData: FormData = new FormData();
-    formData.append('image', file);
     const blobGame = new Blob([JSON.stringify(game)], {
       type: 'application/json'
     })
@@ -83,9 +82,8 @@ export class GameService {
    * @param id 
    * @returns Observable con el videojuego editado
    */
-  editGame(game: Omit<Videogame, "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory" | "image">, file: File, categories: String[], id: string): Observable<Videogame>{
+  editGame(game: Omit<Videogame, "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory">, categories: String[], id: string): Observable<Videogame>{
     const formData: FormData = new FormData();
-    formData.append('image', file);
     const blobGame = new Blob([JSON.stringify(game)], {
       type: 'application/json'
     })

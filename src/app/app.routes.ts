@@ -23,7 +23,7 @@ export const routes: Routes = [
     },
     {
         path: "addVideogame", component: FormComponent,
-        canMatch: [jwtGuard,jwtSellerGuard]
+        
     },
     {
         path: "editVideogame/:id", component: FormComponent,

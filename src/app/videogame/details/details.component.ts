@@ -133,8 +133,14 @@ export class DetailsComponent implements OnInit{
     });
   }
 
+  /**
+   * Metodo para añadir ese articulo al carrito, cogiendo los campos necesarios y comporbando 
+   * si ese juego ya estaba anteriromente en el carrito
+   */
   addCar(){
+    //Miramos que la cantidad no sea 0
     if(this.amount>0){
+      //Cogemos los atributos necesarios
       this.gameBill.nameVideogame = this.game.name
       this.gameBill.amount = this.amount,
       this.gameBill.price = this.game.price;
@@ -142,12 +148,15 @@ export class DetailsComponent implements OnInit{
       if(this.game.idVideogame){
         this.gameBill.idVideogame = this.game.idVideogame
       }
+      //Comprobamos si ya habia algo en el carrito
       if(localStorage.getItem('shop')==null){
         this.shop.push(this.gameBill)
         localStorage.setItem('shop', JSON.stringify(this.shop))
       }else{
         let exist:boolean = false
         this.shop = JSON.parse(localStorage.getItem('shop') || "")
+        //Recorremos el carrito a ver si ya existia el jeugo que queremos añadir si ya esite aumentamos la cantidad
+        //si no lo añadimos
         for(let i=0; i<this.shop.length && !exist; i++){
           if(this.game.name==this.shop[i].nameVideogame){
             exist = true;
@@ -181,6 +190,10 @@ export class DetailsComponent implements OnInit{
     }
   }
 
+  /**
+   * Metodo para obtener el stock maximo de un articulo dependeindo de
+   * su stock en base de datos y si tenemos ese juego en la cesta 
+   */
   getMinStock(){
     if(localStorage.getItem('shop')!=null){
       let exist: boolean = false

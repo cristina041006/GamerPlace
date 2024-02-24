@@ -48,15 +48,15 @@
               <div class="form-outline mb-4">
                 <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Password</label>
                 <input type="password" id="password" class="form-control form-control-lg" formControlName="password" />
-                <span class="form-text text-danger" *ngIf="isValid('password')">
-                  Password is required
+                <span class="form-text text-danger" >
+                 {{passwordErrosMsg}}
               </span>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Repeat password</label>
                 <input type="password" id="passwordC" class="form-control form-control-lg" formControlName="passwordComfirm" />
                 <span class="form-text text-danger">
-                  {{passwordErrosMsg}}
+                  {{passwordComfirmErrosMsg}}
                </span>
               </div>
               <div class="form-outline mb-4">

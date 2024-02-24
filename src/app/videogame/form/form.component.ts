@@ -11,6 +11,8 @@ import { Videogame, ListCategoryGame } from '../../interfaces/videogames';
 import { GameService } from '../../services/game.service';
 import { RouterLink } from '@angular/router';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { ImageService } from '../../services/image.service';
+import { ValidateNameGameService } from '../../shared/validators/validate-name-game.service';
 
 @Component({
   selector: 'app-form',
@@ -26,22 +28,25 @@ export class FormComponent implements OnInit {
   constructor(private categoryService: CategoryService, 
     private plataformService: PlataformService,
     private fb: FormBuilder,
-    private gameService: GameService){}
+    private gameService: GameService,
+    private imageService: ImageService,
+    private validateService: ValidateNameGameService){}
 
   //Variables
   @Input() id!: string; //Id del videojuego si vamos a editar
   categories: CategoryWithoutList[] = [] //Donde almacenaremos las catgeorias
   plataform: PlataformWithoutList[] = [] //Donde almacenaremos las plataformas
   //Videojuego con algunos campos utilizado para poder añadir
-  videogame : Omit<Videogame, "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory" | "image"> = {
+  videogame : Omit<Videogame, "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory" > = {
     name: "",
     description: "",
     price: 1,
     stock: 0,
     idPlataform: 1,
+    image:""
   }
   categoriesAdd: string[] = [] //Donde almacenaremos las catgeorias que vamos a añadir
-  imageAdd!: File //Donde alamcenaremos la imagen que vamos a añadir 
+  imageUrl: string =""//Donde alamcenaremos la imagen que vamos a añadir 
   videogameEdit!: Videogame //Videojuego con todos sus campos utilizado para editar
   
   //FormControl donde iran rotando las categorias seleccionadas para añadirlas a la lista
@@ -50,7 +55,7 @@ export class FormComponent implements OnInit {
   //Datos del formulario
   myForm: FormGroup = this.fb.group({
     idVideogame: [''],
-    name: ['',[Validators.required]],
+    name: ['',[Validators.required],[this.validateService]],
     description: ['', [Validators.required]],
     price: ['', [Validators.required, Validators.min(1)]],
     stock: ['', [Validators.required, Validators.min(0)]],
@@ -58,7 +63,7 @@ export class FormComponent implements OnInit {
     //Lista de catgeorias
     categoriesList: this.fb.array([
     ], Validators.required),
-    image: [this.imageAdd]
+    image: ['']
   })
 
   /**
@@ -93,6 +98,18 @@ export class FormComponent implements OnInit {
     return errorMsg;
   }
 
+  get nameErrorsMsg():string{
+    const errors = this.myForm.get('name')?.errors;
+    let errorMsg= "";
+    if(this.myForm.get('name')?.touched && errors){
+      if(errors['required']){
+        errorMsg = "The name is required"
+      }else if(errors['nameTaken']){
+        errorMsg = "The name game is already exist"
+      }
+    }
+    return errorMsg;
+  }
   /**
    * Metodo para poder acceder a las catgeorias mas facilmente tratandolas como un FromArray 
    */
@@ -162,38 +179,75 @@ export class FormComponent implements OnInit {
     }else{
       //Hacemos desestructuracion para sacar los datos que no nos interesan para añadir y editar
       //o los que necesitamos aislados
-      const {categoriesList, image, idVideogame,...rest} = this.myForm.value
+      const {categoriesList, idVideogame,...rest} = this.myForm.value
       this.videogame = rest;      
       this.categoriesAdd = categoriesList
-      this.imageAdd = image 
-      
+    
       //Si no etamos editando hacemos peticion para poder añadir pasandole el juego, las catgeorias y la imagen
       if(!this.id){
-        this.gameService.addNewGame(this.videogame, this.imageAdd, this.categoriesAdd).subscribe({
-          next: (game) =>{
-            //Si todo va bien mostramos alerta exitosa y reseteamos el fromualrio
-            Swal.fire({
-              title: "Save!",
-              text: "Your file has been save.",
-              icon: "success",
-              confirmButtonColor:"#43844B" 
-            }).then((resultado)=>{
-              this.categoriesList.clear()
-              this.myForm.reset()
+        if(this.imageUrl!=""){
+          this.imageService.uploadFile(this.imageUrl).subscribe((response)=>{
+            this.videogame.image = response.url
+            console.log(this.videogame);
+            this.gameService.addNewGame(this.videogame, this.categoriesAdd).subscribe({
+              next: (game) =>{
+                //Si todo va bien mostramos alerta exitosa y reseteamos el fromualrio
+                Swal.fire({
+                  title: "Save!",
+                  text: "Your file has been save.",
+                  icon: "success",
+                  confirmButtonColor:"#43844B" 
+                }).then((resultado)=>{
+                  this.categoriesList.clear()
+                  this.myForm.reset()
+                  this.imageUrl="";
+                })
+              },
+              error: (error)=>{
+                //Si hay algun error se los mostramos con el mensaje correspondiente
+                Swal.fire({
+                  title: "Error al añadir",
+                  text: error.error.message,
+                  icon: "error",
+                  confirmButtonText: "Close",
+                  confirmButtonColor:"#949494" 
+                }); 
+                
+              }
             })
-          },
-          error: (error)=>{
-            //Si hay algun error se los mostramos con el mensaje correspondiente
-            Swal.fire({
-              title: "Error al añadir",
-              text: error.error.message,
-              icon: "error",
-              confirmButtonText: "Close",
-              confirmButtonColor:"#949494" 
-            }); 
             
-          }
-        })
+          })
+
+        }else{
+
+          this.gameService.addNewGame(this.videogame, this.categoriesAdd).subscribe({
+            next: (game) =>{
+              //Si todo va bien mostramos alerta exitosa y reseteamos el fromualrio
+              Swal.fire({
+                title: "Save!",
+                text: "Your file has been save.",
+                icon: "success",
+                confirmButtonColor:"#43844B" 
+              }).then((resultado)=>{
+                this.categoriesList.clear()
+                this.myForm.reset()
+                this.imageUrl="";
+              })
+            },
+            error: (error)=>{
+              //Si hay algun error se los mostramos con el mensaje correspondiente
+              Swal.fire({
+                title: "Error al añadir",
+                text: error.error.message,
+                icon: "error",
+                confirmButtonText: "Close",
+                confirmButtonColor:"#949494" 
+              }); 
+              
+            }
+          })
+
+        }
 
       }else{
         //Si estamos editando mostramos mensaje de alerta para que nos confirme que quiere editar
@@ -210,28 +264,57 @@ export class FormComponent implements OnInit {
           //Si acepta hacemos peticion para editar pasnaodle el id del juego, el juego
           //las catgeorias y la imagen 
           this.videogame.idVideogame = idVideogame;
-          this.gameService.editGame(this.videogame, this.imageAdd, this.categoriesAdd, this.id).subscribe({
-            next: (game) =>{
-              //Si todo va bien mostranmos una alerta de exito
-              Swal.fire({
-                title: "Save!",
-                text: "Your file has been edit.",
-                icon: "success",
-                confirmButtonColor:"#43844B" 
-              })
-            },
-            error: (error)=>{
-              //Si hay algun erroe mostramos un mensaje de alerta con el error correspondiente
-              Swal.fire({
-                title: "Error al editar",
-                text: error.error.message,
-                icon: "error",
-                confirmButtonText: "Close",
-                confirmButtonColor:"#949494" 
-              }); 
-              
-            }
+          if(this.imageUrl!=""){
+            this.imageService.uploadFile(this.imageUrl).subscribe((response)=>{
+              this.videogame.image = response.url
+              this.gameService.editGame(this.videogame, this.categoriesAdd, this.id).subscribe({
+                next: (game) =>{
+                  //Si todo va bien mostranmos una alerta de exito
+                  Swal.fire({
+                    title: "Save!",
+                    text: "Your file has been edit.",
+                    icon: "success",
+                    confirmButtonColor:"#43844B" 
+                  })
+                },
+                error: (error)=>{
+                  //Si hay algun erroe mostramos un mensaje de alerta con el error correspondiente
+                  Swal.fire({
+                    title: "Error al editar",
+                    text: error.error.message,
+                    icon: "error",
+                    confirmButtonText: "Close",
+                    confirmButtonColor:"#949494" 
+                  }); 
+                  
+                }
+                })
             })
+
+          }else{
+            this.gameService.editGame(this.videogame, this.categoriesAdd, this.id).subscribe({
+              next: (game) =>{
+                //Si todo va bien mostranmos una alerta de exito
+                Swal.fire({
+                  title: "Save!",
+                  text: "Your file has been edit.",
+                  icon: "success",
+                  confirmButtonColor:"#43844B" 
+                })
+              },
+              error: (error)=>{
+                //Si hay algun erroe mostramos un mensaje de alerta con el error correspondiente
+                Swal.fire({
+                  title: "Error al editar",
+                  text: error.error.message,
+                  icon: "error",
+                  confirmButtonText: "Close",
+                  confirmButtonColor:"#949494" 
+                }); 
+                
+              }
+              })
+          }
           }
         })
       }   
@@ -272,6 +355,21 @@ export class FormComponent implements OnInit {
    */
   deleteCategory(i: number){
     this.categoriesList.removeAt(i);
+  }
+
+
+  getFile(event: Event){
+    const input: HTMLInputElement = <HTMLInputElement>event.target
+
+    if(input.files && input.files[0]){
+      let reader = new FileReader();
+      reader.onload =(e:any) => {
+        console.log(e.target.result);
+        this.imageUrl = e.target.result
+      }
+      reader.readAsDataURL(input.files[0])
+    }
+
   }
 
 }

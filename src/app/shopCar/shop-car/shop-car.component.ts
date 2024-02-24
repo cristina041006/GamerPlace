@@ -16,22 +16,32 @@ import { BillService } from '../../services/bill.service';
   styleUrl: './shop-car.component.css'
 })
 export class ShopCarComponent implements OnInit{
+/**Componenete donde vamos a controlar el carrito de la compra y se podra comprara */
 
+  /**Contructor donde llamaremos a los servicios necesarios */
   constructor(private gameService: GameService,private authService: AuthService, private billService: BillService) {}
 
-  shop: GameBill[] = []
-  shopBuy: GameBillBuy[] = []
-  totlaPrice: number =0;
-  value: number = 0
-  maxStok : number=0;
-  username: any;
+  //variables
+  shop: GameBill[] = [] //lista con los juegos a comprar y susu cantidades
+  shopBuy: GameBillBuy[] = [] //lista que vamos a mandar a la hora de comprar
+  totlaPrice: number =0; //precio
+  value: number = 0 
+  maxStok : number=0; //stock maximo de cada producto
+  username: any; //nombre del usuario logueado
 
+  /**
+   * Metodo que se cargara al cargar el componenete y me almacenara en la variable la cesta que tengo
+   * en el localStorage
+   */
   ngOnInit(): void {
     if(localStorage.getItem('shop')!=null){
       this.getTotalPrice()
     }
   }
 
+  /**
+   * Metodo para obtener el precio total de la factura
+   */
   getTotalPrice(){
     this.totlaPrice=0
     this.shop = JSON.parse(localStorage.getItem('shop') || "")
@@ -41,10 +51,20 @@ export class ShopCarComponent implements OnInit{
       }
   }
 
+  /**
+   * Metodo para quitar los decimales al precio y truncarlo
+   * @param amount 
+   * @returns 
+   */
   truncateNum(amount:number){
     return Math.round(amount*100)/100
   }
 
+  /**
+   * Metodo para borra un articulo del carrito, preguntando primero para 
+   * evitar borarados inecesarios
+   * @param index 
+   */
   deleteOne(index: number){
     if(this.shop){
       Swal.fire({
@@ -66,6 +86,12 @@ export class ShopCarComponent implements OnInit{
     }
   }
 
+  /**
+   * Metodo para aumentar o disminuir la cantidad de un juego teniendo siempre en cuenta el stock maximo. Cogiendo 
+   * la cantidad del valor del imput que hemos cambiado
+   * @param index 
+   * @param event 
+   */
   changeNumber(index:number, event: Event){
     this.maxStok =0;
     const input: HTMLInputElement = <HTMLInputElement>event.target
@@ -75,14 +101,22 @@ export class ShopCarComponent implements OnInit{
     
   }
 
+  /**
+   * Metodo para poder comprar. Por cada jeugo de la cesta se creara un gameBill
+   * corresponfiente y se añadira a la cesta auxiliar para comprar
+   */
   buy(){
+    //Creamos la cesta que vamos a mandar la peticion
     this.shop.forEach((gameBill) => {
       const {idVideogame, nameVideogame, amount,...rest} = gameBill
       this.shopBuy.push({idVideogame, nameVideogame, amount})
     })
+    //Conseguimos el usuario logueado
     this.authService.renew()
     this.username = this.authService.usernameSignal
+    //Si esta logueado
     if(this.username() != ""){
+      //Hacemos peticion y compramos
       this.billService.buy(this.shopBuy, this.username()).subscribe({
         next : (bill) =>{
           Swal.fire({
@@ -104,6 +138,14 @@ export class ShopCarComponent implements OnInit{
           }); 
         }
       })
+    }else{
+      Swal.fire({
+        title: "Error to buy",
+        text: "You're not logged",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor:"#949494" 
+      }); 
     }
     
     

@@ -8,10 +8,17 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class BillService {
+  /**Servicio donde vamos a controlar las facturas */
 
   private baseUrl : string= "http://localhost:8080";
   constructor(private http:HttpClient) { }
 
+  /**
+   * Metodo para comprar, pasandole los datos desde un fromData
+   * @param listBuy 
+   * @param username 
+   * @returns 
+   */
   buy(listBuy: GameBillBuy[], username: string): Observable<Bill>{
     const formData = new FormData()
     const blobList = new Blob([JSON.stringify(listBuy)], {
@@ -25,13 +32,34 @@ export class BillService {
     return this.http.post<Bill>(`${this.baseUrl}/buy`, formData)
   }
 
+  /**
+   * Metodo para pdoer obtener las facturas de un usuario
+   * @param username 
+   * @returns 
+   */
   getBill(username:string): Observable<ListPageableBill>{
     return this.http.get<ListPageableBill>(`${this.baseUrl}/getBill?user=${username}`)
   }
 
+
+  /**
+   * Metodo para poder tener las faturas de ese usuario paginando
+   * @param numPage 
+   * @param username 
+   * @returns 
+   */
   getBillPage(numPage: number, username:string): Observable<ListPageableBill> {
     return this.http.get<ListPageableBill>(`${this.baseUrl}/getBill?user=${username}&pageNum=${numPage}`);
   }
+
+  /**
+   * Metodo para poder tener las faturas de ese usuario paginando y ordenando
+   * @param attribute 
+   * @param username 
+   * @param numPage 
+   * @param sort 
+   * @returns 
+   */
   getBillOrder(attribute: string, username:string, numPage: number, sort:boolean): Observable<ListPageableBill> {
     return this.http.get<ListPageableBill>(`${this.baseUrl}/getBill?user=${username}&pageNum=${numPage}&sort=${attribute}&order=${sort}`);
   }

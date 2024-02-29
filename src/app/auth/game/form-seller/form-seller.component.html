@@ -1,8 +1,8 @@
 <!--Diferenciamos is estamos editando o añadiendo-->
 @if (id) {
-    <h1 class="title">Edit videogame</h1>
+    <h1 class="title">Edit your game</h1>
 }@else {
-    <h1 class="title">Add videogame</h1>
+    <h1 class="title">Add your game</h1>
 }
 <section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
   <div class="container py-5 h-100">
@@ -12,9 +12,9 @@
           <div class="card-body p-5 text-center content">
             <!--Diferenciamos is estamos editando o añadiendo-->
               @if (id) {
-                  <h3 class="mb-5 subtitle">Edit the videogame</h3>
+                  <h3 class="mb-5 subtitle">Edit one of your games</h3>
               }@else {
-                  <h3 class="mb-5 subtitle">Add one videogame</h3>
+                  <h3 class="mb-5 subtitle">Sell your game</h3>
               }
             <!--Vinculamos el formulario con nuestro FormGroup-->
             <form [formGroup]="myForm" enctype="multipart/form-data" method="post">
@@ -103,7 +103,6 @@
     </div>
   </div>
 </section>
-
 
 <br>
 <br>

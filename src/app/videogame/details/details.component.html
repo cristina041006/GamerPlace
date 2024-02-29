@@ -1,99 +1,107 @@
 <!--Cuando nos asefuremos que el juego contiene datos-->
 @if (game) {
 
+  <section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-7" style="width: 100%;">
+          <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center content">
+            <div class="list">
+                <div >
+                    <div class="card mb-3" style="max-width: 800px; max-height: 190px; padding-left: 5%; border: 0px; margin-top: 3%;">
+                        <div class="row g-0 image" style="width: 700px;">
+                          <div class="card-body bodyTablet">
+                          <h1 style="padding-left: 8%;">{{game.name}}</h1>                 
+                          </div>
+                          <!--Comprobamos si contiene imagen para poder si no una por defecto-->
+                          @if (game.image==null) {
+                            <div class="col-md-4 tablet">
+                              <img src="../../../assets/img/Imagen_no_disponible.svg.png" class="img-fluid port" alt="...">
+                            </div>
+                          }@else {
+                            <div class="col-md-4 " style="padding-left: 10%; width: 350px;">
+                                <img src="{{game.image}}" class="img-fluid port" alt="...">
+                            </div>
+                            
+                          }
+                          <div class="card-body bodyTablet">
 
-  <div class="list">
-      <div >
-          <div class="card mb-3" style="max-width: 800px; max-height: 190px; padding-left: 5%; border: 0px; margin-top: 3%;">
-              <div class="row g-0 image" style="width: 700px;">
-                <div class="card-body bodyTablet">
-                 <h1 style="padding-left: 8%;">{{game.name}}</h1>                 
-                </div>
-                <!--Comprobamos si contiene imagen para poder si no una por defecto-->
-                @if (game.image==null) {
-                  <div class="col-md-4 tablet">
-                    <img src="../../../assets/img/Imagen_no_disponible.svg.png" class="img-fluid port" alt="...">
-                  </div>
-                }@else {
-                  <div class="col-md-4 " style="padding-left: 10%; width: 350px;">
-                      <img src="{{game.image}}" class="img-fluid port" alt="...">
-                  </div>
-                  
-                }
-                <div class="card-body bodyTablet">
+                            <!--Comprobamos su calidad para indicar si es nuevo o de segunda-->
+                            @if (game.quality=="new") {
+                              <h4 class="card-text" style="padding-left: 9%;">{{game.price}}€ <h4 style="float: right; padding-right: 43%;">New game</h4></h4>
 
-                  <!--Comprobamos su calidad para indicar si es nuevo o de segunda-->
-                  @if (game.quality=="new") {
-                    <h4 class="card-text" style="padding-left: 9%;">{{game.price}}€ <h4 style="float: right; padding-right: 43%;">New game</h4></h4>
-
-                  }@else {
-                    <h4 class="card-text" style="padding-left: 9%;">{{game.price}}€ <h4 style="float: right; padding-right: 40%;">Second-hand game</h4></h4>
-                  }
-      
-                  <!--Parte responsiva modo tablet o movil-->
-                  <div class="d-grid gap-2" style="width: 290px; margin-left: 8%; margin-top: 10%;">
-                    <button class="btn add" type="button">Añadir</button>
-                    <div style="display: flex; justify-content: space-around;">
-                      @if (rol()=='admin') {
-                        <!--Botones que nos llevan a editar o te dan la opcion de borrar-->
-                        <a class="btn edit" type="button" routerLink="/editVideogame/{{game.idVideogame}}">Editar</a>
-                        <button class="btn delete" type="button" (click)="deleteOneGame()">Borra</button>
-                      }
-                    </div>
-                  </div>                 
-                </div>
-
-                <!--Modo desktop-->
-                <div class="col-md-8" style="width: 350px;">
-                  <div class="card-body information">
-                    <h2 class="card-title name">{{game.name}}</h2>
-                    @if (game.quality=="new") {
-                      <h4 class="card-text">New game</h4>
-                    }@else {
-                      <h4 class="card-text">Second-hand game</h4>
-                      <h4 class="card-text">Seller:{{game.username}}</h4>
-                    }
-                    <h4 class="card-text">{{game.namePlataform}}</h4>
-                    <br>
-                    <p class="card-text"><small style="color: black; font-size: 0.4cm;"><span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span></small></p>
-                    @if (rol()=='admin') {
-                      <!--Botones que nos llevan a editar o te dan la opcion de borrar-->
-                      <a class="btn edit" routerLink="/editVideogame/{{game.idVideogame}}">Editar</a>
-                      <button class="btn delete" (click)="deleteOneGame()">Borrar</button>
-
-                    }
-                  </div>
-                </div>
-              </div>
-          </div>
-      </div>
-      <div class="plataform shadow">
-          <h3>Price:</h3>
-          <h3>{{game.price}}€</h3>
-          @if (game.stock>0 && minStock>0) {
-            <h3>Amount:</h3>
-            <form #myForm="ngForm" >
-              @if(rol()==''){
-                <input type="number" disabled style="width: 60%; margin-left: 20%; margin-bottom: 4%;" id="amount" class="form-control form-control-lg" name="amount" [(ngModel)]="amount"  min="1" max="{{minStock}}"/> 
-                <button class="btn add" (click)="addCar()" disabled>Añadir</button>
+                            }@else {
+                              <h4 class="card-text" style="padding-left: 9%;">{{game.price}}€ <h4 style="float: right; padding-right: 40%;">Second-hand game</h4></h4>
+                            }
                 
-                <p class="forbbiden">Login to buy</p>
-              }@else if (rol()=="user" ||rol()=="userSeller" ) {
-              <input type="number"  style="width: 60%; margin-left: 20%; margin-bottom: 4%;" id="amount" class="form-control form-control-lg" name="amount" [(ngModel)]="amount"  min="1" max="{{minStock}}"/> 
-              <button class="btn add" (click)="addCar()" >Añadir</button>
-            }
-             
-            </form>
-          }@else {
-            <h3>Stock no disponible</h3>
-          }
-      </div>
-  </div>
+                            <!--Parte responsiva modo tablet o movil-->
+                            <div class="d-grid gap-2" style="width: 290px; margin-left: 8%; margin-top: 10%;">
+                              <button class="btn add" type="button">Añadir</button>
+                              <div style="display: flex; justify-content: space-around;">
+                                @if (rol()=='admin') {
+                                  <!--Botones que nos llevan a editar o te dan la opcion de borrar-->
+                                  <a class="btn edit" type="button" routerLink="/editVideogame/{{game.idVideogame}}">Edit</a>
+                                  <button class="btn delete" type="button" (click)="deleteOneGame()">Delete</button>
+                                }
+                              </div>
+                            </div>                 
+                          </div>
+
+                          <!--Modo desktop-->
+                          <div class="col-md-8" style="width: 350px;">
+                            <div class="card-body information">
+                              <h2 class="card-title name">{{game.name}}</h2>
+                              @if (game.quality=="new") {
+                                <h4 class="card-text">New game</h4>
+                              }@else {
+                                <h4 class="card-text">Second-hand game</h4>
+                                <h4 class="card-text">Seller: {{game.username}}</h4>
+                              }
+                              <h4 class="card-text">{{game.namePlataform}}</h4>
+                              <br>
+                              <p class="card-text"><small style="color: black; font-size: 0.4cm;"><span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span></small></p>
+                              @if (rol()=='admin') {
+                                <!--Botones que nos llevan a editar o te dan la opcion de borrar-->
+                                <a class="btn edit" routerLink="/editVideogame/{{game.idVideogame}}">Edit</a>
+                                <button class="btn delete" (click)="deleteOneGame()">Delete</button>
+
+                              }
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="plataform shadow">
+                    <h3>Price:</h3>
+                    <h3>{{game.price}}€</h3>
+                    @if (game.stock>0 && minStock>0) {
+                      <form #myForm="ngForm" >
+                        @if(rol()==''){
+                          <h3>Amount:</h3>
+                          <input type="number" disabled style="width: 60%; margin-left: 20%; margin-bottom: 4%;" id="amount" class="form-control form-control-lg" name="amount" [(ngModel)]="amount"  min="1" max="{{minStock}}"/> 
+                          <button class="btn add" (click)="addCar()" disabled>Add to Cart</button>
+                          
+                          <p class="forbbiden">Login to buy</p>
+                        }@else if (rol()=="user" ||rol()=="userSeller" ) {
+                          <h3>Amount:</h3>
+                          <input type="number"  style="width: 60%; margin-left: 20%; margin-bottom: 4%;" id="amount" class="form-control form-control-lg" name="amount" [(ngModel)]="amount"  min="1" max="{{minStock}}"/> 
+                          <button class="btn add" (click)="addCar()" >Add to Cart</button>
+                        }@else {
+                          <p class="forbbiden">Admin can't buy</p>
+                        }
+                      
+                      </form>
+                    }@else {
+                      <h3>Stock not available</h3>
+                    }
+                </div>
+            </div>
   <br>
   <br>
   <div class="list description" style="text-align: center;">
       <div style="width: 40%;">
-          <h2 class="details">Descripcion</h2>
+          <h2 class="details">Description</h2>
           <br>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
               eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -103,8 +111,13 @@
               pariatur. </p>
   
       </div>
-  
   </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 }
 

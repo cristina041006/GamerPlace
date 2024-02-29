@@ -1,27 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CategoryService } from '../../services/category.service';
-import { CategoryWithoutList } from '../../interfaces/categories';
-import { CommonModule, JsonPipe } from '@angular/common';
-import { PlataformWithoutList } from '../../interfaces/plataform';
-import { PlataformService } from '../../services/plataform.service';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { switchMap } from 'rxjs';
+import { Component, Input } from '@angular/core';
 import Swal from 'sweetalert2';
-import { Videogame, ListCategoryGame } from '../../interfaces/videogames';
-import { GameService } from '../../services/game.service';
+import { CategoryService } from '../../../services/category.service';
+import { PlataformService } from '../../../services/plataform.service';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { GameService } from '../../../services/game.service';
+import { ImageService } from '../../../services/image.service';
+import { ValidateNameGameService } from '../../../shared/validators/validate-name-game.service';
+import { CategoryWithoutList } from '../../../interfaces/categories';
+import { PlataformWithoutList } from '../../../interfaces/plataform';
+import { Videogame } from '../../../interfaces/videogames';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { FooterComponent } from '../../shared/footer/footer.component';
-import { ImageService } from '../../services/image.service';
-import { ValidateNameGameService } from '../../shared/validators/validate-name-game.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-form',
+  selector: 'app-form-seller',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, JsonPipe, RouterLink, FooterComponent],
-  templateUrl: './form.component.html',
-  styleUrl: './form.component.css'
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, RouterLink],
+  templateUrl: './form-seller.component.html',
+  styleUrl: './form-seller.component.css'
 })
-export class FormComponent implements OnInit {
+export class FormSellerComponent {
 /**Formulario donde añadiremos o editaremos un videojuego */
 
   /**Constructor llamando al servicio de catgeoria, platafroma, juego y un formBuilder */
@@ -30,19 +29,20 @@ export class FormComponent implements OnInit {
     private fb: FormBuilder,
     private gameService: GameService,
     private imageService: ImageService,
-    private validateService: ValidateNameGameService){}
+    private authService: AuthService){}
 
   //Variables
   @Input() id!: string; //Id del videojuego si vamos a editar
   categories: CategoryWithoutList[] = [] //Donde almacenaremos las catgeorias
   plataform: PlataformWithoutList[] = [] //Donde almacenaremos las plataformas
   //Videojuego con algunos campos utilizado para poder añadir
-  videogame : Omit<Videogame, "quality" | "namePlataform" | "idUser" | "username" | "deletGame" | "listCategory" > = {
+  videogame : Omit<Videogame, "quality" | "namePlataform" | "idUser" | "deletGame" | "listCategory" > = {
     name: "",
     description: "",
     price: 1,
     stock: 0,
     idPlataform: 1,
+    username: "",
     image:""
   }
   categoriesAdd: string[] = [] //Donde almacenaremos las catgeorias que vamos a añadir
@@ -55,10 +55,9 @@ export class FormComponent implements OnInit {
   //Datos del formulario
   myForm: FormGroup = this.fb.group({
     idVideogame: [''],
-    name: ['',[Validators.required],/*[this.validateService]*/],
+    name: ['',[Validators.required]],
     description: ['', [Validators.required]],
     price: ['', [Validators.required, Validators.min(1)]],
-    stock: ['', [Validators.required, Validators.min(0)]],
     idPlataform: ['', [Validators.required]],
     //Lista de catgeorias
     categoriesList: this.fb.array([
@@ -74,9 +73,9 @@ export class FormComponent implements OnInit {
     let errorMsg= "";
     if(this.myForm.get('price')?.touched && errors){
       if(errors['required']){
-        errorMsg = "The field price is required"
+        errorMsg = "El precio no puede estar vacio"
       }else if(errors['min']){
-        errorMsg = "The price must be bigger than 0"
+        errorMsg = "El precio tiene que ser mayor a 0"
       }
     }
     return errorMsg;
@@ -90,9 +89,9 @@ export class FormComponent implements OnInit {
     let errorMsg= "";
     if(this.myForm.get('stock')?.touched && errors){
       if(errors['required']){
-        errorMsg = "The field stock is required"
+        errorMsg = "El stock no puede estar vacio"
       }else if(errors['min']){
-        errorMsg = "The stock must be bigger than 0"
+        errorMsg = "El stock tiene que ser mayor o igual a 0"
       }
     }
     return errorMsg;
@@ -103,7 +102,7 @@ export class FormComponent implements OnInit {
     let errorMsg= "";
     if(this.myForm.get('name')?.touched && errors){
       if(errors['required']){
-        errorMsg = "The filed name is required"
+        errorMsg = "The name is required"
       }else if(errors['nameTaken']){
         errorMsg = "The name game is already exist"
       }
@@ -182,7 +181,9 @@ export class FormComponent implements OnInit {
       const {categoriesList, idVideogame,...rest} = this.myForm.value
       this.videogame = rest;      
       this.categoriesAdd = categoriesList
-    
+      this.authService.renew
+      let username = this.authService.usernameSignal;
+      this.videogame.username = username()
       //Si no etamos editando hacemos peticion para poder añadir pasandole el juego, las catgeorias y la imagen
       if(!this.id){
         if(this.imageUrl!=""){
@@ -371,5 +372,4 @@ export class FormComponent implements OnInit {
     }
 
   }
-
 }

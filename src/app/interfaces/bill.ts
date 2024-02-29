@@ -29,7 +29,8 @@ export interface ListGameBill {
     idVideogame: number,
     nameVideogame:string,
     idBill: number,
-    amount: number
+    amount: number,
+    price: number
    
 }
 

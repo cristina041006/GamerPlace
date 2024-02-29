@@ -1,0 +1,63 @@
+<h1>Your Videogames</h1>
+<section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-7" style="width: 100%;">
+        <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">          
+          <div class="card-body p-5 text-center content">
+            @if (listGames.length>0) {
+              <!--Iteramos los juegos para mostrarlos-->
+              @for (game of listGames; track $index) {
+               
+                  <div class="list">
+                    <div class="sell">
+  
+                   
+                      <div class="card mb-3" style="max-width: 1100px; max-height: 190px; padding-left: 2%; border: 0px; margin-top: 3%; ">
+                          <div class="row g-0 game">
+                            @if (game.image==null) {
+                            <div class="col-md-4" style="border: 1px solid black; border-radius: 10px;">
+                              <!--Comprobamos si tiene imagen para poner una por defecto-->
+                              <a routerLink="/details/{{game.idVideogame}}"><img src="../../../assets/img/Imagen_no_disponible.svg.png" class="img-fluid rounded-start port"  alt="..."></a>
+                                                
+                            </div>
+                            }@else {
+                              <div class="col-md-4">
+                                <!--Comprobamos si tiene imagen para poner una por defecto-->
+                                <a routerLink="/details/{{game.idVideogame}}"><img src="{{game.image}}" class="img-fluid rounded-start port" alt="..."></a>
+                              </div>
+                            }
+                            <div class="col-md-8">
+                              <div class="card-body" style="text-align: left;">
+                                <h5 class="card-title">{{game.name}}</h5>
+                                <p class="card-text">{{game.description}}</p>
+                                <p class="card-text" >
+                                  <small  style="color: black; font-size: 0.4cm;">
+                                    <span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span>
+                                  </small>
+                                  @if (game.idVideogame!=undefined) {
+                                    <button class="btn btn-success delete" (click)="deleteGame(game.idVideogame)">Delete</button>
+                                  }
+                                  <a routerLink="/editOldGame/{{game.idVideogame}}" class="btn btn-success edit">Edit</a>
+                                </p>
+                                
+                  
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+  
+                
+              }
+            }@else {
+              <h2>You don't have games to sell</h2>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -37,8 +37,8 @@
     <div class="slider-frame" style="height: 30%; width:60%; border-radius: 10px;margin-top: 30px;  margin-left: 30px; margin-right: 30px;">
         <ul>
             <li><a routerLink="/videogames"><img src="../../../assets/img/juegosTex.PNG" style="border-radius: 10px"></a></li>
-            <li><a><img src="../../../assets/img/secondTex.PNG"  style="border-radius: 10px"></a></li>
-            <li><img src="../../../assets/img/sellerText.PNG"  style="border-radius: 10px"></li>
+            <li><a routerLink="/games/second"><img src="../../../assets/img/secondTex.PNG"  style="border-radius: 10px"></a></li>
+            <li><a routerLink="/seller"><img src="../../../assets/img/sellerText.PNG"  style="border-radius: 10px"></a></li>
             <li><img src="../../../assets/img/juegosTex.PNG"  style="border-radius: 10px"></li>
         </ul>
     </div>
@@ -63,7 +63,7 @@
                     <div class="card-body">
                       <h5 class="card-title">{{game.name}}</h5>
                       <p class="card-text">{{game.description}}</p>
-                      <button class="btn details">Deatails</button>
+                      <button class="btn details" routerLink="/details/{{game.idVideogame}}">Deatails</button>
                     </div>
                   </div>
                   <br>

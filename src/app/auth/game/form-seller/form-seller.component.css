@@ -57,9 +57,7 @@
 .contain{
     width: 95%;
 }
-.formTitle{
-    font-size: 0.5cm;
-}
+
 @media only screen and (max-width: 1200px) and (min-width: 770px){
    .contain{
     width: 473px;

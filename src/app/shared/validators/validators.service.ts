@@ -14,6 +14,8 @@ export class ValidatorsService {
   emailPattern:string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"; 
   //Patter del telefono
   phonePattern:string = "^[0-9]{9}$"; 
+  //Patter del password
+  passwordPattern:string = "^(?=.*[A-Z])(?=.*\\d).{8,}$"; 
 
   /**
    * Metodo para comprbar si dos campos son iguales, si no lo son devuelve un error 

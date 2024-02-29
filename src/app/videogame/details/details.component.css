@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     margin-top: 5%;
+    padding-right: 12%;
 }
 .port{
     height: 190px;
@@ -17,6 +18,9 @@
 .filtrado{
     border-bottom: 3px solid #C75A32 ;
 
+}
+.description{
+    padding-left: 10%;
 }
 .result{
     margin-left: 2%;

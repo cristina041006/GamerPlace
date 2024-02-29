@@ -28,10 +28,10 @@ export class StartComponent implements OnInit{
   ngOnInit(): void {
 
     //Buscamos todos los jeugos
-    this.gameService.getAllGame().subscribe({
+    this.gameService.getAllGame("new").subscribe({
       next: (page)=>{
         //Buscamos los mas recientes
-        this.gameService.getAllGamePageSize(page.totalPages-1, 8).subscribe({
+        this.gameService.getAllGamePageSize(page.totalPages-1, 8, "new").subscribe({
           next: (game) =>{
             this.games = game.content
           }

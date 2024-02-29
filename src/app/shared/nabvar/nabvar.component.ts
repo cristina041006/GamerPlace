@@ -8,6 +8,8 @@ import { SearchComponent } from './search/search.component';
 import { GameService } from '../../services/game.service';
 import { ListPageable, Videogame } from '../../interfaces/videogames';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-nabvar',
@@ -23,11 +25,13 @@ export class NabvarComponent implements OnInit{
   gameFind!: ListPageable | undefined
   name: string= "";
   username: any = this.authService.usernameSignal
+  rol: any = this.authService.rolSignal
   eventSearch(menasje: string){
     this.gameFind = undefined
     this.name = menasje;
     if(this.name!==''){
-      this.gameService.searchGame(menasje).subscribe({
+      this.gameService.searchGame(menasje)
+      .subscribe({
         next: (game) => {
             this.gameFind = game;
         },
@@ -43,6 +47,25 @@ export class NabvarComponent implements OnInit{
 
   ngOnInit(): void {
     this.authService.renew()
+    console.log(this.rol());
+    
+  }
+
+  logout(){
+    Swal.fire({
+      title: "Are you sure you want logout?",
+      text: "you lost your shop basket!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#C24042",
+      cancelButtonColor: "#949494",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.authService.logout()
+        this.router.navigate([''])
+      }
+    })
   }
  
 }

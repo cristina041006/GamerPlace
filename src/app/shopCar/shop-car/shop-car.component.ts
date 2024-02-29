@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameBill, GameBillBuy } from '../../interfaces/bill';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { GameService } from '../../services/game.service';
 import Swal from 'sweetalert2';
@@ -19,7 +19,7 @@ export class ShopCarComponent implements OnInit{
 /**Componenete donde vamos a controlar el carrito de la compra y se podra comprara */
 
   /**Contructor donde llamaremos a los servicios necesarios */
-  constructor(private gameService: GameService,private authService: AuthService, private billService: BillService) {}
+  constructor(private gameService: GameService,private authService: AuthService, private billService: BillService, private route: Router) {}
 
   //variables
   shop: GameBill[] = [] //lista con los juegos a comprar y susu cantidades
@@ -126,6 +126,7 @@ export class ShopCarComponent implements OnInit{
             confirmButtonColor:"#43844B" 
           }).then((resultado)=>{
             localStorage.removeItem("shop")
+            this.route.navigate(["/videogames"])
           })
         },
         error: (error) =>{

@@ -16,8 +16,8 @@ export class GameService {
    * Metodo para hacer peticion y obtener un pagebale con videojuegos correspondientes (10)
    * @returns Observable de listPageable
    */
-  getAllGame() : Observable<ListPageable>{
-    return this.http.get<ListPageable>(this.baseUrl+"/videogames");
+  getAllGame(quality: string) : Observable<ListPageable>{
+    return this.http.get<ListPageable>(this.baseUrl+"/videogames?quality="+quality);
   }
 
   /**
@@ -26,12 +26,12 @@ export class GameService {
    * @param numPage 
    * @returns Observable de listPageable
    */
-  getAllGamePage(numPage: number): Observable<ListPageable> {
-    return this.http.get<ListPageable>(this.baseUrl+"/videogames?pageNum="+numPage);
+  getAllGamePage(numPage: number, quality: string): Observable<ListPageable> {
+    return this.http.get<ListPageable>(this.baseUrl+"/videogames?pageNum="+numPage+"&quality="+quality);
   }
 
-  getAllGamePageSize(numPage: number, pageSize: number): Observable<ListPageable> {
-    return this.http.get<ListPageable>(this.baseUrl+"/videogames?pageNum="+numPage+"&pageSize="+pageSize);
+  getAllGamePageSize(numPage: number, pageSize: number, quality: string): Observable<ListPageable> {
+    return this.http.get<ListPageable>(this.baseUrl+"/videogames?pageNum="+numPage+"&pageSize="+pageSize+"&quality="+quality);
   }
 
   /**
@@ -100,6 +100,14 @@ export class GameService {
   }
   searchGamePage(name: string, pageNum: string): Observable<ListPageable>{
     return this.http.get<ListPageable>(`${this.baseUrl}/getVideogame?name=${name}&&pageNum=${pageNum}`)
+  }
+
+  getGameByCategory(idCatgeory:string, quality: string): Observable<ListPageable>{
+    return this.http.get<ListPageable>(`${this.baseUrl}/videogames?idCategory=${idCatgeory}&&quality=${quality}`)
+  }
+
+  getGameByCategoryPage(idCatgeory:string, quality: string, numPage: string): Observable<ListPageable>{
+    return this.http.get<ListPageable>(`${this.baseUrl}/videogames?idCategory=${idCatgeory}&&quality=${quality}&&pageNum=${numPage}`)
   }
 
 }

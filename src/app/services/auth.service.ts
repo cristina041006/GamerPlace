@@ -4,6 +4,7 @@ import { User, UserLogin } from '../interfaces/User';
 import { Observable, catchError, map, of, take, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { ImageService } from './image.service';
+import { Videogame } from '../interfaces/videogames';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,9 @@ export class AuthService {
         this.usernameSignal.update((a)=>token.sub)
         this.rolSignal.update((a)=>token.role)
       }
+    }else{
+      this.usernameSignal.update((a)=>"");
+      this.rolSignal.update((a)=>"")
     }
     
   }
@@ -68,6 +72,33 @@ export class AuthService {
   signup(user: User): Observable<User>{
     return this.http.post<User>(`${this.baseUrl}/signup`, user)
   }
+
+  logout(){
+    if(localStorage.getItem("Authorization")!=null){
+      localStorage.removeItem("Authorization")
+      localStorage.removeItem("shop")
+      this.renew()
+    }
+  }
+
+  becomeAseller(user: UserLogin): Observable<any|Boolean>{
+    return this.http.post<any>(`${this.baseUrl}/seller`, user).pipe(
+      tap(resp => {
+        this.singin(user).subscribe((response)=>{
+          if(response==true){
+            this.renew()
+          }
+        })
+      }),
+      map(resp=>true),
+      catchError(error => of(error))
+    )
+  }
+
+  getListGameSeller(user: string): Observable<Videogame[]>{
+    return this.http.get<Videogame[]>(`${this.baseUrl}/listGames?user=${user}`)
+  }
+
 
   /**
    * Metodo

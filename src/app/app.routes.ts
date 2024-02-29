@@ -10,6 +10,9 @@ import { ListBillComponent } from './bill/list-bill/list-bill.component';
 import { jwtGuard } from './shared/guardians/jwt.guard';
 import { jwtAdminGuard } from './shared/guardians/jwt-admin.guard';
 import { jwtSellerGuard } from './shared/guardians/jwt-seller.guard';
+import { SellerComponent } from './auth/seller/seller.component';
+import { ListGameSellerComponent } from './auth/game/listGameSeller/listGameSeller.component';
+import { FormSellerComponent } from './auth/game/form-seller/form-seller.component';
 
 export const routes: Routes = [
     {
@@ -17,6 +20,9 @@ export const routes: Routes = [
     },
     {
         path: "videogames", component: ListComponent
+    },
+    {
+        path: "games/:second", component: ListComponent
     },
     {
         path: "videogames/:term", component: ListComponent
@@ -46,5 +52,17 @@ export const routes: Routes = [
     {
         path: "historial", component:ListBillComponent,
         canMatch: [jwtGuard]
+    },
+    {
+        path:"seller", component:SellerComponent
+    },
+    {
+        path:"listGame", component: ListGameSellerComponent
+    },
+    {
+        path:"addOldGame", component:FormSellerComponent
+    },
+    {
+        path:"editOldGame/:id", component: FormSellerComponent
     }
 ];

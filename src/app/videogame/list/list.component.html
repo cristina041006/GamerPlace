@@ -1,10 +1,22 @@
-<h1>Videojuegos</h1>
+@if (second) {
+  <h1>Second-hand Videogames</h1>
+}@else {
+  <h1>Videogames</h1>
+}
 <section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
       <div class="col-12 col-md-8 col-lg-6 col-xl-7" style="width: 100%;">
         <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
-          <p class="result"><span style="border-bottom: 2px solid #608E94;">Resultados</span><svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-left: 1%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/></svg></p>
+          @if (!filter) {
+            <p class="result">
+              <span style="border-bottom: 2px solid #608E94;">{{result}}</span>
+              <button type="button" class="btn info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getCategories()">
+                <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-left: 1%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/></svg>
+              </button>
+            </p>
+
+          }
           
           <div class="card-body p-5 text-center content">
              <!--Iteramos los juegos para mostrarlos-->
@@ -29,7 +41,8 @@
                           <div class="card-body" style="text-align: left;">
                             <h5 class="card-title">{{game.name}}</h5>
                             <p class="card-text">{{game.description}}</p>
-                            <p class="card-text" ><small  style="color: black; font-size: 0.4cm;"><span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span></small><a routerLink="/details/{{game.idVideogame}}" class="btn btn-success details">Detalles</a></p>
+                            <p class="card-text" *ngIf="game.quality=='old'">Second-hand game</p>
+                            <p class="card-text" ><small  style="color: black; font-size: 0.4cm;"><span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span></small><a routerLink="/details/{{game.idVideogame}}" class="btn btn-success details">Details</a></p>
               
                           </div>
                         </div>
@@ -65,7 +78,28 @@
   </div>
 </section>
 
-
+@if (listCategory) {
+  <div class=" modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom-color: white;">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Bill's games</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div  class="form-check">
+            <p class="form-check-label" style="font-size: 0.5cm; margin-left: 5%;"><input class="form-check-input"  type="radio" name="catgeory" value="" [(ngModel)]="categoryId"> None</p>
+            <p class="form-check-label" *ngFor="let category of listCategory" style="font-size: 0.5cm; margin-left: 5%;"><input class="form-check-input"  type="radio" name="catgeory" value="{{category.id_category}}" [(ngModel)]="categoryId"> {{category.name}}</p>
+          </div>
+        </div>
+        <div class="modal-footer" style="border-top-color: white;">
+          <button type="button" class="btn add" (click)="getGamesByCategory()" data-bs-dismiss="modal">Filter</button>
+          <button type="button" class="btn" style="background-color: #949494; color: white;" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
 
 
 <br>

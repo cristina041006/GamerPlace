@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { ImageService } from '../../services/image.service';
+import { delay, tap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -43,6 +44,8 @@ export class RegisterComponent {
   //Variable donde se almacenara la url de la imagen
   imageUrl: string =''
 
+  loading: boolean = false
+
   /**Formulario reactivo con los campos correspondientes para crear un usuario y sus respectivas 
    * validaciones
    */
@@ -52,7 +55,7 @@ export class RegisterComponent {
     name : ['', [Validators.required, Validators.pattern(this.validators.completeNamePatter)]],
     address: ['', [Validators.required]],
     phone: ['',[ Validators.required, Validators.pattern(this.validators.phonePattern)]],
-    password: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.pattern(this.validators.passwordPattern)]],
     passwordComfirm: ['', [Validators.required]],
     image: [''],
   }, {validators: [this.validators.equalsFields('password', 'passwordComfirm')]})
@@ -172,9 +175,9 @@ export class RegisterComponent {
    * Metodo que devuelve el mensaje de error del campo passwordComfirm dependiendo del error
    */
   get passwordErrosMsg():string{
-    const errors = this.myForm.get("passwordComfirm")?.errors;
+    const errors = this.myForm.get("password")?.errors;
     let errorMsg = "";
-    if(this.myForm.get("passwordComfirm")?.touched && errors){
+    if(this.myForm.get("password")?.touched && errors){
       if(errors['required']){
         errorMsg = "Password is required";
       }else if(errors['pattern']){
@@ -193,15 +196,27 @@ export class RegisterComponent {
     if(this.myForm.invalid){
       this.myForm.markAllAsTouched()
     }else{
+      this.loading=true
       //Quitamos el campo que no nos hace falta
       const {passwordComfirm, ...values} = this.myForm.value
       this.user = values;
       //Comprobamos si vamos a añadir imagen
       if(this.imageUrl!=""){
-        this.imageService.uploadFile(this.imageUrl).subscribe((response)=>{
+        this.imageService.uploadFile(this.imageUrl).pipe(
+          tap( iamge=>{
+              this.loading= true
+            }
+          ),
+        )
+        .subscribe((response)=>{
           this.user.image = response.url
           console.log(this.user);
-          this.authService.signup(this.user).subscribe({
+          this.authService.signup(this.user).pipe(
+            tap( user => {
+              this.loading=true 
+            }), 
+          )
+          .subscribe({
             next: (userAdd) => {
               Swal.fire({
                 title: "Save!",
@@ -210,6 +225,7 @@ export class RegisterComponent {
                 confirmButtonColor:"#43844B" 
               }).then((resultado)=>{
                 this.imageUrl=""
+                this.loading = false
                 this.route.navigate(['login'])
               })
             },
@@ -227,7 +243,12 @@ export class RegisterComponent {
         })
 
       }else{
-        this.authService.signup(this.user).subscribe({
+        this.authService.signup(this.user).pipe(
+          tap( user => {
+            this.loading=true 
+          }) 
+        )
+        .subscribe({
           next: (userAdd) => {
             Swal.fire({
               title: "Save!",
@@ -236,6 +257,7 @@ export class RegisterComponent {
               confirmButtonColor:"#43844B" 
             }).then((resultado)=>{
               this.imageUrl=""
+              this.loading = false
               this.route.navigate(['login'])
             })
           },

@@ -9,7 +9,7 @@ import { ListPageable, Videogame } from '../interfaces/videogames';
 export class GameService {
 /*Servicio de videojuego*/
 
-  private baseUrl : string= "http://localhost:8080";
+  private baseUrl : string= "https://proyectoapi-cristina041006.onrender.com";
   constructor(private http : HttpClient) { }
 
   /**

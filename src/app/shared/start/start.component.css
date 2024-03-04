@@ -170,20 +170,26 @@
         margin-right: 0; /* Elimina el margen derecho de la lista de juegos */
     }
     .videogame {
-        font-size: 95%;
+        font-size: 98%;
     }
     .lista1 {
         margin-left: 0; /* Elimina el margen izquierdo de la lista de juegos */
         margin-right: 0; /* Elimina el margen derecho de la lista de juegos */
     }
     .mov {
-            width: 60%; /* Establece el ancho del div al 98% del ancho del contenedor padre */
+            width: 50%; /* Establece el ancho del div al 98% del ancho del contenedor padre */
             margin-left: auto; /* Centra el div en la pantalla moviendo el margen izquierdo automáticamente */
-            margin-right: 25%; /* Centra el div en la pantalla moviendo el margen derecho automáticamente */
+            margin-right: 30%; /* Centra el div en la pantalla moviendo el margen derecho automáticamente */
         
     }
     .port {
         width: 2rem; /* Ajusta el ancho del elemento con clase "port" */
         margin-left: 0; /* Elimina el margen izquierdo */
+    }
+    .ganeTitle{
+        font-size: 90%;
+    }
+    .ganeDesc{
+        font-size: 80%;
     }
 }

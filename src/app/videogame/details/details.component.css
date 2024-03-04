@@ -9,6 +9,10 @@
     height: 190px;
     
 }
+.port2{
+    height: 190px;
+    
+}
 .details{
     border-bottom: 2px solid #608E94;
 }
@@ -21,6 +25,11 @@
 }
 .description{
     padding-left: 10%;
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    padding-right: 12%;
 }
 .result{
     margin-left: 2%;
@@ -82,8 +91,12 @@
     color: #C24042;
     font-size: 0.5cm;
 }
+.titleGame{
+    padding-left: 8%;
+    
+}
 
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 360px){
     .plataform{
        display: none;
     }
@@ -96,6 +109,11 @@
     }
     .port{
         border-radius: 0%;
+       margin-left: 2%;
+    }
+    .port2{
+        border-radius: 0%;
+        margin-right: 15%;
     }
     .tablet{
         padding-left: 17%;
@@ -105,10 +123,13 @@
     }
     .bodyTablet{
         display: block;
+
     }
     .description{
         margin-top: 250px;
         margin-left: 3%;
+        width: 200%;
+        display: block;
     }
     .edit{
         width: 50%;
@@ -116,6 +137,14 @@
     .delete{
         width: 50%;
     }
+    .details{
+        font-size: 100%;
+    }
+    .titleGame{
+        width: 40%; font-size: 150%;
+        margin-left: 12%;
+    }
+
    
 
 }

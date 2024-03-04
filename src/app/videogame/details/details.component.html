@@ -9,15 +9,15 @@
             <div class="card-body p-5 text-center content">
             <div class="list">
                 <div >
-                    <div class="card mb-3" style="max-width: 800px; max-height: 190px; padding-left: 5%; border: 0px; margin-top: 3%;">
+                    <div style="max-width: 800px; max-height: 190px; padding-left: 5%; border: 0px; margin-top: 3%;">
                         <div class="row g-0 image" style="width: 700px;">
-                          <div class="card-body bodyTablet">
-                          <h1 style="padding-left: 8%;">{{game.name}}</h1>                 
+                          <div class="bodyTablet">
+                          <h1 class="titleGame">{{game.name}}</h1>                 
                           </div>
                           <!--Comprobamos si contiene imagen para poder si no una por defecto-->
                           @if (game.image==null) {
                             <div class="col-md-4 tablet">
-                              <img src="../../../assets/img/Imagen_no_disponible.svg.png" class="img-fluid port" alt="...">
+                              <img src="../../../assets/img/Imagen_no_disponible.svg.png" class="img-fluid port2" alt="...">
                             </div>
                           }@else {
                             <div class="col-md-4 " style="padding-left: 10%; width: 350px;">
@@ -29,12 +29,12 @@
 
                             <!--Comprobamos su calidad para indicar si es nuevo o de segunda-->
                             @if (game.quality=="new") {
-                              <h4 class="card-text" style="padding-left: 9%;">{{game.price}}€ <h4 style="float: right; padding-right: 43%;">New game</h4></h4>
+                              <h4 class="card-text" >{{game.price}}€ <h4 style="float: right; padding-right: 43%;">New game</h4></h4>
 
                             }@else {
-                              <h4 class="card-text" style="padding-left: 9%;">{{game.price}}€ <h4 style="float: right; padding-right: 40%;">Second-hand game</h4></h4>
+                              <h4 class="card-text" >{{game.price}}€ <h4 style="float: right; padding-right: 40%;">Second-hand game</h4></h4>
                             }
-                
+                            
                             <!--Parte responsiva modo tablet o movil-->
                             <div class="d-grid gap-2" style="width: 290px; margin-left: 8%; margin-top: 10%;">
                               <button class="btn add" type="button">Añadir</button>
@@ -99,11 +99,11 @@
             </div>
   <br>
   <br>
-  <div class="list description" style="text-align: center;">
+  <div class="description" style="text-align: center;">
       <div style="width: 40%;">
           <h2 class="details">Description</h2>
           <br>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+          <p class="textDetails">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
               eiusmod tempor incididunt ut labore et dolore magna aliqua. 
               Ut enim ad minim veniam, quisnostrud exercitation ullamco labori
               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in

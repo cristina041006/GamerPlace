@@ -132,6 +132,10 @@
     object-position: center; /* Cambiado a 'center' para centrar las imágenes verticalmente */
 }
 
+.mov{
+    width: 18rem
+}
+
 @keyframes slide {
     0% {margin-left: 0;}
     20% {margin-left: 0;}
@@ -141,4 +145,45 @@
     70% {margin-left: -200%;}
     75% {margin-left: -300%;}
     100% {margin-left: -300%;}
+}
+
+@media only screen and (max-width: 360px){
+    .title{
+        font-size: 100%; /* Ajusta el tamaño de la fuente */
+        width: 80%; /* Ajusta el ancho del contenedor del título */
+        margin-left: 0; /* Elimina el margen izquierdo */
+        margin-right: 0; /* Elimina el margen derecho */
+    }
+    .slider-frame {
+        width: 100%; /* Ajusta el ancho del contenedor del slider */
+        height: 200px; /* Ajusta la altura del contenedor del slider */
+        margin: 20px 0; /* Ajusta el margen del slider */
+    }
+    .slider-frame ul {
+        width: 400%; /* Ajusta el ancho de la lista de imágenes */
+    }
+    .slider-frame li {
+        width: 25%; /* Ajusta el ancho de cada imagen en el slider */
+    }
+    .lista {
+        margin-left: 0; /* Elimina el margen izquierdo de la lista de juegos */
+        margin-right: 0; /* Elimina el margen derecho de la lista de juegos */
+    }
+    .videogame {
+        font-size: 95%;
+    }
+    .lista1 {
+        margin-left: 0; /* Elimina el margen izquierdo de la lista de juegos */
+        margin-right: 0; /* Elimina el margen derecho de la lista de juegos */
+    }
+    .mov {
+            width: 60%; /* Establece el ancho del div al 98% del ancho del contenedor padre */
+            margin-left: auto; /* Centra el div en la pantalla moviendo el margen izquierdo automáticamente */
+            margin-right: 25%; /* Centra el div en la pantalla moviendo el margen derecho automáticamente */
+        
+    }
+    .port {
+        width: 2rem; /* Ajusta el ancho del elemento con clase "port" */
+        margin-left: 0; /* Elimina el margen izquierdo */
+    }
 }

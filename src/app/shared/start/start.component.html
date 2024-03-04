@@ -1,39 +1,5 @@
 <div class="containerFlex">
     <div class="title">Welcome to <b style="color: #C75A32; border-bottom: 3px solid #608E94;">Gamer Place</b><br> Place where you can sell and buy video games</div>
-
-    <!--<div class="containerGrid">
-        <div class="gallery w-4 h">
-            <div class="item">
-                <div class="image">
-                    <a routerLink="/videogames"><img src="../../../assets/img/juegos.jpg" alt="games"></a>
-                </div>
-                <div class="text">
-                    See our new games
-                </div>
-            </div>
-        </div>
-        <div class="gallery w-4 h">
-            <div class="item">
-                <div class="image">
-                    <img src="../../../assets/img/second-hand.jpg" alt="games">
-                </div>
-                <div class="text">
-                    See our second-hand game
-                </div>
-            </div>
-        </div>
-        <div  class="w-4 h ">
-            <div class="item">
-                <div class="image">
-                    <img src="../../../assets/img/seller.jpg" alt="games">
-                </div>
-                <div class="text">
-                    Be a user-seller
-                </div>
-            </div>
-        </div>
-    </div>-->
-
     <div class="slider-frame" style="height: 30%; width:60%; border-radius: 10px;margin-top: 30px;  margin-left: 30px; margin-right: 30px;">
         <ul>
             <li><a routerLink="/videogames"><img src="../../../assets/img/juegosTex.PNG" style="border-radius: 10px"></a></li>
@@ -51,7 +17,7 @@
 
         <ul class="lista" *ngIf="games">
             <li *ngFor="let game of games; let i = index" style=" margin-bottom: 2cm;">
-                <div class="card" style="width: 18rem; height: 100%;">
+                <div class="card mov" style="height: 100%;">
                     <a routerLink="/details/{{game.idVideogame}}" routerLinkActive="active" ariaCurrentWhenActive="page">
                         @if (game.image==null) {
                             <img src="../../../assets/img/Imagen_no_disponible.svg.png"  class="card-img-top"  alt="...">

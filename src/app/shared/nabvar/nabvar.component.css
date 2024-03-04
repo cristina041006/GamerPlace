@@ -60,4 +60,36 @@ background: linear-gradient(0deg, rgba(67,132,75,0.303046218487395) 0%, rgba(67,
     .mov{
         display: contents;
     }
+
+    @media only screen and (max-width: 360px){
+        .search{
+            width: 40%;
+            margin-left: 25%;
+           
+        }
+        .menu{
+            display: block;
+            float: left;
+        }
+        img{
+            width: 3cm;
+        }
+        .search{
+            display: none;
+        }
+        .icono{
+            display: none;
+        }
+        .esc{
+            display: none
+        }
+        .mov{
+            display: contents;
+        }
+        .imag {
+            margin-left: 0;
+            margin-right: auto;
+            width: 19%;
+        }
+    }
 }

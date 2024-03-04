@@ -29,11 +29,12 @@ export const routes: Routes = [
     },
     {
         path: "addVideogame", component: FormComponent,
+        canMatch: [jwtAdminGuard]
         
     },
     {
         path: "editVideogame/:id", component: FormComponent,
-        canMatch: [jwtGuard, jwtAdminGuard]
+        canMatch: [jwtAdminGuard]
     },
     {
         path: "details/:id", component:DetailsComponent
@@ -54,15 +55,19 @@ export const routes: Routes = [
         canMatch: [jwtGuard]
     },
     {
-        path:"seller", component:SellerComponent
+        path:"seller", component:SellerComponent,
+        canMatch: [jwtSellerGuard]
     },
     {
-        path:"listGame", component: ListGameSellerComponent
+        path:"listGame", component: ListGameSellerComponent,
+        canMatch: [jwtSellerGuard]
     },
     {
-        path:"addOldGame", component:FormSellerComponent
+        path:"addOldGame", component:FormSellerComponent,
+        canMatch: [jwtSellerGuard]
     },
     {
-        path:"editOldGame/:id", component: FormSellerComponent
+        path:"editOldGame/:id", component: FormSellerComponent,
+        canMatch: [jwtSellerGuard]
     }
 ];

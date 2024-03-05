@@ -5,15 +5,22 @@ h1{
     margin-left: 29%;
     padding-bottom: 1%;
     margin-top: 2%;
+    font-family: monospace;
+
 }
 .list{
     display: flex;
     justify-content: center;
+   
 }
 .port{
     height: 190px;
     border-radius: 3px;
     
+}
+.port2{
+    height: 190px;
+    border-radius: 3px;
 }
 .edit{
     background-color: #C8A519;
@@ -54,3 +61,29 @@ h1{
 .cursor{
     cursor: pointer;
 }
+.bodyDestock{
+    width: 680px;
+}
+
+
+  @media screen and (max-width: 767px) {
+    h1 {
+      width: 80%;
+      margin-left: 10%;
+    }
+    .list {
+      flex-direction: column;
+    }
+    .card {
+      width: 100%;
+    }
+    .port{
+        width: 100%;
+    }
+    .list{
+        margin-bottom: 83%;
+    }
+    .bodyDestock{
+        width: auto;
+    }
+  }

@@ -4,11 +4,12 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UserLogin } from '../../interfaces/User';
 import Swal from 'sweetalert2';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-seller',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, FooterComponent],
   templateUrl: './seller.component.html',
   styleUrl: './seller.component.css'
 })

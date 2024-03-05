@@ -21,36 +21,36 @@
               <!--Diferenciamos is estamos editando o añadiendo para mostarra el id-->
               @if (id) {
                   <div class="form-outline mb-4">
-                    <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Identifier</label>
+                    <label class="form-label formTitle" for="id"><span class="oblig">*</span> Identifier</label>
                     <input type="text" id="id" class="form-control form-control-lg" name="id" formControlName="idVideogame" readonly/>  
                   </div> 
               }
             <div class="form-outline mb-4">
-              <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Title</label>
+              <label class="form-label formTitle" for="name"><span class="oblig">*</span> Title</label>
               <input type="text" id="name" class="form-control form-control-lg" placeholder="Ej: Zelda" required formControlName="name"/>
               <!--Metod para saber si es valido-->
               <span class="form-text text-danger" >{{nameErrorsMsg}}</span>
             </div>
             <div class="form-outline mb-4">
-              <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Description</label>
+              <label class="form-label formTitle" for="description"><span class="oblig">*</span> Description</label>
               <input type="text" id="description" class="form-control form-control-lg"   placeholder="Ej: A amazing game of avendture" formControlName="description"/>
               <span class="form-text text-danger" *ngIf="isValid('description')">The field  desciprtion is required</span>
             </div>
             <div class="form-outline mb-4">
-              <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Price</label>
+              <label class="form-label formTitle" for="price"><span class="oblig">*</span> Price</label>
               <input type="number" id="price" class="form-control form-control-lg" formControlName="price" placeholder="Ej: 10" required/>
               <span class="form-text text-danger">{{priceErrorsMsg}}</span>
             </div>
             <div class="form-outline mb-4">
-              <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Stock</label>
+              <label class="form-label formTitle" for="stock"><span class="oblig">*</span> Stock</label>
               <input type="number" id="stock" class="form-control form-control-lg" formControlName="stock" placeholder="Ej: 3" required/>
               <span class="form-text text-danger">{{stockErrorsMsg}}</span>
             </div>
             
             <div class="form-outline mb-4">
-              <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Plataform</label>
+              <label class="form-label formTitle" for="plataform"><span class="oblig">*</span> Plataform</label>
               <!--Listamos las plataformas-->
-             <select class="form-select" formControlName="idPlataform">
+             <select class="form-select" formControlName="idPlataform" id="plataform">
               <option value="" selected>--Select one plataform--</option>
               @for (plata of plataform; track $index) {
                  <option value="{{plata.idPlataform}}" >{{plata.name}}</option>
@@ -58,16 +58,16 @@
              </select>
              <span class="form-text text-danger" *ngIf="isValid('idPlataform')">Este campo es obligatorio</span>
             </div>
-            <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Categories</label>
+            <label class="form-label formTitle" for="categories"><span class="oblig">*</span> Categories</label>
             <div class="input-group">
               <!--Listamos las catgeorias-->
-             <select class="form-select" [formControl]="newCategory">
+             <select class="form-select" [formControl]="newCategory" id="categories">
               <option value="" selected>--Select one category--</option>
               @for (category of categories; track $index) {
                  <option value="{{category.name}}">{{category.name}}</option>
                 }
               </select>
-              <button class="btn btn-lg btn-block addCategory" type="submit" (click)="addCategory()">Add</button>
+              <button class="btn btn-lg btn-block addCategory" type="submit" (click)="addCategory()" title="Add category buuton">Add</button>
             </div>
             <span class="form-text text-danger" *ngIf="isValid('categoriesList')">The field category required</span>
             <br>
@@ -76,24 +76,24 @@
             <div class="form-outline mb-4" formArrayName="categoriesList" class="input-group">
               
               <input type="text" id="stock" class="form-control form-control-lg" [formControlName]="$index" required/>
-              <button class="btn btn-block delete" type="button" (click)="deleteCategory($index)">Delete</button>
+              <button class="btn btn-block delete" type="button" (click)="deleteCategory($index)" title="Delete category button">Delete</button>
             </div>
             <br>
             }
             <br>
             <div class="form-outline mb-4">
-              <label class="form-label formTitle" for="typeEmailX-2"> Image</label>
+              <label class="form-label formTitle" for="imagen"> Image</label>
               <input type="file" id="imagen" class="form-control form-control-lg" name="imagen" formControlName="image" (change)="getFile($event)"/>
               @if (id && videogameEdit && videogameEdit.image!=null) {
-                <img src="{{videogameEdit.image}}" class="image">
+                <img src="{{videogameEdit.image}}" class="image" alt="Game's image">
               }
             </div>
             <!--Diferenciamos is estamos editando o añadiendo-->
             @if (id && videogameEdit) {
-              <button class="btn btn-lg btn-block edit" type="submit" (click)="addGame()">Edit</button>
-              <a class="btn btn-lg btn-block back" type="submit" routerLink="/details/{{videogameEdit.idVideogame}}">Volver</a>
+              <button class="btn btn-lg btn-block edit" type="submit" title="Edit the game" (click)="addGame()" >Edit <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-bottom: 10%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg></button>
+              <a class="btn btn-lg btn-block back" aria-label="Go back" title="Go back to details" type="submit" routerLink="/details/{{videogameEdit.idVideogame}}">Volver <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg></a>
             }@else {
-              <button class="btn btn-lg btn-block add" type="submit" (click)="addGame()">Save</button>
+              <button class="btn btn-lg btn-block add" type="submit" title="Add the new game" (click)="addGame()">Save</button>
           
             }
             </form>

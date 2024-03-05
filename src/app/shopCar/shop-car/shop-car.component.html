@@ -27,7 +27,7 @@
                   </table>
                   <br>
                   <p style="float: left;">Total price: <u>{{truncateNum(totlaPrice)}}€</u></p>
-                  <button class="btn add" (click)="buy()">Buy</button>
+                  <button class="btn add" (click)="buy()" title="Buy the games">Buy</button>
                 }@else {
                   <h2>No game in your shopping basket</h2>
                 }
@@ -37,3 +37,4 @@
       </div>
     </div>
 </section>
+<app-footer></app-footer>

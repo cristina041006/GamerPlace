@@ -5,10 +5,12 @@ h1{
     margin-left: 29%;
     padding-bottom: 1%;
     margin-top: 2%;
+    font-family: monospace;
 }
 .list{
     display: flex;
-    justify-content: center;
+    
+    float: left;
 }
 .port{
     height: 190px;
@@ -51,6 +53,12 @@ h1{
     background-color: #43844B;
     color: white;
 }
+ .bodyCard{
+  width: 700px;
+}
+.imageBody{
+  width: 350px;
+} 
 
 @media screen and (max-width: 768px) {
     h1 {
@@ -66,6 +74,12 @@ h1{
     .port{
         width: 100%;
     }
+    .bodyCard{
+      width: auto;
+    }
+    .imageBody{
+      width: auto;
+    } 
   }
 
   @media screen and (max-width: 767px) {
@@ -85,4 +99,11 @@ h1{
     .list{
         margin-bottom: 70%;
     }
+    .bodyCard{
+      width: auto;
+    }
+    .imageBody{
+      width: auto;
+    } 
+   
   }

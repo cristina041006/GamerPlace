@@ -4,11 +4,12 @@ import { UserLogin } from '../../interfaces/User';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router, RouterLink } from '@angular/router';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

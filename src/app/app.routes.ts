@@ -56,7 +56,7 @@ export const routes: Routes = [
     },
     {
         path:"seller", component:SellerComponent,
-        canMatch: [jwtSellerGuard]
+        canMatch: [jwtGuard]
     },
     {
         path:"listGame", component: ListGameSellerComponent,

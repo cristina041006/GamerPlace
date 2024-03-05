@@ -1,11 +1,11 @@
 <div class="containerFlex">
-    <div class="title">Welcome to <b style="color: #C75A32; border-bottom: 3px solid #608E94;">Gamer Place</b><br> Place where you can sell and buy video games</div>
+    <div class="title">Welcome to <b style="color: #C75A32; border-bottom: 3px solid #608E94; font-family: sans-serif;">Gamer Place</b><br> Place where you can sell and buy video games</div>
     <div class="slider-frame" style="height: 30%; width:60%; border-radius: 10px;margin-top: 30px;  margin-left: 30px; margin-right: 30px;">
         <ul>
-            <li><a routerLink="/videogames"><img src="../../../assets/img/juegosTex.PNG" style="border-radius: 10px"></a></li>
-            <li><a routerLink="/games/second"><img src="../../../assets/img/secondTex.PNG"  style="border-radius: 10px"></a></li>
-            <li><a routerLink="/seller"><img src="../../../assets/img/sellerText.PNG"  style="border-radius: 10px"></a></li>
-            <li><img src="../../../assets/img/juegosTex.PNG"  style="border-radius: 10px"></li>
+            <li><a routerLink="/videogames" aria-label="list videogames"  title="Go to list game "><img src="../../../assets/img/juegosTex.PNG" style="border-radius: 10px" alt="Go to list game image"></a></li>
+            <li><a routerLink="/games/second" aria-label="second hand games list" title="Go to second game list "><img src="../../../assets/img/secondTex.PNG"  style="border-radius: 10px" alt="Go to second game list image"></a></li>
+            <li><a routerLink="/seller" aria-label="Become a user seller" title="Become a user seller "><img src="../../../assets/img/sellerText.PNG"  style="border-radius: 10px" alt="Be a user seller image"></a></li>
+            <li><a routerLink="/videogames" aria-label="list videogames" title="Go to list game "><img src="../../../assets/img/juegosTex.PNG"  style="border-radius: 10px" alt="Go to list game image"></a></li>
         </ul>
     </div>
     
@@ -20,16 +20,16 @@
                 <div class="card mov" style="height: 100%;">
                     <a routerLink="/details/{{game.idVideogame}}" routerLinkActive="active" ariaCurrentWhenActive="page">
                         @if (game.image==null) {
-                            <img src="../../../assets/img/Imagen_no_disponible.svg.png"  class="card-img-top"  alt="...">
+                            <a routerLink="/details/{{game.idVideogame}}" title="Go to details"><img src="../../../assets/img/Imagen_no_disponible.svg.png"  class="card-img-top"  alt="No image"></a>
     
                         }@else {
-                            <img src={{game.image}}  class="card-img-top" alt="...">
+                            <a routerLink="/details/{{game.idVideogame}}" title="Go to details"><img src={{game.image}}  class="card-img-top" alt="Game's image"></a>
                         }
                     </a>
                     <div class="card-body">
                       <h5 class="card-title ganeTitle">{{game.name}}</h5>
                       <p class="card-text ganeDesc">{{game.description}}</p>
-                      <button class="btn details" routerLink="/details/{{game.idVideogame}}">Deatails</button>
+                      <button class="btn details" routerLink="/details/{{game.idVideogame}}" title="Go to details">Deatails <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-bottom: 4%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></button>
                     </div>
                   </div>
                   <br>
@@ -38,3 +38,4 @@
         </ul>
       </div>
 </div>
+<app-footer></app-footer>

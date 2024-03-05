@@ -11,6 +11,8 @@ ul{
 li{
     border-bottom: 5px solid #43844b00;
     cursor: pointer;
+    font-family: monospace;
+
 }
 
 li:hover{
@@ -19,6 +21,10 @@ li:hover{
 
 .active{
     border-bottom: 5px solid #C8A519;
+}
+a{
+    color: black;
+    text-decoration: none;
 }
 
 .menu{

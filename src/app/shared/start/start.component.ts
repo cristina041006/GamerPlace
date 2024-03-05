@@ -3,11 +3,12 @@ import { GameService } from '../../services/game.service';
 import { ListPageable, Videogame } from '../../interfaces/videogames';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-start',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FooterComponent],
   templateUrl: './start.component.html',
   styleUrl: './start.component.css'
 })
@@ -31,7 +32,9 @@ export class StartComponent implements OnInit{
     this.gameService.getAllGame("new").subscribe({
       next: (page)=>{
         //Buscamos los mas recientes
-        this.gameService.getAllGamePageSize(page.totalPages-1, 8, "new").subscribe({
+        console.log(page);
+        
+        this.gameService.getAllGamePage(page.totalPages-1, "new").subscribe({
           next: (game) =>{
             this.games = game.content
           }

@@ -12,6 +12,8 @@
     font-size: 1cm;
     border-radius: 5px;
     margin-bottom: 1%;
+    font-family: monospace;
+
 }
 .containerGrid{
     width: 1000px;
@@ -86,6 +88,8 @@
     margin-top: 2%;
     padding-bottom: 1%;
     margin-bottom: 3%;
+    font-family: monospace;
+
 }
 .port{
     width: 3cm;

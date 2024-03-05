@@ -83,7 +83,6 @@ export class ListComponent implements OnInit{
    * @param numPage 
    */
   nexPage(numPage: number){
-
     if(!this.filter){
       if(!this.categoryId){
         //Hacemos la peticion    

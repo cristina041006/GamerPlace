@@ -31,8 +31,11 @@ background: linear-gradient(0deg, rgba(67,132,75,0.303046218487395) 0%, rgba(67,
     .mov{
         display: contents;
     }
+    .imgLogo{
+        width: 20%;
+    }
 }
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 768px){
     .search{
         width: 40%;
         margin-left: 25%;

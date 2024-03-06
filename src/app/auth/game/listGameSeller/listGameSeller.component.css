@@ -64,8 +64,17 @@ h1{
 .bodyDestock{
     width: 680px;
 }
-
-
+.sell{
+    color: #C24042;
+    font-size: 0.6cm;
+}
+.iconn{
+   width: 0.4cm; 
+   margin-bottom: 6%;
+}
+.iconn2{
+    width: 0.5cm; margin-bottom: 10%;
+}
   @media screen and (max-width: 767px) {
     h1 {
       width: 80%;
@@ -81,9 +90,28 @@ h1{
         width: 100%;
     }
     .list{
-        margin-bottom: 83%;
+        margin-bottom: 120%;
     }
     .bodyDestock{
         width: auto;
+    }
+    .buttonsMovil{
+        float: inline-end;
+        display: flex;
+    }
+    .delete{
+        font-size: 0.3cm;
+    }
+    .edit{
+        font-size: 0.3cm;
+    }
+    .iconn{
+        width: 0.2cm;
+    }
+    .iconn2{
+        width: 0.3cm;
+    }
+    .sell{
+        font-size: 0.4cm;
     }
   }

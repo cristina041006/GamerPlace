@@ -12,6 +12,9 @@ img{
     background: rgb(67,132,75);
 background: linear-gradient(0deg, rgba(67,132,75,0.303046218487395) 0%, rgba(67,132,75,0.4431022408963585) 100%);
 }
+.link{
+    font-size: 0.6cm;
+}
 
 @media only screen and (max-width: 990px) and (min-width: 360px){
     .search{
@@ -63,6 +66,9 @@ background: linear-gradient(0deg, rgba(67,132,75,0.303046218487395) 0%, rgba(67,
     .mov{
         display: contents;
     }
+    .imgLogo{
+        width: 20%;
+    }
 
     @media only screen and (max-width: 360px){
         .search{
@@ -93,6 +99,9 @@ background: linear-gradient(0deg, rgba(67,132,75,0.303046218487395) 0%, rgba(67,
             margin-left: 0;
             margin-right: auto;
             width: 19%;
+        }
+        .imgLogo{
+            width: 20%;
         }
     }
 }

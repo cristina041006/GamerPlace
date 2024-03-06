@@ -19,3 +19,9 @@
     justify-content: center;
     margin-top: 2%;
 }
+@media only screen and (max-width: 360px){
+    .info{
+        width: 55px;
+        font-size: 0.3cm;
+    }
+}

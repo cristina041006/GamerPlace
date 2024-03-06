@@ -143,12 +143,15 @@ export class FormComponent implements OnInit {
           //Si todo va bien tendremos que ir rellenando uno a uno los datos del formulario con
           //los rescatados
           this.videogameEdit = game;
-          this.myForm.get('idVideogame')?.setValue(this.videogameEdit.idVideogame)
-          this.myForm.get('name')?.setValue(this.videogameEdit.name)
-          this.myForm.get('description')?.setValue(this.videogameEdit.description)
-          this.myForm.get('price')?.setValue(this.videogameEdit.price)
-          this.myForm.get('stock')?.setValue(this.videogameEdit.stock)
-          this.myForm.get('idPlataform')?.setValue(this.videogameEdit.idPlataform)
+          this.myForm.reset({
+            idVideogame: this.videogameEdit.idVideogame,
+            name: this.videogameEdit.name,
+            description: this.videogameEdit.description,
+            price: this.videogameEdit.stock,
+            stock: this.videogameEdit.stock,
+            idPlataform: this.videogameEdit.idPlataform
+          })
+          
           //Para las catgeorias debemos usar el FromControl auxiliar creado anteriormente  
           for(let categ of this.videogameEdit.listCategory){
             this.newCategory.setValue(categ.nameCategory)

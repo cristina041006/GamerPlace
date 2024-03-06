@@ -4,8 +4,10 @@
         <ul>
             <li><a routerLink="/videogames" aria-label="list videogames"  title="Go to list game "><img src="../../../assets/img/juegosTex.PNG" style="border-radius: 10px" alt="Go to list game image"></a></li>
             <li><a routerLink="/games/second" aria-label="second hand games list" title="Go to second game list "><img src="../../../assets/img/secondTex.PNG"  style="border-radius: 10px" alt="Go to second game list image"></a></li>
-            <li><a routerLink="/seller" aria-label="Become a user seller" title="Become a user seller "><img src="../../../assets/img/sellerText.PNG"  style="border-radius: 10px" alt="Be a user seller image"></a></li>
-            <li><a routerLink="/videogames" aria-label="list videogames" title="Go to list game "><img src="../../../assets/img/juegosTex.PNG"  style="border-radius: 10px" alt="Go to list game image"></a></li>
+            <li *ngIf="rol()=='userSeller'"><a routerLink="/videogames" aria-label="list videogames" title="Go to list game "><img src="../../../assets/img/juegosTex.PNG"  style="border-radius: 10px" alt="Go to list game image"></a></li>
+            <li *ngIf="rol()!='userSeller'"><a routerLink="/seller" aria-label="Become a user seller" title="Become a user seller "><img src="../../../assets/img/sellerText.PNG"  style="border-radius: 10px" alt="Be a user seller image"></a></li>
+            <li *ngIf="rol()!='userSeller'"><a routerLink="/videogames" aria-label="list videogames" title="Go to list game "><img src="../../../assets/img/juegosTex.PNG"  style="border-radius: 10px" alt="Go to list game image"></a></li>
+            <li *ngIf="rol()=='userSeller'"><a routerLink="/games/second" aria-label="second hand games list" title="Go to second game list "><img src="../../../assets/img/secondTex.PNG"  style="border-radius: 10px" alt="Go to second game list image"></a></li>
         </ul>
     </div>
     

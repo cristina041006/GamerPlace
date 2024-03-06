@@ -23,8 +23,8 @@ export class ListComponent implements OnInit{
   /**Contructor donde inyectaremos el servicio del juego */
   constructor(private gameService: GameService, private categoryService: CategoryService){}
 
-  @Input() filter!: string
-  @Input() second!: string
+  @Input() filter!: string //variable rescatada desde el nabvar cuando estamos buscando
+  @Input() second!: string //variable rescatada desde las rutas para saber si debemso listar los juegos nuevos o de segunda mano
   
   //Variables
   pageable!: ListPageable //Donde almacenaremos el pageable

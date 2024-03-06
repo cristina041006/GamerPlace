@@ -19,13 +19,21 @@ import { delay } from 'rxjs';
   styleUrl: './nabvar.component.css'
 })
 export class NabvarComponent implements OnInit{
-
+/**Componende del navbar */
   constructor(private gameService: GameService, private router: Router, private authService: AuthService){}
 
+  //Variables
   gameFind!: ListPageable | undefined
   name: string= "";
   username: any = this.authService.usernameSignal
   rol: any = this.authService.rolSignal
+
+  /**
+   * Metodo que recibe el atributo enviado por el hijo search para poder
+   * determinar si existe algun juegos con las letras
+   * que esta buscando y mostrar el componente de listGames con ellos
+   * @param menasje 
+   */
   eventSearch(menasje: string){
     this.gameFind = undefined
     this.name = menasje;
@@ -51,6 +59,10 @@ export class NabvarComponent implements OnInit{
     
   }
 
+  /**
+   * Metodo para hacer cerrar la sesision, preguntara una confirmacion y si
+   * acepta se borrara el item Authorization del localStorage y llevara a la pagina de inicio
+   */
   logout(){
     Swal.fire({
       title: "Are you sure you want logout?",

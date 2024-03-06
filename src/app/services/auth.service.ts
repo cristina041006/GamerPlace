@@ -73,6 +73,10 @@ export class AuthService {
     return this.http.post<User>(`${this.baseUrl}/signup`, user)
   }
 
+  /**
+   * Metodo para cerrar sesion borrando el 
+   * item Authorization del localStorage
+   */
   logout(){
     if(localStorage.getItem("Authorization")!=null){
       localStorage.removeItem("Authorization")
@@ -81,6 +85,13 @@ export class AuthService {
     }
   }
 
+  /**
+   * Metodo para poder convertir al usuario loguado
+   * en un usuario vendedor y cambiar asi su rol. Se llamara
+   * otra vez a renew para actualiar su token
+   * @param user 
+   * @returns 
+   */
   becomeAseller(user: UserLogin): Observable<any|Boolean>{
     return this.http.post<any>(`${this.baseUrl}/seller`, user).pipe(
       tap(resp => {
@@ -95,13 +106,19 @@ export class AuthService {
     )
   }
 
+  /**
+   * Metodo que que devuelve los videojuegosque vende un usuario vendedor
+   * @param user 
+   * @returns 
+   */
   getListGameSeller(user: string): Observable<Videogame[]>{
     return this.http.get<Videogame[]>(`${this.baseUrl}/listGames?user=${user}`)
   }
 
 
   /**
-   * Metodo
+   * Metodo para validar que el token este en el localStorage y 
+   * lo descrifra
    * @returns 
    */
   validateToken(){
@@ -113,9 +130,20 @@ export class AuthService {
     }
   }
 
+  /**
+   * Metodo que comprueba si hay alguien logueado en la pagina
+   * @returns 
+   */
   isLogged(){
     return this.validateToken()!=null? true: false
   }
+
+  /**
+   * Metodo que comprueba si hay alguien logeado en 
+   * la pagina ademas de comporbar que el rol
+   * que tiene ese usuario es admin
+   * @returns 
+   */
   isAdmin(){
     const token =this.validateToken()
     if(token!=null){
@@ -129,11 +157,38 @@ export class AuthService {
       return false
     }
   }
+
+  /**
+   * Metodo que comprueba si hay alguien logeado en 
+   * la pagina ademas de comporbar que el rol
+   * que tiene ese usuario es userSeller
+   * @returns 
+   */
   isSeller(){
     const token =this.validateToken()
     if(token!=null){
       this.renew()
       if(this.rolSignal()!="" && this.rolSignal()=="userSeller"){
+        return true;
+      }else{
+        return false;
+      }
+    }else{
+      return false
+    }
+  }
+
+  /**
+   * * Metodo que comprueba si hay alguien logeado en 
+   * la pagina ademas de comporbar que el rol
+   * que tiene ese usuario es user
+   * @returns 
+   */
+  isUser(){
+    const token =this.validateToken()
+    if(token!=null){
+      this.renew()
+      if(this.rolSignal()!="" && this.rolSignal()=="user"){
         return true;
       }else{
         return false;

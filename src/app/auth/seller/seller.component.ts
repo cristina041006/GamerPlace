@@ -14,6 +14,9 @@ import { FooterComponent } from '../../shared/footer/footer.component';
   styleUrl: './seller.component.css'
 })
 export class SellerComponent {
+/**Componente donde se mostrara un formulario para 
+ * que el usuario se convierta en un usuario vendedor
+ */
 
   /**Contructor deonde llamaremos al authService y a Router para poder navegar */
   constructor(private authService: AuthService, private route: Router) {}
@@ -35,9 +38,12 @@ export class SellerComponent {
     return this.myForm?.controls[field]?.invalid && this.myForm.controls[field]?.touched
   }
 
-  become(){
-    console.log("hola");
-    
+  /**
+   * Merodo para convertirse en usuario vendedor. 
+   * Preguntara primero una confirmacion y si acepta se hara la peticion para
+   * cambiar su rol a userSeller y tener sus ventajas
+   */
+  become(){    
     if(this.userSeller.username!="" && this.userSeller.password!=""){
       Swal.fire({
         title: "Are you sure?",

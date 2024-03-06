@@ -7,11 +7,12 @@ import { GameService } from '../../services/game.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 import { BillService } from '../../services/bill.service';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-shop-car',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FooterComponent],
   templateUrl: './shop-car.component.html',
   styleUrl: './shop-car.component.css'
 })
@@ -108,8 +109,8 @@ export class ShopCarComponent implements OnInit{
   buy(){
     //Creamos la cesta que vamos a mandar la peticion
     this.shop.forEach((gameBill) => {
-      const {idVideogame, nameVideogame, amount,...rest} = gameBill
-      this.shopBuy.push({idVideogame, nameVideogame, amount})
+      const {idVideogame, nameVideogame, amount, quality,...rest} = gameBill
+      this.shopBuy.push({idVideogame, nameVideogame, amount, quality})
     })
     //Conseguimos el usuario logueado
     this.authService.renew()

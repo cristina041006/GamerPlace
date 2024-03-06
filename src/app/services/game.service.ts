@@ -95,17 +95,45 @@ export class GameService {
     return this.http.put<Videogame>(`${this.baseUrl}/editVideogame/${id}`, formData);
   }
 
+  /**
+   * Metodo para poder buscar un juego a partir de un 
+   * conjunto de letras enviadas devolviendo una lista paginada
+   * @param name 
+   * @returns 
+   */
   searchGame(name: string): Observable<ListPageable>{
     return this.http.get<ListPageable>(`${this.baseUrl}/getVideogame?name=${name}`)
   }
+
+  /**
+   *  Metodo para poder buscar un juego a partir de un 
+   * conjunto de letras y elegir en la pagina que quieres estar devolviendo una lista paginada
+   * @param name 
+   * @param pageNum 
+   * @returns 
+   */
   searchGamePage(name: string, pageNum: string): Observable<ListPageable>{
     return this.http.get<ListPageable>(`${this.baseUrl}/getVideogame?name=${name}&&pageNum=${pageNum}`)
   }
 
+  /**
+   * Metodo para buscar un juego por su catgeoria devolviendo una lista paginada
+   * @param idCatgeory 
+   * @param quality 
+   * @returns 
+   */
   getGameByCategory(idCatgeory:string, quality: string): Observable<ListPageable>{
     return this.http.get<ListPageable>(`${this.baseUrl}/videogames?idCategory=${idCatgeory}&&quality=${quality}`)
   }
 
+  /**
+   * Metodo para buscar un juego por su catgeoria pudiendo elegir
+   * en la pagina que quieres estra devolviendo una lista paginada
+   * @param idCatgeory 
+   * @param quality 
+   * @param numPage 
+   * @returns 
+   */
   getGameByCategoryPage(idCatgeory:string, quality: string, numPage: string): Observable<ListPageable>{
     return this.http.get<ListPageable>(`${this.baseUrl}/videogames?idCategory=${idCatgeory}&&quality=${quality}&&pageNum=${numPage}`)
   }

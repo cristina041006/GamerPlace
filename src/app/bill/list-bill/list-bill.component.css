@@ -5,6 +5,8 @@
     margin-left: 29%;
     margin-top: 2%;
     padding-bottom: 1%;
+    font-family: monospace;
+
 }
 .info{
     background-color: #608E94;
@@ -16,4 +18,10 @@
 .pagination{
     justify-content: center;
     margin-top: 2%;
+}
+@media only screen and (max-width: 360px){
+    .info{
+        width: 55px;
+        font-size: 0.3cm;
+    }
 }

@@ -15,12 +15,20 @@ import Swal from 'sweetalert2';
   styleUrl: './listGameSeller.component.css'
 })
 export class ListGameSellerComponent implements OnInit{
+/*Componente para listar los juegos que vende un usuario vendedor */
 
+  /**Constructor llamando a los servicios necesarios */
   constructor(private authService: AuthService, private gameService: GameService ) {}
 
+  //variables
   listGames: Videogame[] = []
   username: any
 
+  /**
+   * Metodo que se ejecutara al cargar la pagina y que hara un renew para 
+   * poder saber que user esta logueado y hara la peticion para traer los juegos de 
+   * ese usuario
+   */
   ngOnInit(): void {
     this.authService.renew()
     this.username = this.authService.usernameSignal
@@ -31,6 +39,12 @@ export class ListGameSellerComponent implements OnInit{
     })
   }
 
+  /**
+   * Metodo para poder borrar uno de los juegos que el usuario vende
+   * se preguntara una confiramcion y si acepta se hara la 
+   * peticion para borar el juego con ese id
+   * @param id 
+   */
   deleteGame(id: number){
     Swal.fire({
       title: "Are you sure?",

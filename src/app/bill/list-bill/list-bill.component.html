@@ -6,41 +6,49 @@
         <div class="col-12 col-md-8 col-lg-6 col-xl-7" style="width: 100%;">
           <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center content">
+              @if (listBill.length>0) {
                 <table class="table" >
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col" (click)="sortPage('date',pageable.pageable.pageNumber+1)">Date</th>
-                        <th scope="col" (click)="sortPage('totalPrice',pageable.pageable.pageNumber+1)">Total Price</th>
+                        <th scope="col" (click)="sortPage('date',pageable.pageable.pageNumber+1)" style="color: blue;" *ngIf="order!='date'">Date</th>
+                        <th scope="col" (click)="sortPage('date',pageable.pageable.pageNumber+1)" *ngIf="order=='date' && sort" style="color: blue;">Date <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm;" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M151.6 42.4C145.5 35.8 137 32 128 32s-17.5 3.8-23.6 10.4l-88 96c-11.9 13-11.1 33.3 2 45.2s33.3 11.1 45.2-2L96 146.3V448c0 17.7 14.3 32 32 32s32-14.3 32-32V146.3l32.4 35.4c11.9 13 32.2 13.9 45.2 2s13.9-32.2 2-45.2l-88-96zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H320zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H320zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H320zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32H544c17.7 0 32-14.3 32-32s-14.3-32-32-32H320z"/></svg></th>
+                        <th scope="col" (click)="sortPage('date',pageable.pageable.pageNumber+1)" *ngIf="order=='date' && !sort" style="color: blue;">Date <svg xmlns="http://www.w3.org/2000/svg"  style="width: 0.5cm;" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z"/></svg></th>
+                        <th scope="col" (click)="sortPage('totalPrice',pageable.pageable.pageNumber+1)"  style="color: blue;" *ngIf="order!='totalPrice'">Total Price</th>
+                        <th scope="col" (click)="sortPage('totalPrice',pageable.pageable.pageNumber+1)" *ngIf="order=='totalPrice' && sort" style="color: blue;">Total Price <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm;" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M151.6 42.4C145.5 35.8 137 32 128 32s-17.5 3.8-23.6 10.4l-88 96c-11.9 13-11.1 33.3 2 45.2s33.3 11.1 45.2-2L96 146.3V448c0 17.7 14.3 32 32 32s32-14.3 32-32V146.3l32.4 35.4c11.9 13 32.2 13.9 45.2 2s13.9-32.2 2-45.2l-88-96zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H320zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H320zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H320zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32H544c17.7 0 32-14.3 32-32s-14.3-32-32-32H320z"/></svg></th>
+                        <th scope="col" (click)="sortPage('totalPrice',pageable.pageable.pageNumber+1)" *ngIf="order=='totalPrice' && !sort" style="color: blue;">Total Price <svg xmlns="http://www.w3.org/2000/svg"  style="width: 0.5cm;" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z"/></svg></th>
                         <th scope="col">Games</th>
                       </tr>
                     </thead>
                     <tbody class="table-group-divider">
                       <tr *ngFor="let bill of listBill; let i=index">
-                        <td>{{bill.idBill}}</td>
+                        <td>{{i+1}}</td>
                         <td>{{bill.date}}</td>
                         <td>{{bill.totalPrice}}€</td>
-                        <td><button type="button" class="btn info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getGames(i)">
-                                Games
+                        <td><button type="button"  class="btn info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getGames(i)" title="See bill's games">
+                                Games <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-bottom: 4%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                               </button></td>
                       </tr>
                     </tbody>
                 </table>
+              }@else {
+                <h2>You don't have any bills</h2>
+              }
                 @if (pageable) {
                   <nav aria-label="Page navigation example" class="pagination">
                       <ul class="pagination">
                         <li class="page-item" *ngIf="pageable.pageable.pageNumber>0">
-                          <a class="page-link" (click)="nextPage(order, 1)">First</a>
+                          <a class="page-link" (click)="nextPage(order, 1)" title="Go to the first page">First</a>
                         </li>
-                        <li class="page-item"><a class="page-link" *ngIf="pageable.pageable.pageNumber>0" (click)="nextPage(order, pageable.pageable.pageNumber)">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" *ngIf="pageable.pageable.pageNumber>0" (click)="nextPage(order, pageable.pageable.pageNumber)" title="Go to the previous page">&laquo;</a></li>
                         <span *ngFor="let i of numberSequence">
-                            <li class="page-item"><a class="page-link" *ngIf="i==pageable.pageable.pageNumber+1" style="border: 3px solid #C8A519; border-radius: 0px;"  (click)="nextPage(order, i)">{{i}}</a></li>
-                            <li class="page-item"><a class="page-link" *ngIf="i!=pageable.pageable.pageNumber+1" style="border-radius: 0px;" (click)="nextPage(order, i)">{{i}}</a></li>
+                            <li class="page-item"><a class="page-link" *ngIf="i==pageable.pageable.pageNumber+1" style="border: 3px solid #C8A519; border-radius: 0px;"  (click)="nextPage(order, i)" title="You are in this page">{{i}}</a></li>
+                            <li class="page-item"><a class="page-link" *ngIf="i!=pageable.pageable.pageNumber+1" style="border-radius: 0px;" (click)="nextPage(order, i)" title="Page number {{i}}">{{i}}</a></li>
 
                         </span>
-                        <li class="page-item"><a class="page-link" (click)="nextPage(order, pageable.pageable.pageNumber+2)"  *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages">&raquo;</a></li>
+                        <li class="page-item"><a class="page-link" (click)="nextPage(order, pageable.pageable.pageNumber+2)"  *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages" title="Go to the next page">&raquo;</a></li>
                         <li class="page-item" *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages">
-                          <a class="page-link" (click)="nextPage(order, pageable.totalPages)">Last</a>
+                          <a class="page-link" (click)="nextPage(order, pageable.totalPages)" title="Go to the last page">Last</a>
                         </li>
                       </ul>
                   </nav>

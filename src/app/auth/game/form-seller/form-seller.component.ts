@@ -207,7 +207,7 @@ export class FormSellerComponent {
               error: (error)=>{
                 //Si hay algun error se los mostramos con el mensaje correspondiente
                 Swal.fire({
-                  title: "Error al añadir",
+                  title: "Error to save",
                   text: error.error.message,
                   icon: "error",
                   confirmButtonText: "Close",
@@ -238,7 +238,7 @@ export class FormSellerComponent {
             error: (error)=>{
               //Si hay algun error se los mostramos con el mensaje correspondiente
               Swal.fire({
-                title: "Error al añadir",
+                title: "Error to save",
                 text: error.error.message,
                 icon: "error",
                 confirmButtonText: "Close",
@@ -281,7 +281,7 @@ export class FormSellerComponent {
                 error: (error)=>{
                   //Si hay algun erroe mostramos un mensaje de alerta con el error correspondiente
                   Swal.fire({
-                    title: "Error al editar",
+                    title: "Error to edit",
                     text: error.error.message,
                     icon: "error",
                     confirmButtonText: "Close",
@@ -306,7 +306,7 @@ export class FormSellerComponent {
               error: (error)=>{
                 //Si hay algun erroe mostramos un mensaje de alerta con el error correspondiente
                 Swal.fire({
-                  title: "Error al editar",
+                  title: "Error to edit",
                   text: error.error.message,
                   icon: "error",
                   confirmButtonText: "Close",
@@ -339,8 +339,8 @@ export class FormSellerComponent {
         //Si esta mostramos mensaje de alerta
         this.newCategory.reset()  
         Swal.fire({
-          title: "Campo duplicado",
-          text: "Esa categoria ya esta en la lista",
+          title: "Duplicated field",
+          text: "This category is already on the list",
           icon: "error",
           confirmButtonText: "Close",
           confirmButtonColor:"#949494" 

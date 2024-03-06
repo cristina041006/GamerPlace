@@ -6,11 +6,12 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-list-bill',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FooterComponent],
   templateUrl: './list-bill.component.html',
   styleUrl: './list-bill.component.css'
 })

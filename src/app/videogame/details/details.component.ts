@@ -30,7 +30,8 @@ export class DetailsComponent implements OnInit{
       nameVideogame:"",
       amount: 0,
       price: 0,
-      maxStock: 0
+      maxStock: 0,
+      quality: ""
   }
 
   shop: GameBill[] = []
@@ -145,6 +146,7 @@ export class DetailsComponent implements OnInit{
       this.gameBill.amount = this.amount,
       this.gameBill.price = this.game.price;
       this.gameBill.maxStock = this.game.stock
+      this.gameBill.quality = this.game.quality
       if(this.game.idVideogame){
         this.gameBill.idVideogame = this.game.idVideogame
       }

@@ -143,12 +143,15 @@ export class FormComponent implements OnInit {
           //Si todo va bien tendremos que ir rellenando uno a uno los datos del formulario con
           //los rescatados
           this.videogameEdit = game;
-          this.myForm.get('idVideogame')?.setValue(this.videogameEdit.idVideogame)
-          this.myForm.get('name')?.setValue(this.videogameEdit.name)
-          this.myForm.get('description')?.setValue(this.videogameEdit.description)
-          this.myForm.get('price')?.setValue(this.videogameEdit.price)
-          this.myForm.get('stock')?.setValue(this.videogameEdit.stock)
-          this.myForm.get('idPlataform')?.setValue(this.videogameEdit.idPlataform)
+          this.myForm.reset({
+            idVideogame: this.videogameEdit.idVideogame,
+            name: this.videogameEdit.name,
+            description: this.videogameEdit.description,
+            price: this.videogameEdit.stock,
+            stock: this.videogameEdit.stock,
+            idPlataform: this.videogameEdit.idPlataform
+          })
+          
           //Para las catgeorias debemos usar el FromControl auxiliar creado anteriormente  
           for(let categ of this.videogameEdit.listCategory){
             this.newCategory.setValue(categ.nameCategory)
@@ -206,7 +209,7 @@ export class FormComponent implements OnInit {
               error: (error)=>{
                 //Si hay algun error se los mostramos con el mensaje correspondiente
                 Swal.fire({
-                  title: "Error al añadir",
+                  title: "Error to save",
                   text: error.error.message,
                   icon: "error",
                   confirmButtonText: "Close",
@@ -237,7 +240,7 @@ export class FormComponent implements OnInit {
             error: (error)=>{
               //Si hay algun error se los mostramos con el mensaje correspondiente
               Swal.fire({
-                title: "Error al añadir",
+                title: "Error to save",
                 text: error.error.message,
                 icon: "error",
                 confirmButtonText: "Close",
@@ -280,7 +283,7 @@ export class FormComponent implements OnInit {
                 error: (error)=>{
                   //Si hay algun erroe mostramos un mensaje de alerta con el error correspondiente
                   Swal.fire({
-                    title: "Error al editar",
+                    title: "Error to edit",
                     text: error.error.message,
                     icon: "error",
                     confirmButtonText: "Close",
@@ -305,7 +308,7 @@ export class FormComponent implements OnInit {
               error: (error)=>{
                 //Si hay algun erroe mostramos un mensaje de alerta con el error correspondiente
                 Swal.fire({
-                  title: "Error al editar",
+                  title: "Error to edit",
                   text: error.error.message,
                   icon: "error",
                   confirmButtonText: "Close",
@@ -338,8 +341,8 @@ export class FormComponent implements OnInit {
         //Si esta mostramos mensaje de alerta
         this.newCategory.reset()  
         Swal.fire({
-          title: "Campo duplicado",
-          text: "Esa categoria ya esta en la lista",
+          title: "Duplicate field",
+          text: "This category is already in the list",
           icon: "error",
           confirmButtonText: "Close",
           confirmButtonColor:"#949494" 

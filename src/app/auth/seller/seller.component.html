@@ -11,20 +11,20 @@
               
               <form #myForm="ngForm" autocomplete="off" (ngSubmit)="become()">
               <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Username</label>
-                <input type="text" id="name" class="form-control form-control-lg" placeholder="anita" name="username" [(ngModel)]="userSeller.username"  required/>
+                <label class="form-label formTitle" for="name"><span class="oblig">*</span> Username</label>
+                <input type="text" id="name" class="form-control form-control-lg" placeholder="Your unsername" name="username" [(ngModel)]="userSeller.username"  required/>
                 @if(isValid('username')){
                     <span class="form-text text-danger">This field is required</span>
                 }
               </div>
               <div class="form-outline mb-4">
-                <label class="form-label" for="typeEmailX-2"><span class="oblig">*</span> Password</label>
-                <input type="password" id="description" class="form-control form-control-lg" name="password" [(ngModel)]="userSeller.password"  required/>
+                <label class="form-label formTitle" for="password"><span class="oblig">*</span> Password</label>
+                <input type="password" id="password" class="form-control form-control-lg" name="Your password" [(ngModel)]="userSeller.password"  required/>
                 @if(isValid('password')){
                     <span class="form-text text-danger">This field is required</span>
                 }
               </div>
-                <button class="btn btn-lg btn-block add" type="submit">Continuar</button>
+                <button class="btn btn-lg btn-block add" type="submit" title="Become a seller button">Continue</button>
               </form>
             </div>
           </div>
@@ -32,4 +32,4 @@
       </div>
     </div>
 </section>
-
+<app-footer></app-footer>

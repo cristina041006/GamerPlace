@@ -13,6 +13,8 @@ import { jwtSellerGuard } from './shared/guardians/jwt-seller.guard';
 import { SellerComponent } from './auth/seller/seller.component';
 import { ListGameSellerComponent } from './auth/game/listGameSeller/listGameSeller.component';
 import { FormSellerComponent } from './auth/game/form-seller/form-seller.component';
+import { jwtUserGuard } from './shared/guardians/jwt-user.guard';
+import { jwtNoLoggedGuard } from './shared/guardians/jwt-no-logged.guard';
 
 export const routes: Routes = [
     {
@@ -29,17 +31,19 @@ export const routes: Routes = [
     },
     {
         path: "addVideogame", component: FormComponent,
+        canMatch: [jwtAdminGuard]
         
     },
     {
         path: "editVideogame/:id", component: FormComponent,
-        canMatch: [jwtGuard, jwtAdminGuard]
+        canMatch: [jwtAdminGuard]
     },
     {
         path: "details/:id", component:DetailsComponent
     },
     {
-        path: "login", component: LoginComponent
+        path: "login", component: LoginComponent,
+        canMatch: [jwtNoLoggedGuard]
     },
     {
         path: "register", component:RegisterComponent,
@@ -54,15 +58,19 @@ export const routes: Routes = [
         canMatch: [jwtGuard]
     },
     {
-        path:"seller", component:SellerComponent
+        path:"seller", component:SellerComponent,
+        canMatch: [jwtUserGuard]
     },
     {
-        path:"listGame", component: ListGameSellerComponent
+        path:"listGame", component: ListGameSellerComponent,
+        canMatch: [jwtSellerGuard]
     },
     {
-        path:"addOldGame", component:FormSellerComponent
+        path:"addOldGame", component:FormSellerComponent,
+        canMatch: [jwtSellerGuard]
     },
     {
-        path:"editOldGame/:id", component: FormSellerComponent
+        path:"editOldGame/:id", component: FormSellerComponent,
+        canMatch: [jwtSellerGuard]
     }
 ];

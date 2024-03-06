@@ -11,25 +11,25 @@
               
               <form #myForm="ngForm" autocomplete="off" (ngSubmit)="login()">
               <div class="form-outline mb-4">
-                <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Username</label>
+                <label class="form-label formTitle" for="name"><span class="oblig">*</span> Username</label>
                 <input type="text" id="name" class="form-control form-control-lg" placeholder="Your userame" name="username" [(ngModel)]="userLogin.username" required/>
                 @if(isValid('username')){
                     <span class="form-text text-danger">The field username is required</span>
                 }
               </div>
               <div class="form-outline mb-4">
-                <label class="form-label formTitle" for="typeEmailX-2"><span class="oblig">*</span> Password</label>
-                <input type="password" id="description" class="form-control form-control-lg" name="password" [(ngModel)]="userLogin.password" required/>
+                <label class="form-label formTitle" for="password"><span class="oblig">*</span> Password</label>
+                <input type="password" id="password" class="form-control form-control-lg" name="password" [(ngModel)]="userLogin.password" required/>
                 @if(isValid('password')){
                     <span class="form-text text-danger">The field password is required</span>
                 }
               </div>
               <div id="emailHelp" class="form-text text-center mb-5 text-dark" style="font-size: 0.5cm;">Not
-                Registered? <a routerLink="/register" routerLinkActive="router-link-active"
+                Registered? <a routerLink="/register" routerLinkActive="router-link-active" title="Go to register" aria-label="Go to register"
                     class="text-dark fw-bold"> Create an
                     Account</a>
             </div>
-                <button class="btn btn-lg btn-block add" type="submit">Continue</button>
+                <button class="btn btn-lg btn-block add" type="submit" title="Log in">Continue</button>
               </form>
             </div>
           </div>
@@ -38,3 +38,4 @@
     </div>
 </section>
 
+<app-footer></app-footer>

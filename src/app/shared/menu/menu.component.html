@@ -1,9 +1,9 @@
 <div class="menu">
     <ul style="padding-right: 2%;">
-        <li routerLink="/videogames" routerLinkActive="active" ariaCurrentWhenActive="page" class="link">Videogames</li>
-        <li routerLink="/games/second" routerLinkActive="active" ariaCurrentWhenActive="page" class="link">Second-hand games</li>
-        <li routerLink="/addVideogame" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()=='admin'">Add game</li>
-        <li routerLink="/addOldGame" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()=='userSeller'">Sell game</li>
-        <li routerLink="/historial" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()!='admin'">Invoice history</li>
+        <li><a routerLink="/videogames" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" title="Game list">Videogames</a></li>
+        <li><a routerLink="/games/second" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" title="Second-hand game list">Second-hand games</a></li>
+        <li *ngIf="rol()=='admin'"><a routerLink="/addVideogame" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Add game form">Add game</a></li>
+        <li *ngIf="rol()=='userSeller'"><a  routerLink="/addOldGame" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Sell game form">Sell game</a></li>
+        <li *ngIf="rol()!='admin'"><a routerLink="/historial" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Invoice history</a></li>
     </ul>
 </div>

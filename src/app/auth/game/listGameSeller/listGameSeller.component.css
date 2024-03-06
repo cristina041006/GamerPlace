@@ -5,15 +5,22 @@ h1{
     margin-left: 29%;
     padding-bottom: 1%;
     margin-top: 2%;
+    font-family: monospace;
+
 }
 .list{
     display: flex;
     justify-content: center;
+   
 }
 .port{
     height: 190px;
     border-radius: 3px;
     
+}
+.port2{
+    height: 190px;
+    border-radius: 3px;
 }
 .edit{
     background-color: #C8A519;
@@ -54,3 +61,57 @@ h1{
 .cursor{
     cursor: pointer;
 }
+.bodyDestock{
+    width: 680px;
+}
+.sell{
+    color: #C24042;
+    font-size: 0.6cm;
+}
+.iconn{
+   width: 0.4cm; 
+   margin-bottom: 6%;
+}
+.iconn2{
+    width: 0.5cm; margin-bottom: 10%;
+}
+  @media screen and (max-width: 767px) {
+    h1 {
+      width: 80%;
+      margin-left: 10%;
+    }
+    .list {
+      flex-direction: column;
+    }
+    .card {
+      width: 100%;
+    }
+    .port{
+        width: 100%;
+    }
+    .list{
+        margin-bottom: 120%;
+    }
+    .bodyDestock{
+        width: auto;
+    }
+    .buttonsMovil{
+        float: inline-end;
+        display: flex;
+    }
+    .delete{
+        font-size: 0.3cm;
+    }
+    .edit{
+        font-size: 0.3cm;
+    }
+    .iconn{
+        width: 0.2cm;
+    }
+    .iconn2{
+        width: 0.3cm;
+    }
+    .sell{
+        font-size: 0.4cm;
+    }
+  }

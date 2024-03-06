@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +18,12 @@ export class ValidateNameGameService {
    * @returns 
    */
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors|null>{
-    return this.http.get<any[]>(`http://localhost:8080/existGame?name=${control.value}`)
+    return this.http.get<any[]>(`https://proyectoapi-cristina041006.onrender.com/existGame?name=${control.value}`)
     .pipe(
-      map(resp=> (resp.length == 0) ? null: {nameTaken: true})
+      tap(resp=>{
+        console.log(resp)
+      }),
+      map(resp=> (resp.length == 0 ) ? null: {nameTaken: true})
     )
   }
 }

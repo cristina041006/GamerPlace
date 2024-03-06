@@ -4,14 +4,16 @@ export interface GameBill {
     nameVideogame:string,
     amount: number
     price: number,
-    maxStock: number
+    maxStock: number,
+    quality: string
 }
 
 /**Interfaz para un gameBill que vamos a comprar */
 export interface GameBillBuy {
     idVideogame: number,
     nameVideogame:string,
-    amount: number
+    amount: number,
+    quality: string
 
 }
 

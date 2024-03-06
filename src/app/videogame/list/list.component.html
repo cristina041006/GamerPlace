@@ -11,7 +11,7 @@
           @if (!filter) {
             <p class="result">
               <span style="border-bottom: 2px solid #608E94;">{{result}}</span>
-              <button type="button" class="btn info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getCategories()">
+              <button type="button" class="btn info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getCategories()" title="category filter">
                 <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-left: 1%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/></svg>
               </button>
             </p>
@@ -24,25 +24,25 @@
                 <div class="list">
    
                   <div class="card mb-3" style="max-width: 1100px; max-height: 190px; padding-left: 2%; border: 0px; margin-top: 3%;">
-                      <div class="row g-0 game">
+                      <div class="row g-0 game" style="width: 104%;">
                         @if (game.image==null) {
-                        <div class="col-md-4" style="border: 1px solid black; border-radius: 10px;">
+                        <div class="col-md-4 imageBody" style="border: 1px solid black; border-radius: 10px;">
                           <!--Comprobamos si tiene imagen para poner una por defecto-->
-                          <a routerLink="/details/{{game.idVideogame}}"><img src="../../../assets/img/Imagen_no_disponible.svg.png" class="img-fluid rounded-start port"  alt="..."></a>
+                          <a routerLink="/details/{{game.idVideogame}}" title="Go to details"><img src="../../../assets/img/Imagen_no_disponible.svg.png" class="img-fluid rounded-start port"  alt="No image"></a>
                                             
                         </div>
                         }@else {
-                          <div class="col-md-4">
+                          <div class="col-md-4 imageBody">
                             <!--Comprobamos si tiene imagen para poner una por defecto-->
-                            <a routerLink="/details/{{game.idVideogame}}"><img src="{{game.image}}" class="img-fluid rounded-start port" alt="..."></a>
+                            <a routerLink="/details/{{game.idVideogame}}" title="Go to details"><img src="{{game.image}}" class="img-fluid rounded-start port" alt="Game's image"></a>
                           </div>
                         }
                         <div class="col-md-8">
-                          <div class="card-body" style="text-align: left;">
+                          <div class="card-body bodyCard" style="text-align: left;">
                             <h5 class="card-title">{{game.name}}</h5>
                             <p class="card-text">{{game.description}}</p>
                             <p class="card-text" *ngIf="game.quality=='old'">Second-hand game</p>
-                            <p class="card-text" ><small  style="color: black; font-size: 0.4cm;"><span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span></small><a routerLink="/details/{{game.idVideogame}}" class="btn btn-success details">Details</a></p>
+                            <p class="card-text" ><small  style="color: black; font-size: 0.4cm;"><span *ngFor="let category of game.listCategory">{{category.nameCategory}} | </span></small><a routerLink="/details/{{game.idVideogame}}" class="btn btn-success details" title="Go to the details">Details <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-bottom: 4%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></a></p>
               
                           </div>
                         </div>
@@ -57,16 +57,16 @@
               <nav aria-label="Page navigation example" class="pagination">
                   <ul class="pagination">
                     <li class="page-item cursor"  *ngIf="pageable.pageable.pageNumber>0">
-                      <a class="page-link cursor" (click)="nexPage(1)">First</a>
+                      <a class="page-link cursor" (click)="nexPage(1)" title="Go to the first page">First</a>
                     </li>
-                    <li class="page-item"><a class="page-link" *ngIf="pageable.pageable.pageNumber>0" (click)="nexPage(pageable.pageable.pageNumber)">&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" *ngIf="pageable.pageable.pageNumber>0" (click)="nexPage(pageable.pageable.pageNumber)"  title="Go to the previous page">&laquo;</a></li>
                     <span *ngFor="let i of numberSequence">
-                      <li class="page-item cursor"><a class="page-link" *ngIf="i==pageable.pageable.pageNumber+1" style="border: 3px solid #C8A519; border-radius: 0px;" (click)="nexPage(i)" th:text="${i}">{{i}}</a></li>
-                      <li class="page-item cursor"><a class="page-link" *ngIf="i!=pageable.pageable.pageNumber+1" style="border-radius: 0px;" (click)="nexPage(i)" th:text="${i}">{{i}}</a></li>
+                      <li class="page-item cursor"><a class="page-link" *ngIf="i==pageable.pageable.pageNumber+1" style="border: 3px solid #C8A519; border-radius: 0px;" (click)="nexPage(i)" th:text="${i}"  title="You are in this page">{{i}}</a></li>
+                      <li class="page-item cursor"><a class="page-link" *ngIf="i!=pageable.pageable.pageNumber+1" style="border-radius: 0px;" (click)="nexPage(i)" th:text="${i}"  title="Page number {{i}}">{{i}}</a></li>
                     </span>
-                    <li class="page-item cursor"><a class="page-link" *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages" (click)="nexPage(pageable.pageable.pageNumber+2)">&raquo;</a></li>
+                    <li class="page-item cursor"><a class="page-link" *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages" (click)="nexPage(pageable.pageable.pageNumber+2)"  title="Go to the next page">&raquo;</a></li>
                     <li class="page-item cursor" *ngIf="pageable.pageable.pageNumber+1<pageable.totalPages">
-                      <a class="page-link" (click)="nexPage(pageable.totalPages)">Last</a>
+                      <a class="page-link" (click)="nexPage(pageable.totalPages)"  title="Go to the last page">Last</a>
                     </li>
                   </ul>
               </nav>
@@ -93,8 +93,8 @@
           </div>
         </div>
         <div class="modal-footer" style="border-top-color: white;">
-          <button type="button" class="btn add" (click)="getGamesByCategory()" data-bs-dismiss="modal">Filter</button>
-          <button type="button" class="btn" style="background-color: #949494; color: white;" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn add" (click)="getGamesByCategory()" data-bs-dismiss="modal"  title="Filter by category">Filter</button>
+          <button type="button" class="btn" style="background-color: #949494; color: white;" data-bs-dismiss="modal" title="Cancel">Close</button>
         </div>
       </div>
     </div>
@@ -105,5 +105,4 @@
 <br>
 <br>
 <br>
-
 

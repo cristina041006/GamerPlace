@@ -109,8 +109,8 @@ export class ShopCarComponent implements OnInit{
   buy(){
     //Creamos la cesta que vamos a mandar la peticion
     this.shop.forEach((gameBill) => {
-      const {idVideogame, nameVideogame, amount,...rest} = gameBill
-      this.shopBuy.push({idVideogame, nameVideogame, amount})
+      const {idVideogame, nameVideogame, amount, quality,...rest} = gameBill
+      this.shopBuy.push({idVideogame, nameVideogame, amount, quality})
     })
     //Conseguimos el usuario logueado
     this.authService.renew()

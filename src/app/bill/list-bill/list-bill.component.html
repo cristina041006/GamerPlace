@@ -6,6 +6,7 @@
         <div class="col-12 col-md-8 col-lg-6 col-xl-7" style="width: 100%;">
           <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center content">
+              @if (listBill.length>0) {
                 <table class="table" >
                     <thead>
                       <tr>
@@ -30,6 +31,9 @@
                       </tr>
                     </tbody>
                 </table>
+              }@else {
+                <h2>You don't have any bills</h2>
+              }
                 @if (pageable) {
                   <nav aria-label="Page navigation example" class="pagination">
                       <ul class="pagination">

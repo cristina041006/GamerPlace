@@ -9,7 +9,7 @@ import { PlataformWithoutList } from '../interfaces/plataform';
 export class PlataformService {
 /**Servicio para las plataformas */
 
-  private baseUrl : string= "https://proyectoapi-cristina041006.onrender.com";
+  private baseUrl : string= "http://localhost:8080";
   constructor(private http : HttpClient) { }
 
   /**

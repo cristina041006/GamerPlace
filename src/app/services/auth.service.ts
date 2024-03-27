@@ -12,7 +12,7 @@ import { Videogame } from '../interfaces/videogames';
 export class AuthService {
 /**Servicio donde vamos a tener todos los metodos relacionados con el usuario */
 
-  private baseUrl : string= "https://proyectoapi-cristina041006.onrender.com";
+  private baseUrl : string= "http://localhost:8080";
   constructor(private http : HttpClient) { }
   public usernameSignal = signal('');
   public rolSignal = signal('')

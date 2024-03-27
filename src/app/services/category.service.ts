@@ -9,7 +9,7 @@ import { CategoryWithoutList } from '../interfaces/categories';
 export class CategoryService {
 /*Servicio de catgeoria*/
 
-  private baseUrl : string= "https://proyectoapi-cristina041006.onrender.com";
+  private baseUrl : string= "http://localhost:8080";
   constructor(private http : HttpClient) { }
 
   /**

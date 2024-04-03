@@ -72,5 +72,8 @@ export const routes: Routes = [
     {
         path:"editOldGame/:id", component: FormSellerComponent,
         canMatch: [jwtSellerGuard]
+    },
+    {
+        path: "**", component: StartComponent
     }
 ];

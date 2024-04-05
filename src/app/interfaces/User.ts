@@ -14,3 +14,11 @@ export interface User  {
     password:string,
     image:string
 }
+
+/**Interfaz para los usuarios que se van a listar */
+export interface UserGetList {
+    username: string,
+    email:    string,
+    rol:      string,
+    image:    string
+}

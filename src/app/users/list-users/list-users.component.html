@@ -1,0 +1,58 @@
+<!--Plantilla para listar los usuarios-->
+<h1>Users</h1>
+  <section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-7" style="width: 100%;">
+          <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
+            
+            <div class="card-body p-5 text-center content">
+                <form class="esc">
+                    <input class="form-control mr-sm-2 search" type="search" placeholder="Search Ej: juanito / Ej: juanito@gmail.com" aria-label="Search" name="name" [(ngModel)]="term" (input)="findUser()">
+                </form>            
+               <!--Iteramos los usuarios para mostrarlos-->
+                @for (user of listUsers; track $index) {
+                  <div class="list">
+     
+                    <div class="card mb-3" style="max-width: 1100px; max-height: 190px; padding-left: 2%; border: 0px; margin-top: 3%;">
+                        <div class="row g-0 game" style="width: 104%;">
+                            @if (user.image==null || user.image=="") {
+                          <div class="col-md-4 imageBody" style="border: 1px solid black; border-radius: 10px;">
+                            <!-- Comprobamos si tiene imagen para poner una por defect -->
+                            <img src="../../../assets/img/iconUser.jpg" class="img-fluid rounded-start port"  alt="No image">               
+                          </div>
+                          }@else {
+                            <div class="col-md-4 imageBody">
+                              <!-- Comprobamos si tiene imagen para poner una por defecto -->
+                              <img src="{{user.image}}" class="img-fluid rounded-start port" alt="Game's image">
+                            </div>
+                          }
+                          <div class="col-md-8">
+                            <div class="card-body bodyCard" style="text-align: left;">
+                              <h3 class="card-title">{{user.username}}</h3>
+                              <h6 class="card-text">{{user.email}}</h6>
+                              <p class="card-text" >
+                                <small  style="color: black; font-size: 0.4cm;">
+                                    <span>{{user.rol}}</span>
+                                </small>
+                                <a routerLink="/" class="btn btn-success details" title="Go to the details">Details <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-bottom: 4%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></a>
+                              </p>
+                
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+     
+                  </div>
+                }
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>  
+  <br>
+  <br>
+  <br>
+  
+  

@@ -15,6 +15,7 @@ import { ListGameSellerComponent } from './auth/game/listGameSeller/listGameSell
 import { FormSellerComponent } from './auth/game/form-seller/form-seller.component';
 import { jwtUserGuard } from './shared/guardians/jwt-user.guard';
 import { jwtNoLoggedGuard } from './shared/guardians/jwt-no-logged.guard';
+import { ListUsersComponent } from './users/list-users/list-users.component';
 
 export const routes: Routes = [
     {
@@ -72,5 +73,9 @@ export const routes: Routes = [
     {
         path:"editOldGame/:id", component: FormSellerComponent,
         canMatch: [jwtSellerGuard]
+    },
+    {
+        path: "listUser", component: ListUsersComponent,
+        canMatch: [jwtAdminGuard]
     }
 ];

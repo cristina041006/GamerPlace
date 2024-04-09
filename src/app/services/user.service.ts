@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserGetList } from '../interfaces/User';
+import { UserGetList, UserWithLogin } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,16 @@ export class UserService {
    */
   filterUser(term :string):Observable<UserGetList[]>{
     return this.http.get<UserGetList[]>(`${this.baseUrl}/filterUser?param=${term}`)
+  }
+
+  /**
+   * Metodo para hacer la peticion y enviar a un usuario un email informandole de que su 
+   * cuenta quiere ser cancelada o eliminada y que este la acepte o la rechace
+   * @param username 
+   * @returns el usuario afectado
+   */
+  sendCancelledEmail(username: string):Observable<UserWithLogin>{
+    return this.http.delete<UserWithLogin>(`${this.baseUrl}/emailDelete/${username}`)
   }
 
 }

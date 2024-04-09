@@ -31,11 +31,13 @@
                             <div class="card-body bodyCard" style="text-align: left;">
                               <h3 class="card-title">{{user.username}}</h3>
                               <h6 class="card-text">{{user.email}}</h6>
+                              <!--Si el stado del usuario es activo aparecera de color verde si no de color gold-->
+                              <h6 class="card-text" [ngStyle]="user.deleteUser=='active'? {'color': 'green'}: {'color': '#C8A519'} ">Count status: {{user.deleteUser}}</h6>
                               <p class="card-text" >
                                 <small  style="color: black; font-size: 0.4cm;">
                                     <span>{{user.rol}}</span>
                                 </small>
-                                <a routerLink="/" class="btn btn-success details" title="Go to the details">Details <svg xmlns="http://www.w3.org/2000/svg" style="width: 0.5cm; margin-bottom: 4%;" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></a>
+                                <button (click)="canllecedCount(user.username)" class="btn btn-danger delete" title="Go to the details">Cancelled count</button>
                               </p>
                 
                             </div>

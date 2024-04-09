@@ -72,5 +72,47 @@ export class ListUsersComponent implements OnInit{
     })
   }
 
+  /**
+   * Funcion que hace una peticion para enviar un correo notificandole al usuario afectado
+   * que su cuenta quiere ser cancelada para que este la acepte o no.
+   * Hace una pregunta al principio para evitar envios erroneos.
+   * @param username 
+   */
+  canllecedCount(username: string){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "An email will be sent to the user to request cancellation.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#C24042",
+      cancelButtonColor: "#949494",
+      confirmButtonText: "Yes,send it!"
+    }).then((respuesta)=>{
+      if(respuesta.isConfirmed){
+        this.userService.sendCancelledEmail(username).subscribe({
+          next: (user)=>{
+            Swal.fire({
+              title: "Send it!",
+              text: "The email has been sent, waiting for a response",
+              icon: "success",
+              confirmButtonColor:"#43844B" 
+            }).then((resultado)=>{
+              this.getUsers()
+            })
+          },
+          error: (error) => {
+            Swal.fire({
+              title: "Error",
+              text: error.error.message,
+              icon: "error",
+              confirmButtonText: "Close",
+              confirmButtonColor:"#949494" 
+            });  
+          }
+        })
+      }
+    })
+  }
+
 
 }

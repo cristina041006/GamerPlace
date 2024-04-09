@@ -20,5 +20,18 @@ export interface UserGetList {
     username: string,
     email:    string,
     rol:      string,
-    image:    string
+    image:    string,
+    deleteUser: string
+}
+
+/**Interfaz de combina los atributos de user y de userLogin */
+export interface UserWithLogin {
+    username:   string;
+    email:      string;
+    name:       string;
+    address:    string;
+    phone:      string;
+    rol:        string;
+    image:      null;
+    deleteUser: string;
 }

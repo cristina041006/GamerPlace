@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { User, UserLogin } from '../interfaces/User';
+import { User, UserEdit, UserLogin, UserWithLogin } from '../interfaces/User';
 import { Observable, catchError, map, of, take, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { ImageService } from './image.service';
@@ -196,6 +196,14 @@ export class AuthService {
     }else{
       return false
     }
+  }
+
+  getUser():Observable<UserWithLogin>{
+    return this.http.get<UserWithLogin>(`${this.baseUrl}/getUser?username=${this.usernameSignal()}`)
+  }
+
+  editUser(user : UserEdit):Observable<UserWithLogin>{
+    return this.http.put<UserWithLogin>(`${this.baseUrl}/editProfile/${this.usernameSignal()}`, user)
   }
 
 }

@@ -35,3 +35,15 @@ export interface UserWithLogin {
     image:      null;
     deleteUser: string;
 }
+export interface UserEdit {
+
+    username: string,
+    email: string,
+    name: string,
+    address:string,
+    phone: string,
+    password: string,
+    image: string
+}
+
+

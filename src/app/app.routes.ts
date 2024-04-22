@@ -16,6 +16,8 @@ import { FormSellerComponent } from './auth/game/form-seller/form-seller.compone
 import { jwtUserGuard } from './shared/guardians/jwt-user.guard';
 import { jwtNoLoggedGuard } from './shared/guardians/jwt-no-logged.guard';
 import { ListUsersComponent } from './users/list-users/list-users.component';
+import { VerifyCancelledComponent } from './users/verify-cancelled/verify-cancelled.component';
+import { ProfileComponent } from './auth/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -44,6 +46,10 @@ export const routes: Routes = [
     },
     {
         path: "login", component: LoginComponent,
+        canMatch: [jwtNoLoggedGuard]
+    },
+    {
+        path: "login/:permission", component: LoginComponent,
         canMatch: [jwtNoLoggedGuard]
     },
     {
@@ -77,5 +83,11 @@ export const routes: Routes = [
     {
         path: "listUser", component: ListUsersComponent,
         canMatch: [jwtAdminGuard]
+    },
+    {
+        path: "verifyCancelled/:username", component:VerifyCancelledComponent,
+    },
+    {
+        path: "profile", component:ProfileComponent
     }
 ];

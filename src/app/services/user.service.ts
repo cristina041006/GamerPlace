@@ -41,4 +41,24 @@ export class UserService {
     return this.http.delete<UserWithLogin>(`${this.baseUrl}/emailDelete/${username}`)
   }
 
+  /**
+   * Metodo para modificar el estado del usuario de pending a rejected cuando 
+   * este rechace la peticion sde cancelacion de cuenta
+   * @param username 
+   * @returns el usuario actualizado
+   */
+  modifyStatus(username: string):Observable<UserWithLogin>{
+    return this.http.put<UserWithLogin>(`${this.baseUrl}/rejectedCancelled?username=${username}`, "");
+  }
+
+  /**
+   * Metodo para elimonar al usuario con todos sus datos relacionados si este acepta la
+   * pecition de cancelacion de cuenta
+   * @param username 
+   * @returns un mensaje si se borro correctamente
+   */
+  deleteUser(username: string):Observable<string>{
+    return this.http.delete<string>(`${this.baseUrl}/deleteUser/${username}`)
+  }
+
 }

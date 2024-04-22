@@ -1,0 +1,69 @@
+
+.title{
+    border-bottom: 3px solid #C75A32 ;
+    text-align: center;
+    width: 42%;
+    margin-left: 29%;
+    padding-bottom: 1%;
+    margin-top: 2%;
+    font-family: monospace;
+
+}
+.subtitle{
+    border-bottom: 2px solid #608E94;
+
+}
+.add{
+    background-color: #43844B;
+    color: white;
+}
+.oblig{
+    color: #C24042;
+}
+.shadowBox{
+    box-shadow: 5px 5px 0;
+}
+.lista{
+   text-align: justify;
+}
+.addCategory{
+    border: 2px solid #43844B;
+    color: #43844B;
+}
+.addCategory:active{
+    background-color: #43844B;
+    color: white;
+}
+.delete{
+    border: 2px solid  #C24042;
+    color: #C24042;
+}
+.delete:hover{
+    background-color:  #C24042;
+    color: white;
+}
+.edit{
+    background-color: #C8A519;
+    color: white;
+}
+.image{
+    width: 50%;
+    margin-top: 2%;
+}
+.back{
+    background-color: #949494;
+    color: white;
+    margin-left: 1%;
+}
+
+.contain{
+    width: 95%;
+}
+.formTitle{
+    font-size: 0.5cm;
+}
+@media only screen and (max-width: 1200px) and (min-width: 770px){
+   .contain{
+    width: 473px;
+   }
+}

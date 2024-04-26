@@ -18,6 +18,7 @@ import { jwtNoLoggedGuard } from './shared/guardians/jwt-no-logged.guard';
 import { ListUsersComponent } from './users/list-users/list-users.component';
 import { VerifyCancelledComponent } from './users/verify-cancelled/verify-cancelled.component';
 import { ProfileComponent } from './auth/profile/profile.component';
+import { AdministrationComponent } from './setting/administration/administration.component';
 
 export const routes: Routes = [
     {
@@ -88,6 +89,11 @@ export const routes: Routes = [
         path: "verifyCancelled/:username", component:VerifyCancelledComponent,
     },
     {
-        path: "profile", component:ProfileComponent
+        path: "profile", component:ProfileComponent,
+        canMatch: [jwtGuard]
+    },
+    {
+        path: "administration", component:AdministrationComponent,
+        canMatch: [jwtAdminGuard]
     }
 ];

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidatorsService } from '../../shared/validators/validators.service';
 import { AuthService } from '../../services/auth.service';
-import { UserEdit, UserWithLogin } from '../../interfaces/User';
+import { UserEdit, UserPasswordEdit, UserWithLogin } from '../../interfaces/User';
 import Swal from 'sweetalert2';
 import { ImageService } from '../../services/image.service';
 import { tap } from 'rxjs';
@@ -21,8 +21,10 @@ export class ProfileComponent implements OnInit{
   imageUrl: string =''
   image: string | null=""
   disabledField: boolean = true
+  disabledPassword: boolean = true
   userEdit!: UserEdit;
   userGet!: UserWithLogin;
+  userPasswordEdit!: UserPasswordEdit;
   loading: boolean = false;
 
   constructor(private fb: FormBuilder, private validatorService: ValidatorsService, private authService: AuthService, private imageService: ImageService) {}
@@ -35,6 +37,16 @@ export class ProfileComponent implements OnInit{
     phone: ['', [Validators.required,  Validators.pattern(this.validatorService.phonePattern)]],
     image: [''],
   })
+
+  /**
+   * Formulario especial para las contraseñas
+   */
+  myFormPassword: FormGroup = this.fb.group({
+    password: ['', [Validators.required]],
+    newPassword: ['', [Validators.required, Validators.pattern(this.validatorService.passwordPattern)]],
+    repeatPassword: ['', [Validators.required]]
+  }, {validators: [this.validatorService.equalsFields('newPassword', 'repeatPassword')]})
+
 
   /**Metodo que comprueba si un campo tiene fallos */
   isValid(field:string){
@@ -93,6 +105,54 @@ export class ProfileComponent implements OnInit{
   }
 
   /**
+   * Metodo que devuelve el mensaje de error del campo repearPassword dependiendo del error
+   */
+  get passwordComfirmErrosMsg():string{
+    const errors = this.myFormPassword.get("repeatPassword")?.errors;
+    let errorMsg = "";
+    if(this.myFormPassword.get("repeatPassword")?.touched && errors){
+      if(errors['required']){
+        errorMsg = "Password is required";
+      }else if(errors['nonEquals']){
+        errorMsg = "The password mut be the same";
+      }
+    }
+    return errorMsg;
+  }
+
+  /**
+   * Metodo que devuelve el mensaje de error del campo password dependiendo del error
+   */
+  get passwordErrosMsg():string{
+    const errors = this.myFormPassword.get("password")?.errors;
+    let errorMsg = "";
+    if(this.myFormPassword.get("password")?.touched && errors){
+      if(errors['required']){
+        errorMsg = "Password is required";
+      }else if(errors['pattern']){
+        errorMsg = "The password must contain at least one uppercase number and have a length of 8";
+      }
+    }
+    return errorMsg;
+  }
+
+  /**
+   * Metodo que devuelve el mensaje de error del campo newPassword dependiendo del error
+   */
+  get newPasswordErrosMsg():string{
+    const errors = this.myFormPassword.get("newPassword")?.errors;
+    let errorMsg = "";
+    if(this.myFormPassword.get("newPassword")?.touched && errors){
+      if(errors['required']){
+        errorMsg = "Password is required";
+      }else if(errors['pattern']){
+        errorMsg = "The password must contain at least one uppercase number and have a length of 8";
+      }
+    }
+    return errorMsg;
+  }
+
+  /**
    * Metodo para poder extraer la verdadera url de la imagen que 
    * hemos seleccionado e introducirsela a la variable imageUrl
    * @param event 
@@ -144,6 +204,18 @@ export class ProfileComponent implements OnInit{
 
   activateField(){
     this.disabledField = false
+  }
+
+  /**
+   * Metodo para volver falsa la variable que se encarga de esconder
+   * los campos de contraseña
+   */
+  activatedPassword(){
+    this.disabledPassword = false;
+  }
+  back(){
+    this.disabledField = true;
+    this.disabledPassword = true
   }
 
   edit(){
@@ -226,6 +298,62 @@ export class ProfileComponent implements OnInit{
           }
         })
       }
+    }
+  }
+
+  /**
+   * Metodo para poder editar la cotraseña de un usuario sin necesidad de esitar
+   * el resto de sus campos
+   */
+  editPassword(){
+    //Cogemos los valores necesarios por formulario
+    const {password, newPassword, ...rest} = this.myFormPassword.value
+    const {username, ...rest2} = this.myForm.value
+
+    //Miramos que el formulario sea valido
+    if(this.myFormPassword.valid){
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Ypur password will change",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#C8A519",
+        cancelButtonColor: "#949494",
+        confirmButtonText: "Yes, edit it!"
+      }).then((result) => {
+        if(result.isConfirmed){
+          this.userPasswordEdit = {
+            username : username,
+            oldPassword: password,
+            newPassword: newPassword
+          }
+          //Editamos
+          this.authService.editPassword(this.userPasswordEdit).subscribe({
+            next: (user) =>{
+              Swal.fire({
+                title: "Save!",
+                text: "Your password has been edit.",
+                icon: "success",
+                confirmButtonColor:"#43844B" 
+              }).then((resultado)=>{
+                this.disabledPassword = true
+                this.myFormPassword.reset()
+              })
+            },
+            error: (error) =>{
+              Swal.fire({
+                title: "Error",
+                text: error.error.message,
+                icon: "error",
+                confirmButtonText: "Close",
+                confirmButtonColor:"#949494" 
+              }); 
+            }
+          })
+        }
+      })
+    }else{
+      this.myFormPassword.markAllAsTouched()
     }
   }
 

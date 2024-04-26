@@ -6,5 +6,6 @@
         <li *ngIf="rol()=='userSeller'"><a  routerLink="/addOldGame" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Sell game form">Sell game</a></li>
         <li *ngIf="rol()!='admin'"><a routerLink="/historial" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Invoice history</a></li>
         <li *ngIf="rol()=='admin'"><a routerLink="/listUser" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Users list</a></li>
+        <li *ngIf="rol()=='admin'"><a routerLink="/administration" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Setting</a></li>
     </ul>
 </div>

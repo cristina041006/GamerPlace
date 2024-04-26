@@ -20,5 +20,15 @@ export class CategoryService {
     return this.http.get<CategoryWithoutList[]>(`${this.baseUrl}/categories`)
   }
 
+  /**
+   * Metodo para hacer la peticion y borrar una categoria en concreto dependiendo
+   * de su id
+   * @param id 
+   * @returns 
+   */
+  deleteCategory(id: number):Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/deleteCategory/${id}`)
+  }
+
 
 }

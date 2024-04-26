@@ -62,6 +62,11 @@
 .formTitle{
     font-size: 0.5cm;
 }
+.back{
+    background-color: #949494;
+    color: white;
+    margin-left: 1%;
+}
 @media only screen and (max-width: 1200px) and (min-width: 770px){
    .contain{
     width: 473px;

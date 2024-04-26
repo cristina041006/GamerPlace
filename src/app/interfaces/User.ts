@@ -46,4 +46,10 @@ export interface UserEdit {
     image: string
 }
 
+export interface UserPasswordEdit{
+    username: string,
+    oldPassword: string,
+    newPassword: string
+}
+
 

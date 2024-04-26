@@ -1,0 +1,33 @@
+.title{
+    border-bottom: 3px solid #C75A32 ;
+    text-align: center;
+    width: 42%;
+    margin-left: 29%;
+    margin-top: 2%;
+    padding-bottom: 1%;
+    font-family: monospace;
+
+}
+.info{
+    background-color: #608E94;
+    color: white;
+    margin: 1%;
+}
+.delete{
+    background-color: #C24042;
+    color: white;
+    margin: 1%;
+}
+.bills{
+    width: 25cm;
+}
+.pagination{
+    justify-content: center;
+    margin-top: 2%;
+}
+@media only screen and (max-width: 360px){
+    .info{
+        width: 55px;
+        font-size: 0.3cm;
+    }
+}

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { User, UserEdit, UserLogin, UserWithLogin } from '../interfaces/User';
+import { User, UserEdit, UserLogin, UserPasswordEdit, UserWithLogin } from '../interfaces/User';
 import { Observable, catchError, map, of, take, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { ImageService } from './image.service';
@@ -204,6 +204,16 @@ export class AuthService {
 
   editUser(user : UserEdit):Observable<UserWithLogin>{
     return this.http.put<UserWithLogin>(`${this.baseUrl}/editProfile/${this.usernameSignal()}`, user)
+  }
+
+  /**
+   * Peticion para modificar la contraseña de un usuario, pasandole la actual, la nueva
+   * y el nombre de usuario
+   * @param user 
+   * @returns un usuario completo actualizado sin la contraseña
+   */
+  editPassword(user: UserPasswordEdit): Observable<UserWithLogin>{
+    return this.http.put<UserWithLogin>(`${this.baseUrl}/editPassword/${this.usernameSignal()}`, user)
   }
 
 }

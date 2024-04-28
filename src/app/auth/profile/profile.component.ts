@@ -182,7 +182,6 @@ export class ProfileComponent implements OnInit{
           email: this.userGet.email,
           address: this.userGet.address,
           phone: this.userGet.phone,
-          image: this.userGet.image
         })
         this.image = user.image
       },
@@ -196,10 +195,7 @@ export class ProfileComponent implements OnInit{
         }); 
         
       }
-    })
-
-    console.log(this.myForm);
-    
+    })    
   }
 
   activateField(){
@@ -221,27 +217,27 @@ export class ProfileComponent implements OnInit{
   edit(){
     if(this.myForm.invalid){
       this.myForm.markAllAsTouched()
+
     }else{
       this.disabledField = true
       const {password, ...rest} = this.myForm.value
       this.userEdit = rest
 
       if(this.imageUrl!=""){
+
         this.imageService.uploadFile(this.imageUrl)
         .subscribe((response)=>{
           this.userEdit.image = response.url,
-          this.loading= true
+          
           this.authService.editUser(this.userEdit).subscribe({
             next: (user) =>{
               this.userGet = user
               this.myForm.reset({
-                
                 username: this.userGet.username,
                 name: this.userGet.name,
                 email: this.userGet.email,
                 address: this.userGet.address,
                 phone: this.userGet.phone,
-                image: this.userGet.image
               })
               this.image = user.image
               Swal.fire({

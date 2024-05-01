@@ -68,30 +68,31 @@ export class VerifyCancelledComponent  implements OnInit{
           })
           //Si la respuesta es si, se elimina al usuario de la base de datos
         }else if(respuesta.isConfirmed){
-          this.authService.logout()
-          Swal.fire({
-            title: "Delete!",
-            text: "Your account and all its data have been deleted",
-            icon: "success",
-            confirmButtonColor:"#43844B" 
-          }).then((resultado)=>{
-            this.userService.deleteUser(this.username).subscribe({
-              next:(mesage)=>{
+          this.userService.deleteUser(this.username).subscribe({
+            next:(user)=>{
+              Swal.fire({
+                title: "Delete!",
+                text: "Your account and all its data have been deleted",
+                icon: "success",
+                confirmButtonColor:"#43844B" 
+              }).then((resultado)=>{
+                this.authService.logout()
+                this.route.navigate([""])  
+              })
+            },
+            error:(error)=>{
+              Swal.fire({
+                title: "Error",
+                text: error.error.error,
+                icon: "error",
+                confirmButtonText: "Close",
+                confirmButtonColor:"#949494" 
+              }).then((respuesta)=>{
                 this.route.navigate([""])
-              },
-              error:(error)=>{
-                Swal.fire({
-                  title: "Error",
-                  text: error.error.error,
-                  icon: "error",
-                  confirmButtonText: "Close",
-                  confirmButtonColor:"#949494" 
-                }).then((respuesta)=>{
-                  this.route.navigate([""])
-                })      
-              }
-            })
+              })      
+            }
           })
+          
           
         }
       })

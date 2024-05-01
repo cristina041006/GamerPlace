@@ -19,6 +19,7 @@ import { ListUsersComponent } from './users/list-users/list-users.component';
 import { VerifyCancelledComponent } from './users/verify-cancelled/verify-cancelled.component';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { AdministrationComponent } from './setting/administration/administration.component';
+import { ChatSocketComponent } from './message/chat-socket/chat-socket.component';
 
 export const routes: Routes = [
     {
@@ -95,5 +96,8 @@ export const routes: Routes = [
     {
         path: "administration", component:AdministrationComponent,
         canMatch: [jwtAdminGuard]
+    },
+    {
+        path: "chat/:userId", component:ChatSocketComponent
     }
 ];

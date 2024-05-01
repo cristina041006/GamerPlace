@@ -1,0 +1,32 @@
+<h1 class="title">Chat</h1>
+<section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-7" style="width: 100%;">
+          <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center content">  
+                <ul class="messages">
+                    <li class="message left" *ngFor="let message of messageList">
+                    <!--[ngClass]="{'left': message.message_side == 'receiver', 'rigth': message.message_side == 'sender'}"-->
+                    <div class="avatar"></div>
+                    <div class="text_wrapper">
+                        <div class="text">{{message.message}}</div>
+                    </div>
+                    </li>
+                </ul>
+                <div class="bottom_wrapper clearfix">
+                    <div class="message_input_wrapper">
+                    <input  class="message_mine" placeholder="Message..." [(ngModel)]="messageInput"/>
+                    </div>
+                    <div class="send_message" (click)="sendMessage()">
+                    <div class="icon"></div>
+                    <div class="text">Send</div>
+                    </div>
+                </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

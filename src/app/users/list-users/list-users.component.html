@@ -37,7 +37,7 @@
                                 <small  style="color: black; font-size: 0.4cm;">
                                     <span>{{user.rol}}</span>
                                 </small>
-                                <button (click)="canllecedCount(user.username)" class="btn btn-danger delete" title="Go to the details">Cancelled count</button>
+                                <button [disabled]="user.rol=='pending'" (click)="canllecedCount(user.username)" class="btn btn-danger delete" title="Go to the details">Cancelled count</button>
                               </p>
                 
                             </div>

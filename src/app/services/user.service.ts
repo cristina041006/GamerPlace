@@ -57,8 +57,8 @@ export class UserService {
    * @param username 
    * @returns un mensaje si se borro correctamente
    */
-  deleteUser(username: string):Observable<string>{
-    return this.http.delete<string>(`${this.baseUrl}/deleteUser/${username}`)
+  deleteUser(username: string):Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}/deleteUser/${username}`)
   }
 
 }

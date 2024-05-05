@@ -98,6 +98,6 @@ export const routes: Routes = [
         canMatch: [jwtAdminGuard]
     },
     {
-        path: "chat/:userId", component:ChatSocketComponent
+        path: "chat", component:ChatSocketComponent
     }
 ];

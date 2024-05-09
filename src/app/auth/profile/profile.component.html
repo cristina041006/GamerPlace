@@ -53,19 +53,19 @@
                 <form [formGroup]="myFormPassword" enctype="multipart/form-data" method="post">
                   <div class="form-outline mb-4" [ngStyle]="disabledPassword? {'display': 'none'}: {'display': 'block'} ">
                     <label class="form-label formTitle" for="phone"><span class="oblig">*</span> Password</label>
-                    <input type="text" id="phone" class="form-control form-control-lg" formControlName="password" placeholder="Ej: Your password" [readOnly]="disabledPassword"/>
+                    <input type="password" id="phone" class="form-control form-control-lg" formControlName="password" placeholder="Ej: Your password" [readOnly]="disabledPassword"/>
                     <span class="form-text text-danger">{{passwordErrosMsg}}</span>
                   </div>
   
                   <div class="form-outline mb-4" [ngStyle]="disabledPassword? {'display': 'none'}: {'display': 'block'} ">
                     <label class="form-label formTitle" for="phone"><span class="oblig">*</span>New Password</label>
-                    <input type="text" id="phone" class="form-control form-control-lg" formControlName="newPassword" placeholder="Ej: The new Password" [readOnly]="disabledPassword"/>
+                    <input type="password" id="phone" class="form-control form-control-lg" formControlName="newPassword" placeholder="Ej: The new Password" [readOnly]="disabledPassword"/>
                     <span class="form-text text-danger">{{newPasswordErrosMsg}}</span>
                   </div>
   
                   <div class="form-outline mb-4" [ngStyle]="disabledPassword? {'display': 'none'}: {'display': 'block'} ">
                     <label class="form-label formTitle" for="phone"><span class="oblig">*</span>Repeat Password</label>
-                    <input type="text" id="phone" class="form-control form-control-lg" formControlName="repeatPassword" placeholder="Ej: Repeat the new Password" [readOnly]="disabledPassword"/>
+                    <input type="password" id="phone" class="form-control form-control-lg" formControlName="repeatPassword" placeholder="Ej: Repeat the new Password" [readOnly]="disabledPassword"/>
                     <span class="form-text text-danger">{{passwordComfirmErrosMsg}}</span>
                   </div>  
                 </form>

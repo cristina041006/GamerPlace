@@ -31,7 +31,7 @@
           <li><a class="dropdown-item" (click)="logout()" title="Logout">Logout</a></li>
           <li><a class="dropdown-item" routerLink="/seller" title="Go to become a seller form" *ngIf="rol()=='user'">Be a seller</a></li>
           <li><a class="dropdown-item"  *ngIf="rol()=='userSeller'" title="Go to your games" routerLink="/listGame">Your games</a></li>
-          <li><a class="dropdown-item" title="Go to settings" routerLink="/profile">Profile</a></li>
+          <li><a class="dropdown-item" *ngIf="rol()!='admin'" title="Go to settings" routerLink="/profile">Profile</a></li>
         </ul>
       </li>
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
-import { CategoryWithoutList } from '../../interfaces/categories';
+import { CategoryWithoutList, CategoryWithoutListSend } from '../../interfaces/categories';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -20,6 +20,8 @@ export class AdministrationComponent {
 
   //Donde vamos a almacenar las catgeorias
   categories!: CategoryWithoutList [];
+  categoryName!: string
+  idCategory!: number
 
   /**
    * Metodo para traer todas las categorias de base de datos 
@@ -74,6 +76,74 @@ export class AdministrationComponent {
         })
       }
     })
+  }
+
+  /**
+   * Funcion para wue antes de enseñar el modal se guarden en variables 
+   * el id y el nombre de la catgeoria seleccionada
+   * @param name 
+   * @param id 
+   */
+  showModal(name: string, id: number){
+    this.categoryName = name;
+    this.idCategory = id;
+  }
+
+  /**
+   * Funcion para editar una categoria, se comprueba que las variables donde se almacenan sus 
+   * datos no este vacia y oregunta si esta seguro de continuar con la modificacion. Si esta seguro
+   * se modificara la categoria y se actualizara la lista
+   */
+  editCategory(){
+    if(this.categoryName && this.categoryName!=="" && this.idCategory){
+      const newCategoryEdit: CategoryWithoutListSend = {
+        id_category : this.idCategory,
+        name: this.categoryName
+      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "The category will be modify!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#C8A519",
+        cancelButtonColor: "#949494",
+        confirmButtonText: "Yes, edit it!"
+      }).then((response)=>{
+        if(response.isConfirmed){
+          this.categoryService.editCategory(newCategoryEdit, this.idCategory).subscribe({
+            next: ()=>{
+              Swal.fire({
+                title: "Edit!",
+                text: "Your file has been modify.",
+                icon: "success",
+                confirmButtonColor:"#43844B" 
+              }).then((resultado)=>{
+                this.getCategories()
+              })
+            },
+            error: (error) =>{
+              console.log(error);
+              
+              Swal.fire({
+                title: "Error",
+                text: error.error.message,
+                icon: "error",
+                confirmButtonText: "Close",
+                confirmButtonColor:"#949494" 
+              });   
+            }
+          })
+        }
+      })
+    }else{
+      Swal.fire({
+        title: "Error",
+        text: "Id and name needed",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor:"#949494" 
+      });   
+    }
   }
 
 }

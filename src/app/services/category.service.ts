@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CategoryWithoutList } from '../interfaces/categories';
+import { CategoryWithoutList, CategoryWithoutListSend } from '../interfaces/categories';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,10 @@ export class CategoryService {
    */
   deleteCategory(id: number):Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/deleteCategory/${id}`)
+  }
+
+  editCategory(category: CategoryWithoutListSend, id:number): Observable<CategoryWithoutListSend>{
+    return this.http.put<CategoryWithoutListSend>(`${this.baseUrl}/editCategory/${id}`, category)
   }
 
 

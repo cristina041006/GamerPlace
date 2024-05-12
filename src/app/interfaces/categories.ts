@@ -6,3 +6,8 @@ export interface CategoryWithoutList {
     name:         string;
     gameCategory: null;
 }
+
+export interface CategoryWithoutListSend {
+    id_category:  number;
+    name:         string;
+}

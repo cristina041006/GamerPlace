@@ -1,0 +1,21 @@
+.lista{
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    flex-wrap: wrap;
+   
+}
+.title{
+    border-bottom: 3px solid #C75A32 ;
+    text-align: center;
+    width: 42%;
+    margin-left: 29%;
+    margin-top: 2%;
+    padding-bottom: 1%;
+    font-family: monospace;
+
+}
+.img{
+    height: 5cm;
+    width: 5cm;
+}

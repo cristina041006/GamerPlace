@@ -11,3 +11,7 @@ export interface CategoryWithoutListSend {
     id_category:  number;
     name:         string;
 }
+
+export interface CategoryAdd {
+    nameCategory:         string;
+}

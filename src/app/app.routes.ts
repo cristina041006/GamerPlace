@@ -20,6 +20,8 @@ import { VerifyCancelledComponent } from './users/verify-cancelled/verify-cancel
 import { ProfileComponent } from './auth/profile/profile.component';
 import { AdministrationComponent } from './setting/administration/administration.component';
 import { ChatSocketComponent } from './message/chat-socket/chat-socket.component';
+import { FavoriteListComponent } from './favoriteList/favoriteList.component';
+import { jwtNotAdminGuard } from './shared/guardians/jwt-not-admin.guard';
 
 export const routes: Routes = [
     {
@@ -99,5 +101,9 @@ export const routes: Routes = [
     },
     {
         path: "chat", component:ChatSocketComponent
+    },
+    {
+        path: "favoriteList", component: FavoriteListComponent,
+        canMatch: [jwtNotAdminGuard]
     }
 ];

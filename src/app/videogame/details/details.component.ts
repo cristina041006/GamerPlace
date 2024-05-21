@@ -8,6 +8,8 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { GameBill } from '../../interfaces/bill';
+import { FavoriteAdd } from '../../interfaces/favorite';
+import { FavoriteService } from '../../services/favorite.service';
 
 
 @Component({
@@ -21,7 +23,9 @@ export class DetailsComponent implements OnInit{
 /**Codigo para mostrar los detalles e un videojuego */
 
   /**Constructor llamando al servicio de juego y a un route para poder navegar */
-  constructor(private gameServices: GameService, private route: Router, private authSrevice: AuthService) {}
+  constructor(private gameServices: GameService, private route: Router, private authSrevice: AuthService,
+    private favoriteService: FavoriteService
+  ) {}
 
   @ViewChild('myForm') myForm!: NgForm
   amount : number = 0;
@@ -36,6 +40,8 @@ export class DetailsComponent implements OnInit{
 
   shop: GameBill[] = []
   minStock: number = 0;
+
+  isFavorite: boolean = false;
 
   //Variables
   @Input() id!: string //Id del videojuego pasado por ruta
@@ -56,6 +62,7 @@ export class DetailsComponent implements OnInit{
           //Si todo es correcto introducimos los datos rescatos a nuestra variable
           this.game = videogame
           this.getMinStock()
+          this.foundFavorite()
         },
         error: (error) => {
           //Si hay erroes se mostrara una alerta con los errores y si le damos a OK nos llevara a
@@ -211,6 +218,109 @@ export class DetailsComponent implements OnInit{
       }
     }else{
       this.minStock = this.game.stock
+    }
+  }
+
+  /**
+   * Metodo para que cuando se pulse el corazon se añada a la lista de favoritos del
+   * usuario el videojuego seleccionado
+   * @param idVideogame 
+   */
+  addFavorite(idVideogame: number | undefined){
+    if(idVideogame!=undefined){
+      const favorite: FavoriteAdd = {
+        username: this.username(),
+        id_videogame: idVideogame
+      }
+      this.favoriteService.addFavorite(favorite).subscribe({
+        next: (favorite) => {
+          Swal.fire({
+            title: "Save!",
+            text: "Your game has been save in your favorite list.",
+            icon: "success",
+            confirmButtonColor:"#43844B" 
+          }).then((resultado)=>{
+            this.isFavorite = true
+            
+          })
+        },
+        error: (error) => {
+          Swal.fire({
+            title: "Error",
+            text: error.error.message,
+            icon: "error",
+            confirmButtonText: "Close",
+            confirmButtonColor:"#949494" 
+          });
+        }
+      })
+    }else{
+      Swal.fire({
+        title: "Error",
+        text: "Error, id videogame needed",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor:"#949494" 
+      });
+    }
+  }
+
+  /**
+   * Metodo para que cuando se pulse el corazon relleno se borre de la lista de favoritos
+   * del usuario el videojuego seleccionado
+   * @param idVideogame 
+   */
+  deleteFavorite(idVideogame: number | undefined){
+    if(idVideogame!=undefined){
+      this.favoriteService.deleteFavorite(idVideogame, this.username()).subscribe({
+        next: (favorite) => {
+          Swal.fire({
+            title: "Delete!",
+            text: "Your game has been delete of your favorite list.",
+            icon: "success",
+            confirmButtonColor:"#43844B" 
+          }).then((resultado)=>{
+            this.isFavorite = false
+            
+          })
+        },
+        error: (error) => {
+          Swal.fire({
+            title: "Error",
+            text: error.error.message,
+            icon: "error",
+            confirmButtonText: "Close",
+            confirmButtonColor:"#949494" 
+          });
+        }
+      })
+    }else{
+      Swal.fire({
+        title: "Error",
+        text: "Error, id videogame needed",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor:"#949494" 
+      });
+    }
+
+  }
+
+  /**
+   * Metodo para saber si un videojuego ya esta en la lista de favoritos de
+   * un usuario o no
+   */
+  foundFavorite(){
+    if(this.game.idVideogame!=undefined){
+      this.favoriteService.foundFavorite(this.username(), this.game.idVideogame).subscribe(
+        resp=> {
+          if(resp==true){
+            this.isFavorite = true;
+          }else{
+            this.isFavorite = false
+          }
+        }
+      )
     }
   }
 }

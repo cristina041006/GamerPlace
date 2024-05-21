@@ -75,6 +75,7 @@
       <li routerLink="/listUser" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()=='admin'" title="Bill list" data-bs-dismiss="offcanvas">Users list</li>
       <li *ngIf="rol()=='admin'" routerLink="/administration" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Setting</li>
       <li routerLink="chat" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Chat</li>
+      <li *ngIf="rol()!='admin'" routerLink="favoriteList" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Favorites</li>
 
     </ul>
     <ul style="padding-right: 2%; list-style: none; float: inline-end;display: flex;">

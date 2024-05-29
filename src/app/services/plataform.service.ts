@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PlataformWithoutList } from '../interfaces/plataform';
+import { AddPlataform, PlataformWithoutList } from '../interfaces/plataform';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,19 @@ export class PlataformService {
   getAll(): Observable<PlataformWithoutList[]>{
     return this.http.get<PlataformWithoutList[]>(`${this.baseUrl}/plataform`)
   }
+
+  /**
+   * Metodo para hacer la peticion para borrar una plataforma a traves del id pasafo
+   * @param id 
+   * @returns json con la plataforma borrada
+   */
+  deletePlataform(id: number):Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/deletePlataform/${id}`)
+  }
+
+  addPlataform(plataform: AddPlataform): Observable<PlataformWithoutList>{
+    return this.http.post<PlataformWithoutList>(`${this.baseUrl}/addPlataform`, plataform);
+  }
+
 
 }

@@ -311,7 +311,7 @@ export class DetailsComponent implements OnInit{
    * un usuario o no
    */
   foundFavorite(){
-    if(this.game.idVideogame!=undefined){
+    if(this.game.idVideogame!=undefined && this.rol()!="admin"){
       this.favoriteService.foundFavorite(this.username(), this.game.idVideogame).subscribe(
         resp=> {
           if(resp==true){

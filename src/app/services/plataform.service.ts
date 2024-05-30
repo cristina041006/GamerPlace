@@ -29,6 +29,12 @@ export class PlataformService {
     return this.http.delete<any>(`${this.baseUrl}/deletePlataform/${id}`)
   }
 
+  /**
+   * Metodo para hacer la peticion para añadir una nueva plataforma cuyo nombre no
+   * exista en la base de datos
+   * @param plataform 
+   * @returns json con la nueva plataforma
+   */
   addPlataform(plataform: AddPlataform): Observable<PlataformWithoutList>{
     return this.http.post<PlataformWithoutList>(`${this.baseUrl}/addPlataform`, plataform);
   }

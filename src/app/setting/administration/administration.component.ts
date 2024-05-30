@@ -122,6 +122,10 @@ export class AdministrationComponent {
     
   }
 
+  /**
+   * Metodo para añadir una nueva plataforma a la base de datos
+   * comprobando antes que no tenga errores
+   */
   addNewPlataform(){
     if(this.myForm.get("namePlataform")?.valid){
       const newPlataform: AddPlataform = {

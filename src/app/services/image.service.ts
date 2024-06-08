@@ -10,7 +10,6 @@ export class ImageService {
 /**Servicio donde controlaremos la logica de las imagenes */
 
   constructor(private http:HttpClient) { }
-
   unsignedUploadPreset : string = 'qpfrvwru';
   cloudName : string = 'ddyvcopgh';
 

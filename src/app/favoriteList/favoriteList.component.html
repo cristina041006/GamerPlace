@@ -1,0 +1,42 @@
+<h1 class="title">Favorite Videogame</h1>
+<section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-7" style="width: 100%;">
+          <div class="card shadow-2-strong shadow contain" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center content">
+              @if (favorites.length>0) {
+
+              <ul class="lista" *ngIf="favorites">
+                <li *ngFor="let fav of favorites; let i = index" style=" margin-bottom: 2cm;">
+                    <div class="card mov" style="height: 100%; width: 8cm;">
+                        <a routerLink="/details/{{fav.idVideogame}}" routerLinkActive="active" ariaCurrentWhenActive="page">
+                            @if (fav.image==null) {
+                                <a routerLink="/details/{{fav.idVideogame}}" title="Go to details"><img src="../../../assets/img/Imagen_no_disponible.svg.png"  class="card-img-top img"  alt="No image"></a>
+        
+                            }@else {
+                                <a routerLink="/details/{{fav.idVideogame}}" title="Go to details"><img src={{fav.image}}  class="card-img-top" alt="Game's image"></a>
+                            }
+                        </a>
+                        <div class="card-body">
+                          <h5 class="card-title ganeTitle">{{fav.name}}</h5>
+                          <p class="card-text ganeDesc">{{fav.description}}</p>
+                          <p *ngIf="fav.stock<5 && fav.stock!=0" style="color: #C8A519;">The stock is almost sold out! Hurry up! </p>
+                          <p *ngIf="fav.stock==0" style="color: #C24042;">Sold out! We will notify you when it is available </p>
+                        </div>
+                      </div>
+                      <br>
+                </li>
+                
+              </ul>
+            }@else {
+              <h1>You dont have favorite games</h1>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+

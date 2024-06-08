@@ -18,7 +18,7 @@ export class ValidateNameGameService {
    * @returns 
    */
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors|null>{
-    return this.http.get<any[]>(`https://proyectoapi-cristina041006.onrender.com/existGame?name=${control.value}`)
+    return this.http.get<any[]>(`http://localhost:8080/existGame?name=${control.value}`)
     .pipe(
       tap(resp=>{
         console.log(resp)

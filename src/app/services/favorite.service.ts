@@ -10,7 +10,7 @@ import { Videogame } from '../interfaces/videogames';
 export class FavoriteService {
 /**Servicio de favoritos */
 
-private baseUrl : string= "http://localhost:8080";
+private baseUrl : string= "https://proyectoapi-cristina041006.onrender.com";
 constructor(private http : HttpClient) { }
 
 /**

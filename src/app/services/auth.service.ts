@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { User, UserLogin } from '../interfaces/User';
+import { User, UserEdit, UserLogin, UserPasswordEdit, UserWithLogin } from '../interfaces/User';
 import { Observable, catchError, map, of, take, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { ImageService } from './image.service';
@@ -12,7 +12,7 @@ import { Videogame } from '../interfaces/videogames';
 export class AuthService {
 /**Servicio donde vamos a tener todos los metodos relacionados con el usuario */
 
-  private baseUrl : string= "https://proyectoapi-cristina041006.onrender.com";
+  private baseUrl : string= "http://localhost:8080";
   constructor(private http : HttpClient) { }
   public usernameSignal = signal('');
   public rolSignal = signal('')
@@ -196,6 +196,24 @@ export class AuthService {
     }else{
       return false
     }
+  }
+
+  getUser():Observable<UserWithLogin>{
+    return this.http.get<UserWithLogin>(`${this.baseUrl}/getUser?username=${this.usernameSignal()}`)
+  }
+
+  editUser(user : UserEdit):Observable<UserWithLogin>{
+    return this.http.put<UserWithLogin>(`${this.baseUrl}/editProfile/${this.usernameSignal()}`, user)
+  }
+
+  /**
+   * Peticion para modificar la contraseña de un usuario, pasandole la actual, la nueva
+   * y el nombre de usuario
+   * @param user 
+   * @returns un usuario completo actualizado sin la contraseña
+   */
+  editPassword(user: UserPasswordEdit): Observable<UserWithLogin>{
+    return this.http.put<UserWithLogin>(`${this.baseUrl}/editPassword/${this.usernameSignal()}`, user)
   }
 
 }

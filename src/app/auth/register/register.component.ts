@@ -202,6 +202,7 @@ export class RegisterComponent {
       this.user = values;
       //Comprobamos si vamos a añadir imagen
       if(this.imageUrl!=""){
+        
         this.imageService.uploadFile(this.imageUrl).pipe(
           tap( iamge=>{
               this.loading= true

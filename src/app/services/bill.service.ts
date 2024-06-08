@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 export class BillService {
   /**Servicio donde vamos a controlar las facturas */
 
-  private baseUrl : string= "https://proyectoapi-cristina041006.onrender.com";
+  private baseUrl : string= "http://localhost:8080";
   constructor(private http:HttpClient) { }
 
   /**

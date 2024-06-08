@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserLogin } from '../../interfaces/User';
 import { AuthService } from '../../services/auth.service';
@@ -13,8 +13,11 @@ import { FooterComponent } from '../../shared/footer/footer.component';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 /*Componente para mostrar el formulario y logeuarse*/
+
+
+  @Input() permission!: string;
 
   /**Contructor deonde llamaremos al authService y a Router para poder navegar */
   constructor(private authService: AuthService, private route: Router) {}
@@ -26,6 +29,13 @@ export class LoginComponent {
   userLogin: UserLogin = {
     username: '',
     password: ''
+  }
+
+  /**
+   * Si accedes a esa pagina logueada hara logout automaticamente
+   */
+  ngOnInit(): void {
+    this.authService.logout()
   }
 
   /**
@@ -48,8 +58,13 @@ export class LoginComponent {
       this.authService.singin(this.userLogin).subscribe(
         resp=> {
           if(resp===true){
-            this.route.navigate([''])
-            this.authService.renew();
+            if(this.permission){
+              this.route.navigate([`verifyCancelled/${this.permission}`])
+              this.authService.renew();
+            }else{
+              this.route.navigate([''])
+              this.authService.renew();
+            }
           }else{
             Swal.fire({
               title: "Error to login",

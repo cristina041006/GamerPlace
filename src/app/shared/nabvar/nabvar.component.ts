@@ -56,6 +56,8 @@ export class NabvarComponent implements OnInit{
   ngOnInit(): void {
     this.authService.renew()
     console.log(this.rol());
+    console.log(this.router.url);
+    
     
   }
 

@@ -30,7 +30,8 @@
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" (click)="logout()" title="Logout">Logout</a></li>
           <li><a class="dropdown-item" routerLink="/seller" title="Go to become a seller form" *ngIf="rol()=='user'">Be a seller</a></li>
-          <li><a class="dropdown-item" href="#"  *ngIf="rol()=='userSeller'" title="Go to your games" routerLink="/listGame">Your games</a></li>
+          <li><a class="dropdown-item"  *ngIf="rol()=='userSeller'" title="Go to your games" routerLink="/listGame">Your games</a></li>
+          <li><a class="dropdown-item" *ngIf="rol()!='admin'" title="Go to settings" routerLink="/profile">Profile</a></li>
         </ul>
       </li>
 
@@ -71,6 +72,11 @@
       <li routerLink="/addVideogame" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()=='admin'" title="Add game form" data-bs-dismiss="offcanvas">Add game</li>
       <li routerLink="/addOldGame" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()=='userSeller'" title="Sell game form" data-bs-dismiss="offcanvas">Sell game</li>
       <li routerLink="/historial" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()!='admin'" title="Bill list" data-bs-dismiss="offcanvas">Invoice history</li>
+      <li routerLink="/listUser" routerLinkActive="active" ariaCurrentWhenActive="page" class="link" *ngIf="rol()=='admin'" title="Bill list" data-bs-dismiss="offcanvas">Users list</li>
+      <li *ngIf="rol()=='admin'" routerLink="/administration" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Setting</li>
+      <li routerLink="chat" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Chat</li>
+      <li *ngIf="rol()!='admin'" routerLink="favoriteList" routerLinkActive="active" ariaCurrentWhenActive="page" class="link"  title="Bill list">Favorites</li>
+
     </ul>
     <ul style="padding-right: 2%; list-style: none; float: inline-end;display: flex;">
       @if (username()) {

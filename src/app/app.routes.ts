@@ -15,6 +15,13 @@ import { ListGameSellerComponent } from './auth/game/listGameSeller/listGameSell
 import { FormSellerComponent } from './auth/game/form-seller/form-seller.component';
 import { jwtUserGuard } from './shared/guardians/jwt-user.guard';
 import { jwtNoLoggedGuard } from './shared/guardians/jwt-no-logged.guard';
+import { ListUsersComponent } from './users/list-users/list-users.component';
+import { VerifyCancelledComponent } from './users/verify-cancelled/verify-cancelled.component';
+import { ProfileComponent } from './auth/profile/profile.component';
+import { AdministrationComponent } from './setting/administration/administration.component';
+import { ChatSocketComponent } from './message/chat-socket/chat-socket.component';
+import { FavoriteListComponent } from './favoriteList/favoriteList.component';
+import { jwtNotAdminGuard } from './shared/guardians/jwt-not-admin.guard';
 
 export const routes: Routes = [
     {
@@ -46,6 +53,10 @@ export const routes: Routes = [
         canMatch: [jwtNoLoggedGuard]
     },
     {
+        path: "login/:permission", component: LoginComponent,
+        canMatch: [jwtNoLoggedGuard]
+    },
+    {
         path: "register", component:RegisterComponent,
         
     },
@@ -72,6 +83,28 @@ export const routes: Routes = [
     {
         path:"editOldGame/:id", component: FormSellerComponent,
         canMatch: [jwtSellerGuard]
+    },
+    {
+        path: "listUser", component: ListUsersComponent,
+        canMatch: [jwtAdminGuard]
+    },
+    {
+        path: "verifyCancelled/:username", component:VerifyCancelledComponent,
+    },
+    {
+        path: "profile", component:ProfileComponent,
+        canMatch: [jwtGuard]
+    },
+    {
+        path: "administration", component:AdministrationComponent,
+        canMatch: [jwtAdminGuard]
+    },
+    {
+        path: "chat", component:ChatSocketComponent
+    },
+    {
+        path: "favoriteList", component: FavoriteListComponent,
+        canMatch: [jwtNotAdminGuard]
     },
     {
         path: "**", component: StartComponent

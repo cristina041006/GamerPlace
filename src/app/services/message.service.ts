@@ -9,7 +9,7 @@ import { Message } from '../interfaces/message';
 export class MessageService {
 /**Servicio para controlar la logica de los mensajes que van a base de datos */
 
-  private baseUrl : string= "http://localhost:8080";
+  private baseUrl : string= "https://proyectoapi-cristina041006.onrender.com";
   constructor(private http : HttpClient) { }
 
   /**

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddPlataform, PlataformWithoutList } from '../interfaces/plataform';
+import { AddPlataform, PlataformWithoutList, PlataformWithoutListSend } from '../interfaces/plataform';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,18 @@ export class PlataformService {
   addPlataform(plataform: AddPlataform): Observable<PlataformWithoutList>{
     return this.http.post<PlataformWithoutList>(`${this.baseUrl}/addPlataform`, plataform);
   }
+
+
+   /**
+   * Metodo para hacer una peticion y editar una plataforma ya existente
+   * @param category 
+   * @param id 
+   * @returns json con la plataforma editada
+   */
+  editPlataform(plataform: PlataformWithoutListSend, id: number): Observable<PlataformWithoutList>{
+    return this.http.put<PlataformWithoutList>(`${this.baseUrl}/editPlataform/${id}`, plataform)
+  }
+
 
 
 }

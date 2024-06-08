@@ -32,12 +32,12 @@
                               <h3 class="card-title">{{user.username}}</h3>
                               <h6 class="card-text">{{user.email}}</h6>
                               <!--Si el stado del usuario es activo aparecera de color verde si no de color gold-->
-                              <h6 class="card-text" [ngStyle]="user.deleteUser=='active'? {'color': 'green'}: {'color': '#C8A519'} ">Count status: {{user.deleteUser}}</h6>
+                              <h6 class="card-text" [ngClass]="{'active': user.deleteUser == 'active', 'rejected': user.deleteUser == 'rejected', 'pending': user.deleteUser == 'pending'}" >Count status: {{user.deleteUser}}</h6>
                               <p class="card-text" >
                                 <small  style="color: black; font-size: 0.4cm;">
                                     <span>{{user.rol}}</span>
                                 </small>
-                                <button [disabled]="user.rol=='pending'" (click)="canllecedCount(user.username)" class="btn btn-danger delete" title="Go to the details">Cancelled count</button>
+                                <button [disabled]="user.deleteUser=='pending'" (click)="canllecedCount(user.username)" class="btn btn-danger delete" title="Go to the details">Cancelled count</button>
                               </p>
                 
                             </div>

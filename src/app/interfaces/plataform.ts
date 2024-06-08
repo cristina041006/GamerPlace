@@ -7,6 +7,12 @@ export interface PlataformWithoutList {
     listGame:    null;
 }
 
+
+export interface PlataformWithoutListSend {
+    idPlataform:  number;
+    name:         string;
+}
+
 /**
  * Interfaz para añadir una plataforma
  */

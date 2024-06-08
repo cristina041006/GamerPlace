@@ -67,6 +67,18 @@ h1{
     margin-bottom: 3%;
 }
 
+.pending{
+  color: #C8A519;
+}
+
+.rejected{
+  color: #C75A32;
+}
+
+.active{
+  color: green;
+}
+
 
 @media screen and (max-width: 768px) {
     h1 {

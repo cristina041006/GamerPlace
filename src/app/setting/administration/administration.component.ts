@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { ValidateCategoryNameService } from '../../shared/validators/validate-category-name.service';
-import { AddPlataform, PlataformWithoutList } from '../../interfaces/plataform';
+import { AddPlataform, PlataformWithoutList, PlataformWithoutListSend } from '../../interfaces/plataform';
 import { PlataformService } from '../../services/plataform.service';
 import { ValidatePlataformNameService } from '../../shared/validators/validate-plataform-name.service';
 
@@ -35,11 +35,13 @@ export class AdministrationComponent {
   //nombre de la nueva plataforma
   plataformName!: string
   idCategory!: number
+  idPlataform!: number
   addCategory: boolean = false;
   addPlataform: boolean = false;
   showCategory: boolean = false;
   showPlataform: boolean = false;
   updateCategory: boolean = false;
+  updatePlataform: boolean = false;
 
   /**Nuestro formulario con las variables correspondientes */
   myForm: FormGroup = this.fb.group({
@@ -248,13 +250,32 @@ export class AdministrationComponent {
    * @param name 
    * @param id 
    */
-  showModalEdit(name: string, id: number){
+  showModalEditCategory(name: string, id: number){
+    this.falseEditPlataform()
+    this.falseAddPlataform()
+    this.falseAddCategory()
     this.myForm.get('nameCategory')?.setValue(name)
     this.myForm.get('idCategory')?.setValue(id)
     this.categoryName = name;
     this.idCategory = id;
-    this.addCategory=false
     this.updateCategory = true;
+  }
+
+  /**
+   * Funcion para wue antes de enseñar el modal se guarden en variables 
+   * el id y el nombre de la plataforma seleccionada
+   * @param name 
+   * @param id 
+   */
+  showModalEditPlataform(name: string, id: number){
+    this.falseEditCategory()
+    this.falseAddCategory()
+    this.falseAddPlataform()
+    this.myForm.get('namePlataform')?.setValue(name)
+    this.myForm.get('idPlataform')?.setValue(id)
+    this.plataformName = name;
+    this.idPlataform = id;
+    this.updatePlataform = true;
   }
 
   /**
@@ -262,21 +283,26 @@ export class AdministrationComponent {
    * poniendo los campos del formulario vacios
    */
   showModalAddCategory(){
-    this.addPlataform = false
+    this.falseAddPlataform()
+    this.falseEditPlataform()
+    this.falseEditCategory()
     //this.idCategory = 0;
     this.plataformName = "";
     this.myForm.get('nameCategory')?.setValue("")
     this.myForm.get('idPlataform')?.setValue(0)
-    this.updateCategory=false
     this.addCategory = true;
   }
-
+/**
+   * Funcion para mostrar el modal cuando se esta añadiendo
+   * poniendo los campos del formulario vacios
+   */
   showModalAddPlataform(){
-    this.addCategory = false
+    this.falseAddCategory()
+    this.falseEditCategory()
+    this.falseEditPlataform()
     this.plataformName = "";
     this.myForm.get('namePlataform')?.setValue("")
     this.myForm.get('')?.setValue(0)
-    //this.updateCategory=false
     this.addPlataform = true;
   }
 
@@ -338,6 +364,98 @@ export class AdministrationComponent {
         confirmButtonColor:"#949494" 
       });   
     }
+  }
+
+   /**
+   * Funcion para editar una plataforma, se comprueba que las variables donde se almacenan sus 
+   * datos no este vacia y pregunta si esta seguro de continuar con la modificacion. Si esta seguro
+   * se modificara la plataforma y se actualizara la lista
+   */
+   editPlataform(){
+    this.updatePlataform = true;
+    this.plataformName = this.myForm.get("namePlataform")?.value
+    this.idPlataform = this.myForm.get("idPlataform")?.value
+    if(this.plataformName && this.plataformName!=="" && this.idPlataform){
+      const newPlataformEdit: PlataformWithoutListSend = {
+        idPlataform : this.idPlataform,
+        name: this.plataformName
+      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "The category will be modify!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#C8A519",
+        cancelButtonColor: "#949494",
+        confirmButtonText: "Yes, edit it!"
+      }).then((response)=>{
+        if(response.isConfirmed){
+          this.plataformService.editPlataform(newPlataformEdit, this.idPlataform).subscribe({
+            next: ()=>{
+              Swal.fire({
+                title: "Edit!",
+                text: "Your file has been modify.",
+                icon: "success",
+                confirmButtonColor:"#43844B" 
+              }).then((resultado)=>{
+                this.getPlataform()
+              })
+            },
+            error: (error) =>{
+              console.log(error);
+              
+              Swal.fire({
+                title: "Error",
+                text: error.error.message,
+                icon: "error",
+                confirmButtonText: "Close",
+                confirmButtonColor:"#949494" 
+              });   
+            }
+          })
+        }
+      })
+    }else{
+      Swal.fire({
+        title: "Error",
+        text: "Id and name needed",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor:"#949494" 
+      });   
+    }
+  }
+
+  /**
+   * Metodo para poner las variables de añadir categoria a false
+   */
+  falseAddCategory(){
+    this.addCategory = false;
+    this.showCategory = false;
+  }
+
+   /**
+   * Metodo para poner las variables de añadir plataformas a false
+   */
+  falseAddPlataform(){
+    this.addPlataform = false;
+    this.showPlataform = false;
+  }
+
+   /**
+   * Metodo para poner las variables de editar categoria a false
+   */
+  falseEditCategory(){
+    this.showCategory = false;
+    this.updateCategory = false;
+  }
+
+   /**
+   * Metodo para poner las variables de editar plataformas a false
+   */
+  falseEditPlataform(){
+    this.showPlataform = false;
+    this.updatePlataform = false;
   }
 
 }

@@ -19,7 +19,7 @@ export class ValidateCategoryNameService implements AsyncValidator {
    * @returns 
    */
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors|null>{
-    return this.http.get<any[]>(`http://localhost:8080/foundCategory?nameCategory=${control.value}`)
+    return this.http.get<any[]>(`https://proyectoapi-cristina041006.onrender.com/foundCategory?nameCategory=${control.value}`)
     .pipe(
       map(resp=>(resp.length == 0) ? null: {nameCategoryTaken: true})
       

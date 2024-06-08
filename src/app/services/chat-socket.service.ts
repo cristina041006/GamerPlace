@@ -13,7 +13,7 @@ export class ChatSocketService {
 
   private stompClient: any;
   //url donde vamos a enviar los datos (por tcp no por http)
-  private baseUrl : string= "//localhost:8080/chat-socket";
+  private baseUrl : string= "//proyectoapi-cristina041006.onrender.com/chat-socket";
   //Subjet para poder guardar los mensajes que se envian en cache
   private messageSubject : BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([])
 

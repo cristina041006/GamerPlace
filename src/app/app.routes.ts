@@ -105,5 +105,8 @@ export const routes: Routes = [
     {
         path: "favoriteList", component: FavoriteListComponent,
         canMatch: [jwtNotAdminGuard]
+    },
+    {
+        path: "**", component: StartComponent
     }
 ];

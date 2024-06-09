@@ -21,7 +21,6 @@ export class ValidateNameGameService {
     return this.http.get<any[]>(`https://proyectoapi-cristina041006.onrender.com/existGame?name=${control.value}`)
     .pipe(
       tap(resp=>{
-        console.log(resp)
       }),
       map(resp=> (resp.length == 0 ) ? null: {nameTaken: true})
     )

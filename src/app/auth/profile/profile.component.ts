@@ -163,7 +163,6 @@ export class ProfileComponent implements OnInit{
     if(input.files && input.files[0]){
       let reader = new FileReader();
       reader.onload =(e:any) => {
-        console.log(e.target.result);
         this.imageUrl = e.target.result
       }
       reader.readAsDataURL(input.files[0])

@@ -92,12 +92,10 @@ export class AdministrationComponent {
    * comprobando antes que no tenga errores
    */
   addNewCategory(){
-    console.log(this.myForm);
     if(this.myForm.get("nameCategory")?.valid){
       const newCategory: CategoryAdd = {
         nameCategory : this.myForm.get("nameCategory")?.value
       }
-      console.log(newCategory);
       
       this.categoryService.addCategory(newCategory).subscribe({
         next: (category) => {
@@ -186,7 +184,6 @@ export class AdministrationComponent {
             })
           },
           error: (error) =>{
-            console.log(error);
             
             Swal.fire({
               title: "Error",
@@ -229,7 +226,6 @@ export class AdministrationComponent {
             })
           },
           error: (error) =>{
-            console.log(error);
             
             Swal.fire({
               title: "Error",
@@ -342,7 +338,6 @@ export class AdministrationComponent {
               })
             },
             error: (error) =>{
-              console.log(error);
               
               Swal.fire({
                 title: "Error",
@@ -402,7 +397,6 @@ export class AdministrationComponent {
               })
             },
             error: (error) =>{
-              console.log(error);
               
               Swal.fire({
                 title: "Error",

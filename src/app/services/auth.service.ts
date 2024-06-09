@@ -25,7 +25,6 @@ export class AuthService {
    */
   storageUser(resp: any){
     localStorage.setItem('Authorization', resp.token);
-    console.log(jwtDecode(resp.token));
     
   }
 

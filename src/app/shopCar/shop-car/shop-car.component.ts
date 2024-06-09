@@ -46,7 +46,6 @@ export class ShopCarComponent implements OnInit{
   getTotalPrice(){
     this.totlaPrice=0
     this.shop = JSON.parse(localStorage.getItem('shop') || "")
-      console.log(this.shop);
       for(let i=0; i<this.shop.length; i++){
         this.totlaPrice+=  this.shop[i].price*this.shop[i].amount
       }

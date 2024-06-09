@@ -38,7 +38,6 @@ export class ChatSocketService {
     this.stompClient.connect({}, ()=>{
       //Nos suscribimos a una sala con la ruta especifica en el back
       this.stompClient.subscribe(`/topic/${roomId}`, (message: any)=>{
-        console.log(JSON.parse(message.body));
         //Almacenamos el mensaje que nosostros hemos enviado al back y que el nos devuelve
         //en el subjet 
         const messageContent = JSON.parse(message.body);

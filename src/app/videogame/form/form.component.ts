@@ -191,7 +191,6 @@ export class FormComponent implements OnInit {
         if(this.imageUrl!=""){
           this.imageService.uploadFile(this.imageUrl).subscribe((response)=>{
             this.videogame.image = response.url
-            console.log(this.videogame);
             this.gameService.addNewGame(this.videogame, this.categoriesAdd).subscribe({
               next: (game) =>{
                 //Si todo va bien mostramos alerta exitosa y reseteamos el fromualrio
@@ -367,7 +366,6 @@ export class FormComponent implements OnInit {
     if(input.files && input.files[0]){
       let reader = new FileReader();
       reader.onload =(e:any) => {
-        console.log(e.target.result);
         this.imageUrl = e.target.result
       }
       reader.readAsDataURL(input.files[0])

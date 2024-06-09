@@ -73,9 +73,9 @@ export class FormSellerComponent {
     let errorMsg= "";
     if(this.myForm.get('price')?.touched && errors){
       if(errors['required']){
-        errorMsg = "El precio no puede estar vacio"
+        errorMsg = "This field price is required"
       }else if(errors['min']){
-        errorMsg = "El precio tiene que ser mayor a 0"
+        errorMsg = "The price has been bigger than 0"
       }
     }
     return errorMsg;
@@ -89,9 +89,9 @@ export class FormSellerComponent {
     let errorMsg= "";
     if(this.myForm.get('stock')?.touched && errors){
       if(errors['required']){
-        errorMsg = "El stock no puede estar vacio"
+        errorMsg = "The field stock is required"
       }else if(errors['min']){
-        errorMsg = "El stock tiene que ser mayor o igual a 0"
+        errorMsg = "The stock has been bigger tan 0"
       }
     }
     return errorMsg;
@@ -189,7 +189,6 @@ export class FormSellerComponent {
         if(this.imageUrl!=""){
           this.imageService.uploadFile(this.imageUrl).subscribe((response)=>{
             this.videogame.image = response.url
-            console.log(this.videogame);
             this.gameService.addNewGame(this.videogame, this.categoriesAdd).subscribe({
               next: (game) =>{
                 //Si todo va bien mostramos alerta exitosa y reseteamos el fromualrio
@@ -365,7 +364,6 @@ export class FormSellerComponent {
     if(input.files && input.files[0]){
       let reader = new FileReader();
       reader.onload =(e:any) => {
-        console.log(e.target.result);
         this.imageUrl = e.target.result
       }
       reader.readAsDataURL(input.files[0])

@@ -34,7 +34,6 @@ export class StartComponent implements OnInit{
     this.gameService.getAllGame("new").subscribe({
       next: (page)=>{
         //Buscamos los mas recientes
-        console.log(page);
         
         this.gameService.getAllGamePage(page.totalPages-1, "new").subscribe({
           next: (game) =>{

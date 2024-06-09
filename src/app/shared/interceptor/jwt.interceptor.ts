@@ -24,7 +24,6 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
         setHeaders: {Authorization: token}
         
       })
-      console.log("Este es el token:",token);
     }
 
   }

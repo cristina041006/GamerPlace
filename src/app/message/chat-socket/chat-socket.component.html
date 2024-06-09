@@ -8,16 +8,9 @@
               <div #scrollContainer >
 
                
-                <ul  class="messages  lista-al-final">
+                <ul  class="messages  lista-al-final" id="list">
                    
-                  <li class="message right" *ngFor="let messageSend of messageList"  
-                  [ngClass]="{'left': messageSend.message_side == 'receiver', 'right': messageSend.message_side == 'sender'}">
-                    <div class="avatar"></div>
-                    <div>{{messageSend.user}} {{getDate()}}</div>
-                    <div class="text_wrapper">
-                        <div class="text">{{messageSend.message}}</div>
-                    </div>
-                    </li>
+                  
                       <li class="message left" *ngFor="let message of messageData" 
                       [ngClass]="{'right': message.user == userId(), 'left': message.user !== userId()}">
                       <div class="avatar"></div>
@@ -26,11 +19,19 @@
                           <div class="text">{{message.content}}</div>
                       </div>
                       </li>
+                      <li class="message right" *ngFor="let messageSend of messageList"  
+                  [ngClass]="{'left': messageSend.message_side == 'receiver', 'right': messageSend.message_side == 'sender'}">
+                    <div class="avatar"></div>
+                    <div>{{messageSend.user}} {{getDate()}}</div>
+                    <div class="text_wrapper">
+                        <div class="text">{{messageSend.message}}</div>
+                    </div>
+                    </li> 
                       
                 </ul>
                 <div class="bottom_wrapper clearfix" >
                     <div class="message_input_wrapper">
-                      <input [disabled]="rol()=='admin' || userId()==''" class="message_input" placeholder="Message..." [(ngModel)]="messageInput"/>
+                      <input (keyup.enter)="sendMessage()" [disabled]="rol()=='admin' || userId()==''" class="message_input" placeholder="Message..." [(ngModel)]="messageInput"/>
                     </div>
                     <div class="send_message" (click)="sendMessage()" 
                     (keypress)="sendMessage()">

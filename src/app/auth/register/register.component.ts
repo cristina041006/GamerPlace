@@ -77,7 +77,6 @@ export class RegisterComponent {
     if(input.files && input.files[0]){
       let reader = new FileReader();
       reader.onload =(e:any) => {
-        console.log(e.target.result);
         this.imageUrl = e.target.result
       }
       reader.readAsDataURL(input.files[0])
@@ -211,7 +210,6 @@ export class RegisterComponent {
         )
         .subscribe((response)=>{
           this.user.image = response.url
-          console.log(this.user);
           this.authService.signup(this.user).pipe(
             tap( user => {
               this.loading=true 

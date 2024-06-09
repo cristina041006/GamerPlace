@@ -33,8 +33,8 @@
             </div>
             <div class="form-outline mb-4">
               <label class="form-label formTitle" for="description"><span class="oblig">*</span> Description</label>
-              <input type="text" id="description" class="form-control form-control-lg"   placeholder="Ej: A amazing game of avendture" formControlName="description"/>
-              <span class="form-text text-danger" *ngIf="isValid('description')">The field  desciprtion is required</span>
+              <input type="text" id="description" class="form-control form-control-lg"   placeholder="Ej: A amazing game of adventure" formControlName="description"/>
+              <span class="form-text text-danger" *ngIf="isValid('description')">The field  description is required</span>
             </div>
             <div class="form-outline mb-4">
               <label class="form-label formTitle" for="price"><span class="oblig">*</span> Price</label>
@@ -56,20 +56,19 @@
                  <option value="{{plata.idPlataform}}" >{{plata.name}}</option>
                 }
              </select>
-             <span class="form-text text-danger" *ngIf="isValid('idPlataform')">Este campo es obligatorio</span>
+             <span class="form-text text-danger" *ngIf="isValid('idPlataform')">The field platform is required</span>
             </div>
             <label class="form-label formTitle" for="categories"><span class="oblig">*</span> Categories</label>
             <div class="input-group">
               <!--Listamos las catgeorias-->
-             <select class="form-select" [formControl]="newCategory" id="categories"  >
+             <select class="form-select" [formControl]="newCategory" id="categories"  (change)="addCategory()">
               <option value="" selected>--Select one category--</option>
               @for (category of categories; track $index) {
                  <option value="{{category.name}}">{{category.name}}</option>
                 }
               </select>
-              <button class="btn btn-lg btn-block addCategory" type="submit" (click)="addCategory()" title="Add category buuton">Add</button>
             </div>
-            <span class="form-text text-danger" *ngIf="isValid('categoriesList')">The field category required</span>
+            <span class="form-text text-danger" *ngIf="isValid('categoriesList')">The field category is required</span>
             <br>
             <!--Listamos las catgeorias que hemos seleccionado-->
              @for (cate of categoriesList.controls; track cate.value) {

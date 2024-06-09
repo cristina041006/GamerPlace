@@ -66,7 +66,6 @@ export class SellerComponent {
                 this.route.navigate(["/"])
               })
             }else{
-              console.log(response);
               Swal.fire({
                 title: "Error",
                 text: response.error.message,

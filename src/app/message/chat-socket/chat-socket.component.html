@@ -16,7 +16,19 @@
                       <div class="avatar"></div>
                       <div >{{message.user}} {{message.date}}</div>
                       <div class="text_wrapper">
-                          <div class="text">{{message.content}}</div>
+                          <div class="text">
+                            <div>
+                              {{message.content}}
+                            </div>
+                            <li *ngIf="message.user == userId()" class="nav-item dropstart esc" style="list-style: none; margin-right: 1%;">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="User options">
+                              ...
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" title="edit">Edit</a></li>
+                              </ul>
+                            </li>
+                          </div>
                       </div>
                       </li>
                       <li class="message right" *ngFor="let messageSend of messageList"  
@@ -24,19 +36,33 @@
                     <div class="avatar"></div>
                     <div>{{messageSend.user}} {{getDate()}}</div>
                     <div class="text_wrapper">
-                        <div class="text">{{messageSend.message}}</div>
+                        <div class="text">
+                          {{messageSend.message}}
+                          <li class="nav-item dropstart esc" style="list-style: none; margin-right: 1%;">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="User options">
+                            ...
+                            </a>
+                            <ul class="dropdown-menu" (click)="editButton(messageSend.message, messageSend.idMessage)">
+                              <li id="lista"><a title="edit" >Edit</a></li>
+                            </ul>
+                          </li>
+                        </div>
                     </div>
                     </li> 
                       
                 </ul>
                 <div class="bottom_wrapper clearfix" >
                     <div class="message_input_wrapper">
-                      <input (keyup.enter)="sendMessage()" [disabled]="rol()=='admin' || userId()==''" class="message_input" placeholder="Message..." [(ngModel)]="messageInput"/>
+                      <input *ngIf="!editMessage" (keyup.enter)="sendMessage()" [disabled]="rol()=='admin' || userId()==''" class="message_input" placeholder="Message..." [(ngModel)]="messageInput"/>
+                      <input *ngIf="editMessage" (keyup.enter)="sendMessage()" [disabled]="rol()=='admin' || userId()==''" class="message_input" placeholder="Message..." [(ngModel)]="messageInput"/>
                     </div>
-                    <div class="send_message" (click)="sendMessage()" 
-                    (keypress)="sendMessage()">
-                    <div class="icon"></div>
-                    <div class="text">Send</div>
+                    <div *ngIf="!editMessage" class="send_message" (click)="sendMessage()">
+                      <div class="icon"></div>
+                      <div class="text">Send</div>
+                    </div>
+                    <div *ngIf="editMessage" class="send_message" (click)="sendMessage()">
+                      <div class="icon"></div>
+                      <div class="text">Edit</div>
                     </div>
                 </div>
               </div>   

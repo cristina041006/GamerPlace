@@ -14,18 +14,38 @@
                       <li class="message left" *ngFor="let message of messageData" 
                       [ngClass]="{'right': message.user == userId(), 'left': message.user !== userId()}">
                       <div class="avatar"></div>
-                      <div >{{message.user}} {{message.date}}</div>
+                      <div *ngIf="message.status=='active' || message.status=='delete'">{{message.user}} {{message.date}}</div>
+                      <div *ngIf="message.status=='edit'">{{message.user}} {{message.date}} edit message</div>
                       <div class="text_wrapper">
-                          <div class="text">
-                            <div>
+                          <div class="text" *ngIf="rol()!='admin'">
+                            <div *ngIf="message.status!='delete'">
                               {{message.content}}
                             </div>
-                            <li *ngIf="message.user == userId()" class="nav-item dropstart esc" style="list-style: none; margin-right: 1%;">
+                            <div *ngIf="message.status=='delete'">
+                              <em>This message has been deleter for admin</em>
+                            </div>
+                            <li *ngIf="message.user == userId() && message.status!='delete'" class="nav-item dropstart esc" style="list-style: none; margin-right: 1%;">
                               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="User options">
                               ...
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" title="edit">Edit</a></li>
+                                <li><a class="dropdown-item" title="edit" (click)="editButton( message.content, message.idMessage)">Edit</a></li>
+                              </ul>
+                            </li>
+                          </div>
+                          <div class="text2" *ngIf="message.user != userId() && rol()=='admin'">
+                            <div *ngIf="message.status!='delete'">
+                              {{message.content}}
+                            </div>
+                            <div *ngIf="message.status=='delete'">
+                              <em>This message has been deleter for admin</em>
+                            </div>
+                            <li *ngIf="message.status!='delete'"  class="nav-item dropend esc" style="list-style: none; margin-right: 1%;">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="User options">
+                              ...
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" title="edit" (click)="deleteMessageMethod(message.idMessage)">Delete</a></li>
                               </ul>
                             </li>
                           </div>
@@ -38,18 +58,10 @@
                     <div class="text_wrapper">
                         <div class="text">
                           {{messageSend.message}}
-                          <li class="nav-item dropstart esc" style="list-style: none; margin-right: 1%;">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="User options">
-                            ...
-                            </a>
-                            <ul class="dropdown-menu" (click)="editButton(messageSend.message, messageSend.idMessage)">
-                              <li id="lista"><a title="edit" >Edit</a></li>
-                            </ul>
-                          </li>
                         </div>
                     </div>
                     </li> 
-                      
+                    
                 </ul>
                 <div class="bottom_wrapper clearfix" >
                     <div class="message_input_wrapper">
@@ -60,7 +72,7 @@
                       <div class="icon"></div>
                       <div class="text">Send</div>
                     </div>
-                    <div *ngIf="editMessage" class="send_message" (click)="sendMessage()">
+                    <div *ngIf="editMessage" class="send_message" (click)="editMessageMethod()">
                       <div class="icon"></div>
                       <div class="text">Edit</div>
                     </div>

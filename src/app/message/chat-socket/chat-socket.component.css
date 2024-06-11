@@ -5,6 +5,8 @@
     margin-left: 29%;
     margin-top: 2%;
     padding-bottom: 1%;
+    font-family: monospace;
+
 
 }
 .info{
@@ -29,6 +31,11 @@
   .text{
     display: flex;
     flex-direction: row-reverse;
+    justify-content: center;
+  }
+  .text2{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
   }
   
@@ -130,7 +137,7 @@
     border-right-color: #ffe6cb;
   }
   
-  .messages .message.left .text {
+  .messages .message.left .text ,.messages .message.left .text2{
     color: #d38061 ;
   }
   
@@ -151,7 +158,7 @@
     border-left-color: #608e94 ;
   }
   
-  .messages .message.right .text {
+  .messages .message.right .text, .messages .message.right .text2{
     color: #ffffff;
   }
   
@@ -196,7 +203,7 @@
     margin-top: -2px;
   }
   
-  .messages .message .text_wrapper .text {
+  .messages .message .text_wrapper .text, .messages .message .text_wrapper .text2{
     font-size: 18px;
     font-weight: 300;
   }
@@ -259,7 +266,7 @@
     background-color: #fff;
   }
   
-  .bottom_wrapper .send_message .text {
+  .bottom_wrapper .send_message .text , .bottom_wrapper .send_message .text2{
     font-size: 18px;
     font-weight: 300;
     display: inline-block;

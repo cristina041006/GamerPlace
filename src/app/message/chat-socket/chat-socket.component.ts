@@ -57,9 +57,9 @@ export class ChatSocketComponent implements OnInit, AfterViewInit, OnChanges{
     this.messageService.getMessages().subscribe({
       next: (messages) => {
         this.messageData = messages
+        this.scrollToBottom()
       }
     })
-    this.scrollToBottom()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -149,7 +149,7 @@ export class ChatSocketComponent implements OnInit, AfterViewInit, OnChanges{
 
   editButton(text: string, idMessage: number){
     console.log("hola");
-    
+
     this.editMessage = true
     this.messageInput = text
     this.idEdit = idMessage
@@ -161,18 +161,30 @@ export class ChatSocketComponent implements OnInit, AfterViewInit, OnChanges{
       user: this.userId(),
       content: this.messageInput
     }
-    //Enviamos el mensaje a backend y limpiamos el mensaje
-    this.chatMessageService.editMessage("ABC", messageEdit)
-    this.messageInput = '';
-    this.scrollToBottom2()
+   this.messageService.editService(this.idEdit, messageEdit).subscribe({
+    next: (message)=>{
+      this.messageService.getMessages().subscribe({
+        next: (messages) => {
+          this.messageData = messages
+        }
+      })
+    }
+   })
+   this.editMessage= false;
+   this.messageInput=""
 
   }
 
   deleteMessageMethod(idMessage:number){
-    //Enviamos el mensaje a backend y limpiamos el mensaje
-    this.chatMessageService.deleteMessage("ABC", idMessage)
-    this.messageInput = '';
-    this.scrollToBottom2()
+    this.messageService.deleteService(idMessage).subscribe({
+      next: (message)=>{
+        this.messageService.getMessages().subscribe({
+          next: (messages) => {
+            this.messageData = messages
+          }
+        })
+      }
+    })
   }
 
 }

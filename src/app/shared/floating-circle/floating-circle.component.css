@@ -1,0 +1,28 @@
+.floating-circle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 80px; /* Ajustar el tamaño del círculo */
+    height: 80px; /* Ajustar el tamaño del círculo */
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  .floating-circle .img-fluid {
+    width: 80px; /* Ajustar el tamaño de la imagen */
+    height: 80px; /* Ajustar el tamaño de la imagen */
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .mouse-tracker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px; /* Altura de la barra */
+    background-color: black; /* Color de la barra */
+    pointer-events: none; /* Evita que la barra interfiera con los eventos del ratón */
+  }

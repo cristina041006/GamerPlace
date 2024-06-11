@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { map } from 'rxjs';
 import { MessageService } from '../../services/message.service';
-import { Message, MessageSend } from '../../interfaces/message';
+import { Message, MessageEdit, MessageSend } from '../../interfaces/message';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { format } from 'date-fns';
@@ -29,6 +29,8 @@ export class ChatSocketComponent implements OnInit, AfterViewInit, OnChanges{
   today!: Date; 
   rol: any; 
   userScrolledUp = false;
+  editMessage: boolean = false;
+  idEdit!: number
 
   //constructor
   constructor(private chatMessageService: ChatSocketService,
@@ -96,13 +98,11 @@ export class ChatSocketComponent implements OnInit, AfterViewInit, OnChanges{
   sendMessage(){
     //Comprobamos que esta logueado y que no es un admin
     if(this.rol()!='admin' && this.rol()!="" && this.userId()!=''){
-      this.getDate()
       
       //Rellenamos el mensaje que se va a mandar
       let message: MessageSend = {
         user: this.userId(),
         content : this.messageInput,
-        date: this.today
       }
 
       //Enviamos el mensaje a backend y limpiamos el mensaje
@@ -145,6 +145,34 @@ export class ChatSocketComponent implements OnInit, AfterViewInit, OnChanges{
       this.scrollToBottom2()
 
     })
+  }
+
+  editButton(text: string, idMessage: number){
+    console.log("hola");
+    
+    this.editMessage = true
+    this.messageInput = text
+    this.idEdit = idMessage
+  }
+
+  editMessageMethod(){
+    const messageEdit: MessageEdit = {
+      idMessage : this.idEdit,
+      user: this.userId(),
+      content: this.messageInput
+    }
+    //Enviamos el mensaje a backend y limpiamos el mensaje
+    this.chatMessageService.editMessage("ABC", messageEdit)
+    this.messageInput = '';
+    this.scrollToBottom2()
+
+  }
+
+  deleteMessageMethod(idMessage:number){
+    //Enviamos el mensaje a backend y limpiamos el mensaje
+    this.chatMessageService.deleteMessage("ABC", idMessage)
+    this.messageInput = '';
+    this.scrollToBottom2()
   }
 
 }

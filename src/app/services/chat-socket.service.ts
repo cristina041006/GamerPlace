@@ -3,7 +3,7 @@ import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { ChatMessage } from '../interfaces/chat-message';
 import { BehaviorSubject } from 'rxjs';
-import { MessageSend } from '../interfaces/message';
+import { MessageSend, MessageEdit } from '../interfaces/message';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +58,28 @@ export class ChatSocketService {
   sendMessage(roomId: string, chatMessage: MessageSend){
     this.stompClient.send(`/app/chat/${roomId}`, {}, JSON.stringify(chatMessage))
   }
+
+  /**
+   * Metodo para enviar un mensaje al back a partir de la ruta especificada y almacenarlo en la base
+   * de datos, especificando la room a la que va ese mensaje
+   * @param roomId 
+   * @param chatMessage 
+   */
+  editMessage(roomId: string, chatMessage: MessageEdit){
+    this.stompClient.send(`/app/chat/${roomId}`, {}, JSON.stringify(chatMessage))
+  }
+
+  
+  /**
+   * Metodo para enviar un mensaje al back a partir de la ruta especificada y almacenarlo en la base
+   * de datos, especificando la room a la que va ese mensaje
+   * @param roomId 
+   * @param chatMessage 
+   */
+  deleteMessage(roomId: string, chatMessage: number){
+    this.stompClient.send(`/app/chat/${roomId}`, {}, JSON.stringify(chatMessage))
+  }
+
 
   /**
    * Metodo para obtener el subjet es decir la lisra de mensajes 

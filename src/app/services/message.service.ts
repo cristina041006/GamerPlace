@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Message } from '../interfaces/message';
+import { Message, MessageEdit } from '../interfaces/message';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,15 @@ export class MessageService {
    */
   getMessages(): Observable<Message[]>{
     return this.http.get<Message[]>(`${this.baseUrl}/getMessages`);
+  }
+
+  editService(idMessage: number, message: MessageEdit):Observable<Message>{
+    return this.http.put<Message>(`${this.baseUrl}/editMessage/${idMessage}`, message)
+  }
+  
+
+  deleteService(idMessage: number): Observable<Message>{
+    return this.http.delete<Message>(`${this.baseUrl}/deleteMessage/${idMessage}`)
   }
 
 }

@@ -1,5 +1,5 @@
 <!--Plantilla para listar los usuarios-->
-<h1>Users</h1>
+<h1 class="title">Users</h1>
   <section class="vh-100" style="padding-bottom: 15%; margin-right: 2%;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center h-100" style="padding-left: 3%;">
@@ -11,42 +11,46 @@
                     <input class="form-control mr-sm-2 search" type="search" placeholder="Search Ej: juanito / Ej: juanito@gmail.com" aria-label="Search" name="name" [(ngModel)]="term" (input)="findUser()">
                 </form>            
                <!--Iteramos los usuarios para mostrarlos-->
-                @for (user of listUsers; track $index) {
-                  <div class="list">
-     
-                    <div class="card mb-3" style="max-width: 1100px; max-height: 190px; padding-left: 2%; border: 0px; margin-top: 3%;">
-                        <div class="row g-0 game" style="width: 104%;">
-                            @if (user.image==null || user.image=="") {
-                          <div class="col-md-4 imageBody" style="border: 1px solid black; border-radius: 10px;">
-                            <!-- Comprobamos si tiene imagen para poner una por defect -->
-                            <img src="../../../assets/img/iconUser.jpg" class="img-fluid rounded-start port"  alt="No image">               
-                          </div>
-                          }@else {
-                            <div class="col-md-4 imageBody">
-                              <!-- Comprobamos si tiene imagen para poner una por defecto -->
-                              <img src="{{user.image}}" class="img-fluid rounded-start port" alt="Game's image">
-                            </div>
-                          }
-                          <div class="col-md-8">
-                            <div class="card-body bodyCard" style="text-align: left;">
-                              <h3 class="card-title">{{user.username}}</h3>
-                              <h6 class="card-text">{{user.email}}</h6>
-                              <!--Si el stado del usuario es activo aparecera de color verde si no de color gold-->
-                              <h6 class="card-text" [ngClass]="{'active': user.deleteUser == 'active', 'rejected': user.deleteUser == 'rejected', 'pending': user.deleteUser == 'pending'}" >Count status: {{user.deleteUser}}</h6>
-                              <p class="card-text" >
-                                <small  style="color: black; font-size: 0.4cm;">
-                                    <span>{{user.rol}}</span>
-                                </small>
-                                <button [disabled]="user.deleteUser=='pending'" (click)="canllecedCount(user.username)" class="btn btn-danger delete" title="Go to the details">Cancelled count</button>
-                              </p>
-                
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-     
-                  </div>
-                }
+               @if (listUsers.length>0) {
+                 @for (user of listUsers; track $index) {
+                   <div class="list">
+      
+                     <div class="card mb-3" style="max-width: 1100px; max-height: 190px; padding-left: 2%; border: 0px; margin-top: 3%;">
+                         <div class="row g-0 game" style="width: 104%;">
+                             @if (user.image==null || user.image=="") {
+                           <div class="col-md-4 imageBody" style="border: 1px solid black; border-radius: 10px;">
+                             <!-- Comprobamos si tiene imagen para poner una por defect -->
+                             <img src="../../../assets/img/iconUser.jpg" class="img-fluid rounded-start port"  alt="No image">               
+                           </div>
+                           }@else {
+                             <div class="col-md-4 imageBody">
+                               <!-- Comprobamos si tiene imagen para poner una por defecto -->
+                               <img src="{{user.image}}" class="img-fluid rounded-start port" alt="Game's image">
+                             </div>
+                           }
+                           <div class="col-md-8">
+                             <div class="card-body bodyCard" style="text-align: left;">
+                               <h3 class="card-title">{{user.username}}</h3>
+                               <h6 class="card-text">{{user.email}}</h6>
+                               <!--Si el stado del usuario es activo aparecera de color verde si no de color gold-->
+                               <h6 class="card-text" [ngClass]="{'active': user.deleteUser == 'active', 'rejected': user.deleteUser == 'rejected', 'pending': user.deleteUser == 'pending'}" >Count status: {{user.deleteUser}}</h6>
+                               <p class="card-text" >
+                                 <small  style="color: black; font-size: 0.4cm;">
+                                     <span>{{user.rol}}</span>
+                                 </small>
+                                 <button [disabled]="user.deleteUser=='pending'" (click)="canllecedCount(user.username)" class="btn btn-danger delete" title="Go to the details">Cancelled count</button>
+                               </p>
+                 
+                             </div>
+                           </div>
+                         </div>
+                     </div>
+      
+                   </div>
+                 }
+               }@else {
+                <h1>No user find</h1>
+               }
             </div>            
           </div>
         </div>

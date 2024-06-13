@@ -34,7 +34,7 @@ export const routes: Routes = [
         path: "games/:second", component: ListComponent
     },
     {
-        path: "videogames/:term", component: ListComponent
+        path: "videogames/:filter", component: ListComponent
     },
     {
         path: "addVideogame", component: FormComponent,

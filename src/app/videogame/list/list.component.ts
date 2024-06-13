@@ -40,6 +40,8 @@ export class ListComponent implements OnInit{
    * Par recoger todos los videojeugos
    */
   ngOnInit(): void {
+    console.log(this.filter);
+    
     if(!this.filter){
       if(!this.second){
         this.quality = "new"

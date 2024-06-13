@@ -41,9 +41,24 @@ export class FloatingCircleComponent implements OnInit {
   }
 
   changueTypografy(){
+    let title: string = ""
+    let subtitle: string = ""
+    if(localStorage.getItem("Tipografia")){
+      if(localStorage.getItem("Tipografia") == "Normal"){
+        title = "Activate"
+        subtitle = "It will help you read!"
+      }else{
+        title= "Desactivate"
+        subtitle = "You'd activate when you want!"
+      }
+    }else{
+     title = "Activate"
+        subtitle = "It will help you read!"
+      
+    }
     Swal.fire({
-      title: "Activate dyslexic mode?",
-      text: "It will help you read!",
+      title: title+" dyslexic mode?",
+      text: subtitle,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#43844B",

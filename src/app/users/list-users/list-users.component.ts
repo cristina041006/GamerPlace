@@ -37,6 +37,7 @@ export class ListUsersComponent implements OnInit{
    * Si el termino esta vacio o undefined se mostraran otra vez todos los usuarios
    */
   findUser(){
+    this.listUsers = []
     if(this.term && this.term!==""){
       this.userService.filterUser(this.term).subscribe({
         next: (user) =>{

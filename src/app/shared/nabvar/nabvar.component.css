@@ -16,6 +16,10 @@ background: linear-gradient(0deg, rgba(67,132,75,0.303046218487395) 0%, rgba(67,
     font-size: 0.6cm;
 }
 
+.cursor{
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 990px) and (min-width: 360px){
     .search{
         width: 40%;

@@ -55,9 +55,6 @@ export class NabvarComponent implements OnInit{
 
   ngOnInit(): void {
     this.authService.renew()
-   
-    
-    
   }
 
   /**

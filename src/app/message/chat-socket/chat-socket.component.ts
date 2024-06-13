@@ -98,17 +98,26 @@ export class ChatSocketComponent implements OnInit, AfterViewInit, OnChanges{
   sendMessage(){
     //Comprobamos que esta logueado y que no es un admin
     if(this.rol()!='admin' && this.rol()!="" && this.userId()!=''){
-      
-      //Rellenamos el mensaje que se va a mandar
-      let message: MessageSend = {
-        user: this.userId(),
-        content : this.messageInput,
+      if(this.messageInput != ""){
+        //Rellenamos el mensaje que se va a mandar
+        let message: MessageSend = {
+          user: this.userId(),
+          content : this.messageInput,
+        }
+  
+        //Enviamos el mensaje a backend y limpiamos el mensaje
+        this.chatMessageService.sendMessage("ABC", message)
+        this.messageInput = '';
+        this.scrollToBottom2()
+      }else{
+        Swal.fire({
+          title: "Cant send a empty message",
+          text: "Write your message",
+          icon: "error",
+          confirmButtonText: "Close",
+          confirmButtonColor:"#949494" 
+        });   
       }
-
-      //Enviamos el mensaje a backend y limpiamos el mensaje
-      this.chatMessageService.sendMessage("ABC", message)
-      this.messageInput = '';
-      this.scrollToBottom2()
 
     }else if(this.rol()=='admin'){
       Swal.fire({
